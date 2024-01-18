@@ -11,12 +11,12 @@
     <header>
         <img class="logo" src="logo2.png" alt="encuesta2">
         <nav>
-            <a href="">Iniciar Sesión</a>
-            <a href="">Registrarse</a>
+            <a class="buttonLeft" href="">INICIAR SESIÓN</a>
+            <a class="buttonRight" href="">REGISTRARSE</a>
         </nav> 
     </header>
     <div class="main-container">
-        <h1 class="main-text">EN ENCUESTA2 ESTAMOS CREANDO UN MUNDO DE HONESTIDAD Y TRANSPARENCIA A TRAVES DE ENCUESTAS PARA TODOS NUESTROS USUARIOS</h1>
+        <h1 class="main-text">EN ENCUESTA2 ESTAMOS CREANDO UN MUNDO DE HONESTIDAD Y TRANSPARENCIA A TRAVÉS DE ENCUESTAS PARA TODOS NUESTROS USUARIOS</h1>
     </div>
     
 </body>
