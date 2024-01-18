@@ -1,0 +1,38 @@
+.index-body {
+    margin: 0;
+    padding: 0;
+    background-color: #052659;
+    font-family: "Saans", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.index-body header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+.index-body header .logo {
+    height: 80px;
+    width: auto;
+}
+.index-body header nav {
+    position: absolute;
+    right: 30px;
+    top: 50px;
+}
+.index-body header nav a {
+    text-decoration: none;
+}
+.index-body .main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90em;
+}
+.index-body .main-text {
+    color: #C1E8FF;
+    font-size: 10em;
+    text-align: center;
+}
