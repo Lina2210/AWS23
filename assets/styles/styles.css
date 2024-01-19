@@ -1,0 +1,82 @@
+.index-body {
+    margin: 0;
+    padding: 0;
+    background-color: #052659;
+    font-family: "Saans", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.index-body header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+.index-body header .logo {
+    height: 80px;
+    width: auto;
+}
+.index-body header nav {
+    position: absolute;
+    right: 30px;
+    top: 50px;
+    font-weight: bold;
+    font-size: 13px;
+}
+.index-body header nav a.buttonLeft {
+    text-decoration: none;
+    color: #021024;
+    background-color: white;
+    margin-right: 120px;
+    padding-left: 20px;
+    padding-right: 60px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 50px;
+    transition: background-color 0.5s;
+}
+.index-body header nav a.buttonLeft:hover {
+    background-color: rgb(190, 190, 190);
+}
+.index-body header nav a.buttonRight {
+    position: absolute;
+    right: 30px;
+    top: -16px;
+    text-decoration: none;
+    color: white;
+    background-color: #021024;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 50px;
+}
+.index-body .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90em;
+}
+.index-body .main-text {
+    color: #C1E8FF;
+    font-size: 10em;
+    text-align: center;
+}
+.index-body .buttonBottom {
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    transition: background-color 0.5s;
+}
+.index-body .buttonBottom:hover {
+    background-color: #C1E8FF;
+    color: #052659;
+}
