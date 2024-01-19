@@ -17,6 +17,7 @@
     </header>
     <div class="main-container">
         <h1 class="main-text">EN ENCUESTA2 ESTAMOS CREANDO UN MUNDO DE HONESTIDAD Y TRANSPARENCIA A TRAVÉS DE ENCUESTAS PARA TODOS NUESTROS USUARIOS</h1>
+        <a class="buttonBottom" href="">ÚNETE!</a>
     </div>
     
 </body>

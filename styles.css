@@ -34,6 +34,10 @@
     padding-top: 16px;
     padding-bottom: 16px;
     border-radius: 50px;
+    transition: background-color 0.5s;
+}
+.index-body header nav a.buttonLeft:hover {
+    background-color: rgb(190, 190, 190);
 }
 .index-body header nav a.buttonRight {
     position: absolute;
@@ -50,6 +54,7 @@
 }
 .index-body .main-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 90em;
@@ -58,4 +63,20 @@
     color: #C1E8FF;
     font-size: 10em;
     text-align: center;
+}
+.index-body .buttonBottom {
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    transition: background-color 0.5s;
+}
+.index-body .buttonBottom:hover {
+    background-color: #C1E8FF;
+    color: #052659;
 }
