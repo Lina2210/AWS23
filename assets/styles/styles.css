@@ -4,6 +4,14 @@ body {
     background-color: #052659;
     font-family: "Saans", Arial, sans-serif;
 }
+
+:root {
+    --dark-blue: #021024;
+    --light-blue: #C1E8FF;
+    --background-blue: #052659;
+    --secondary-blue: #7DA0CA;
+    --buttons-blue: #548383;
+  }
 /* -----------------------------------------------------
  * Header
  * -----------------------------------------------------*/
@@ -144,7 +152,7 @@ header nav a.buttonRight {
 /* -----------------------------------------------------
  * Register page
  * -----------------------------------------------------*/
-.register main {
+.register-body main {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -152,18 +160,50 @@ header nav a.buttonRight {
     justify-content: center;
     gap: 50px;
 }
-.register form {
+.register-body form {
     width: 70%;
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 25px;
+    align-items: center;
 }
-.register .next-button {
-    width: fit-content;
+.register-body .input-container {
+    position: relative;
     height: 50px;
-    border-radius: 50%;
+    width: 600px;
+    border-radius: 50px;
+    background: linear-gradient(to right, white, var(--light-blue));
+}
+.register-body .next-button {
+    width: fit-content;
+    height: 100%;
+    border: none;
+    border-radius: 50px;
     padding: 10px 20px;
-    border-radius: 4px;
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    color: #021024;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+.register-body .next-button:hover {
+    background-color: #021024;
+    color: #C1E8FF;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+.register-body input.field {
+    height: 100%;
+    width: calc(100% - (20px + 100px));
+    padding: 0;
+    padding-left: 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: transparent;
+    color: #021024;
+}
+.register-body input.field:focus {
+    outline: none;
 }
