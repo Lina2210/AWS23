@@ -1,12 +1,8 @@
-.index-body {
+body {
     margin: 0;
     padding: 0;
     background-color: #052659;
     font-family: "Saans", Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 .index-body header {
     display: flex;
@@ -80,3 +76,49 @@
     background-color: #C1E8FF;
     color: #052659;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.register main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.register form {
+    width: 70%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.register .next-button {
+    width: fit-content;
+    height: 50px;
+    border-radius: 50%;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+
+
