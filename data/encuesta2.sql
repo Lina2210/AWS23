@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS encuesta2;
 use encuesta2;
 
 CREATE TABLE `User` (
