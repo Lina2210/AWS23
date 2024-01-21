@@ -1,30 +1,27 @@
-.index-body {
+body {
     margin: 0;
     padding: 0;
     background-color: #052659;
     font-family: "Saans", Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
-.index-body header {
+/* Header */
+header {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     margin-top: 20px;
 }
-.index-body header .logo {
+header .logo {
     height: 80px;
     width: auto;
 }
-.index-body header nav {
+header nav {
     position: absolute;
     right: 30px;
     top: 50px;
     font-weight: bold;
     font-size: 13px;
 }
-.index-body header nav a.buttonLeft {
+header nav a.buttonLeft {
     text-decoration: none;
     color: #021024;
     background-color: white;
@@ -36,10 +33,10 @@
     border-radius: 50px;
     transition: background-color 0.5s;
 }
-.index-body header nav a.buttonLeft:hover {
+header nav a.buttonLeft:hover {
     background-color: rgb(190, 190, 190);
 }
-.index-body header nav a.buttonRight {
+header nav a.buttonRight {
     position: absolute;
     right: 30px;
     top: -16px;
@@ -52,19 +49,25 @@
     padding-bottom: 16px;
     border-radius: 50px;
 }
+/* Index page */
 .index-body .main-container {
+    width: 80%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 90em;
+    margin-left: auto;
+    margin-right: auto;
 }
 .index-body .main-text {
     color: #C1E8FF;
-    font-size: 10em;
+    font-size: 130px;
     text-align: center;
+    line-height: 150px;
 }
 .index-body .buttonBottom {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     text-decoration: none;
     color: #C1E8FF;
     border: 1px solid #C1E8FF;
@@ -79,4 +82,70 @@
 .index-body .buttonBottom:hover {
     background-color: #C1E8FF;
     color: #052659;
+}
+
+/* Login page */
+.login-body .main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-body h1 {
+    margin: 0;
+    position: absolute;
+    left: 80px;
+    top: 55px;
+    color: #C1E8FF;
+}
+.login-body .main-content form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 50px;
+}
+.login-body .main-content form label {
+    color: #C1E8FF;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.login-body .main-content form input.field {
+    font-weight: bold;
+    height: 35px;
+    width: 450px;
+    background-color: #053377;
+    border: 1px solid #07429b;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    transition: background-color 0.5s;
+    padding-left: 20px;
+}
+.login-body .main-content form input.field:hover {
+    background-color: #07429b;
+}
+.login-body .main-content form input.field:focus {
+    outline: none;
+    border: 1px solid #C1E8FF;
+}
+.login-body .main-content form input[type="submit"] {
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #021024;
+    color: white;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+.login-body .main-content form input[type="submit"]:hover {
+    background-color: #010914;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
