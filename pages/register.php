@@ -11,46 +11,6 @@
 
 <body class="register-body">
     <h1>REGISTRARSE</h1>
-    <main>
-        <form action="register.php" method="post" a>
-            <div class="input-container">
-                <input class="field" type="text" id="userName" name="userName" placeholder="Nombre" required>
-                <button class="next-button">SIGUIENTE</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="password" id="password" name="password" placeholder="Contraseña" required>
-                <button class="next-button">Siguiente</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="password" id="password" name="password" placeholder="Confirmar contraseña"
-                    required>
-                <button class="next-button">Siguiente</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="email" id="email" name="email" placeholder="E-Mail" required>
-                <button class="next-button">Siguiente</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="number" id="mobile" name="mobile" placeholder="Telefono" required>
-                <button class="next-button">Siguiente</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="text" id="country" name="country" placeholder="Pais" required>
-                <button class="next-button">Siguiente</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="text" id="city" name="city" placeholder="Ciudad" required>
-                <button class="next-button">Siguiente</button>
-            </div>
-            <div class="input-container">
-                <input class="field" type="number" id="postalCode" name="postalCode" placeholder="Código Postal"
-                    required>
-                <button class="next-button">Siguiente</button>
-            </div>
-
-            <input type="submit" value="Registrarse">
-        </form>
-    </main>
 
     <script src="../assets/scripts/register.js"></script>
 </body>

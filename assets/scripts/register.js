@@ -1,24 +1,3 @@
-// (function($) {
-//     $.generateInput = function(type, name) {
-//         // Construir el HTML del componente
-//         var html = '<input type="' + type + '" id="' + name + '" name="' + name + '" required>';
-//         html += '<button class="next-button">Siguiente</button>';
-    
-//         // Devolver el HTML generado como objeto jQuery
-//         return $(html);
-//     };
-// }(jQuery));
-
-
-// $(function() {
-//     $(".next-button:last").click(function() {
-//         let newInput = $.generateInput('text', 'userName');
-//         $("form").append(newInput);
-//     })
-// })
-
-
-
 $(function() {
     // Crear el elemento main y el formulario
     var main = $('<main></main>');
@@ -31,19 +10,26 @@ $(function() {
 
     function createInputContainer(id, type, placeholder, validator) {
         var div = $('<div class="input-container"></div>');
-        var input = $('<input class="field" type="' + type + '" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '" required>');
+        var input = $('<input class="field" type="' + type + '" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '"autocomplete="off" required>');
         var button = $('<button class="next-button" disabled>CONTINUAR</button>');
 
-        // Habilitar el botón cuando el usuario introduzca texto
+        // Habilitar el boton cuando el usuario introduzca texto
         input.on('keyup', function() {
             button.prop('disabled', !$(this).val());
         });
 
-        // Validar el campo de entrada cuando se haga clic en el botón
+        // Quitar la clase 'invalid' cuando el campo de entrada recibe el foco
+        input.on('focus', function() {
+            $(this).parent('.input-container').removeClass('invalid');
+        });
+
+        // Validar el campo de entrada cuando se haga clic en el boton
         button.on('click', function(e) {
             e.preventDefault();
             if (validator(input.val())) {
-                // Crear el siguiente div.input-container si el campo de entrada es válido
+                $(this).remove();
+                input.prop('disabled', true);
+                // Crear el siguiente div.input-container si el campo de entrada es valido
                 switch (id) {
                     case 'userName':
                         createInputContainer('password', 'password', 'Contraseña', validatePassword);
@@ -71,6 +57,8 @@ $(function() {
                         form.append(submitButton);
                         break;
                 }
+            } else {
+                input.parent('.input-container').addClass('invalid');
             }
         });
 
@@ -79,7 +67,7 @@ $(function() {
         form.append(div);
     }
 
-    // Funciones de validación
+    // Funciones de validacion
     function validateUserName(userName) {
         return userName.length > 0;
     }
