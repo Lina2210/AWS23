@@ -118,7 +118,7 @@ footer .icon-github img {
     height: 50px;
     width: auto;
 }
-.login-body footer {
+.login-body footer, .body-error footer {
     position: absolute;
     bottom: 0px;
 }
@@ -222,4 +222,22 @@ footer .icon-github img {
 .login-body .main-content form input[type="submit"]:hover {
     background-color: #010914;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+/* Errors page */
+.body-error h1 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 130px;
+    color: #C1E8FF;
+    width: 100%;
+    text-align: center;
+}
+.body-error .number {
+    margin: 0;
+    font-weight: bold;
+    font-size: 280px;
+    color: transparent;
+    width: 100%;
+    text-align: center;
+    -webkit-text-stroke: 5px #C1E8FF;
 }
