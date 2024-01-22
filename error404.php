@@ -9,12 +9,12 @@
 </head>
 <body class="body-error">
     <?php
-        include("/templates/header.php");
+        include("./templates/header.php");
     ?>
     <h1>Error 404. Página no encontrada</h1>
     <p class="number">404</p>
     <?php
-        include("/templates/footer.php");
+        include("./templates/footer.php");
     ?>
 </body>
 </html>
