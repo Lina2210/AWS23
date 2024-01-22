@@ -9,14 +9,14 @@
 </head>
 <body class="index-body">
     <?php
-        include("../templates/header.php");
+        include("./templates/header.php");
     ?>
     <div class="main-container">
         <h1 class="main-text">CREANDO UN MUNDO DE HONESTIDAD Y TRANSPARENCIA A TRAVÉS DE ENCUESTAS</h1>
         <a class="buttonBottom" href="register.php">ÚNETE!</a>
     </div>
     <?php
-        include("../templates/footer.php");
+        include("./templates/footer.php");
     ?>
 </body>
 </html>

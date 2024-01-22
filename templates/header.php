@@ -12,7 +12,7 @@
                 echo "\t\t<a class='buttonLeft' href='dashboard.php'>PANEL DE CONTROL</a>\n";
                 echo "\t\t<a class='buttonRight' href='logout.php'>CERRAR SESIÓN</a>\n";
             }
-            elseif ($_SERVER['PHP_SELF'] == "/pages/login.php") {
+            elseif ($_SERVER['PHP_SELF'] == "/login.php") {
                 echo "\t\t<a class='buttonLeft' href='index.php'>INICIO</a>\n";
                 echo "\t\t<a class='buttonRight' href='register.php'>REGISTRARSE</a>\n";
             } else {
