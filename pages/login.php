@@ -15,14 +15,9 @@
 </head>
 <body class="login-body">
     <h1>INICIAR SESIÓN</h1>
-    <header>
-        <a href="index.php"><img href="" class="logo" src="/assets/images/logo2.png" alt="encuesta2"></a>
-        <nav>
-            <a class="buttonLeft" href="login.php">INICIAR SESIÓN</a>
-            <a class="buttonRight" href="register.php">REGISTRARSE</a>
-        </nav> 
-    </header>
-    
+    <?php
+        include("../templates/header.php");
+    ?>
     <main class="main-content">
     <?php
     if (isset($_POST["email"]) && isset($_POST["password"])) {
@@ -69,5 +64,9 @@
             <input type="submit" value="ENTRAR">
         </form>
     </main>
+    <?php
+        include("../templates/footer.php");
+    ?>
+
 </body>
 </html>

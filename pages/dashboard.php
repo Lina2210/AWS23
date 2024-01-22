@@ -9,8 +9,10 @@
 </head>
 <body>
     <?php
+        include("../templates/header.php");
         session_start();
         echo "<h1>Bienvenido ".$_SESSION['user_name'].", has entrado en el panel de control (dashboard)</h1>";
+        include("../templates/footer.php");
     ?>
     
 </body>
