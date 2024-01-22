@@ -9,14 +9,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/images/dos.png" type="image/png">
-    <link rel="stylesheet" href="/assets/styles/styles.css">
+    <link rel="icon" href="./assets/images/dos.png" type="image/png">
+    <link rel="stylesheet" href="./assets/styles/styles.css">
     <title>Iniciar Sesión</title>
 </head>
 <body class="login-body">
     <h1>INICIAR SESIÓN</h1>
     <?php
-        include("../templates/header.php");
+        include("./templates/header.php");
     ?>
     <main class="main-content">
     <?php
@@ -65,7 +65,7 @@
         </form>
     </main>
     <?php
-        include("../templates/footer.php");
+        include("./templates/footer.php");
     ?>
 
 </body>
