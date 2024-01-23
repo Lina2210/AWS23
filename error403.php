@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+http_response_code(403);
+header('HTTP/1.0 403 Forbidden');
+?><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">

@@ -1,8 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION["user_name"])) {
-        http_response_code(403);
-        header('HTTP/1.0 403 Forbidden');
+        include("./error403.php");
         exit;
     }
 ?>
@@ -18,11 +17,13 @@
 <body class="dashboard-body">
     <?php
         include("./templates/header.php");
-        echo "<h1>DASHBOARD</h1>";
-        
-        
-        echo "<h1>Bienvenido ".$_SESSION['user_name'].", has entrado en el panel de control (dashboard)</h1>";
-        
+    ?>
+    <h1>PANEL DE CONTROL</h1>
+    <nav class="dashboard-nav">
+        <a href="createQuestion.php">CREAR ENCUESTA</a>
+        <a href="list_polls.php">VER ENCUESTAS</a>
+    </nav>       
+    <?php
         include("./templates/footer.php");
     ?>
 </body>
