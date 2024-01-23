@@ -118,7 +118,7 @@ footer .icon-github img {
     height: 50px;
     width: auto;
 }
-.login-body footer, .body-error footer {
+.login-body footer {
     position: absolute;
     bottom: 0px;
 }
