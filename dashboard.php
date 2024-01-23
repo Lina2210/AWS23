@@ -18,7 +18,7 @@
     <?php
         include("./templates/header.php");
     ?>
-    <h1>PANEL DE CONTROL</h1>
+    <h1 class="title">PANEL DE CONTROL</h1>
     <nav class="dashboard-nav">
         <a href="createQuestion.php">CREAR ENCUESTA</a>
         <a href="list_polls.php">VER ENCUESTAS</a>
