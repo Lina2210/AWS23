@@ -2,6 +2,7 @@
     session_start();
     if (!isset($_SESSION["user_name"])) {
         header('HTTP/1.0 403 Forbidden');
+        exit;
     }
 ?>
 <!DOCTYPE html>
