@@ -15,15 +15,15 @@
     <link rel="stylesheet" href="./assets/styles/styles.css">
     <title>Panel De Control</title>
 </head>
-<body>
+<body class="dashboard-body">
     <?php
         include("./templates/header.php");
+        echo "<h1>DASHBOARD</h1>";
         
         
         echo "<h1>Bienvenido ".$_SESSION['user_name'].", has entrado en el panel de control (dashboard)</h1>";
         
         include("./templates/footer.php");
     ?>
-    
 </body>
 </html>
