@@ -1,8 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION["user_name"])) {
-        http_response_code(403);
-        exit;
+        header('HTTP/1.0 403 Forbidden');
     }
 ?>
 <!DOCTYPE html>
