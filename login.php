@@ -24,8 +24,8 @@
         try {
             $hostname = "localhost";
             $dbname = "encuesta2";
-            $username = "encuesta2User";
-            $pw = "encuesta2User";
+            $username = "encuesta2";
+            $pw = "naranjasVerdes";
             $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
           } catch (PDOException $e) {
 
@@ -35,7 +35,7 @@
         $userEmail = $_POST['email'];
         $userpass = $_POST['password'];
 
-        $query = $pdo -> prepare("SELECT user_name FROM user WHERE mail = ? AND password=SHA2(?, 512)");
+        $query = $pdo -> prepare("SELECT user_name FROM User WHERE mail = ? AND password=SHA2(?, 512)");
         $query->bindParam(1, $userEmail, PDO::PARAM_STR);
         $query->bindParam(2, $userpass, PDO::PARAM_STR);
         $query->execute();
