@@ -1,3 +1,18 @@
+<select name="" id=""></select>
+<?php
+require_once("../data/dbAccess.php");
+try {
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
+    $query = $pdo->prepare("select Country.country_name from Country");
+    $query->execute();
+    $countryOptions = $query->fetchAll(PDO::FETCH_COLUMN, 0);
+    echo json_encode($countryOptions);
+} catch (PDOException $e) {
+    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -206,11 +206,11 @@ header nav a.buttonRight {
 .register-body div.input-container.invalid > input.field {
     color: red;
 }
-.register-body div.input-container.invalid > button.next-button {
+.register-body div.input-container.invalid > div.continue-div-button {
     background-color: red;
     color: #FFF;
 }
-.register-body .next-button {
+.register-body div.continue-div-button {
     width: fit-content;
     height: 100%;
     border: none;
@@ -226,7 +226,7 @@ header nav a.buttonRight {
     line-height: 24px;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
-.register-body .next-button:hover {
+.register-body div.continue-div-button:hover {
     background-color: #021024;
     color: #C1E8FF;
     transition: background-color 0.5s ease, color 0.5s ease;
