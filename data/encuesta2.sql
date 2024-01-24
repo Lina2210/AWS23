@@ -34,7 +34,7 @@ CREATE TABLE `Question` (
 CREATE TABLE `Answer` (
   `answer_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `question_id` int NOT NULL,
-  `question_text` varchar(255) NOT NULL
+  `answer_text` varchar(255) NOT NULL
 );
 
 CREATE TABLE `Country` (

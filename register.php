@@ -21,6 +21,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../assets/styles/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="./assets/scripts/notifications.js"></script>
     <title>Registrarse</title>
 </head>
 
@@ -112,8 +113,6 @@ try {
                     exit;
                 }
 
-
-
                 $mobile = intval($mobilePrefix . $mobile);
                 $postalCode = intval($postalCode);
                 $countryId = intval($countryId);
@@ -137,6 +136,10 @@ try {
     <h1>REGISTRARSE</h1>
     <?php
     include("./templates/header.php");
+    ?>
+    <ul id="notification-container"></ul>
+    <?php
+    include("./templates/footer.php");
     ?>
     <script>
         var countryOptions = <?php echo json_encode($countryOptions); ?>;

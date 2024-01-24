@@ -135,6 +135,7 @@ $(function() {
             } else {
                 $(this).parent('.input-container').addClass('invalid');
                 $(this).prev('.field').blur();
+                addNotification('warning', '¡Campo inválido!');
             }
         });
         div.append(button);
