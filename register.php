@@ -34,14 +34,14 @@ try {
             isset($_POST['postalCode']) && isset($_POST['mobile']) && isset($_POST['mobilePrefix'])
         ) {
             try {
-                $userName = $_POST['userName'];
-                $password = $_POST['password'];
-                $confirmPassword = $_POST['confirmPassword'];
-                $email = $_POST['email'];
+                $userName = trim($_POST['userName']);
+                $password = trim($_POST['password']);
+                $confirmPassword = trim($_POST['confirmPassword']);
+                $email = trim($_POST['email']);
                 $country = $_POST['country'];
-                $city = $_POST['city'];
-                $postalCode = $_POST['postalCode'];
-                $mobile = $_POST['mobile'];
+                $city = trim($_POST['city']);
+                $postalCode = trim($_POST['postalCode']);
+                $mobile = trim($_POST['mobile']);
                 $mobilePrefix = ltrim($_POST['mobilePrefix'], '+');
 
                 if (empty(trim($userName))) {
@@ -63,6 +63,14 @@ try {
 
                 if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
                     echo "El correo electrónico no es válido.";
+                    exit;
+                }
+
+                $query = $pdo->prepare("SELECT COUNT(*) FROM User WHERE mail = ?");
+                $query->execute([$email]);
+
+                if ($query->fetchColumn() > 0) {
+                    echo "El correo electrónico ya está en uso.";
                     exit;
                 }
 
@@ -106,7 +114,7 @@ try {
 
 
 
-                $mobile = intval($mobilePrefix . $mobileNumber);
+                $mobile = intval($mobilePrefix . $mobile);
                 $postalCode = intval($postalCode);
                 $countryId = intval($countryId);
 
