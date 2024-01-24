@@ -59,7 +59,7 @@
     ?>
         <form action="login.php" method="post">
             <label for="email">E-Mail</label>
-            <input class="field" type="email" name="email" required>
+            <input class="field" type="email" name="email" autocomplete="off" required>
             <label for="password">Contraseña</label>
             <input class="field" type="password" name="password" required>
             <input type="submit" value="ENTRAR">
