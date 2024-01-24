@@ -241,3 +241,27 @@ footer .icon-github img {
     text-align: center;
     -webkit-text-stroke: 5px #C1E8FF;
 }
+/* Dashboard page */
+.dashboard-body h1 {
+    font-size: 130px;
+    color: #C1E8FF;
+    text-align: center;
+}
+.dashboard-body .dashboard-nav {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+}
+.dashboard-body .dashboard-nav a {
+    text-decoration: none;
+    color: white;
+    background-color: #010914;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 50px;
+}
+.dashboard-body .dashboard-nav a:hover {
+    border: 1px solid #C1E8FF;
+}
