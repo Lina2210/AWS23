@@ -127,7 +127,9 @@ try {
     ?>
 
     <h1>REGISTRARSE</h1>
-
+    <?php
+    include("./templates/header.php");
+    ?>
     <script>
         var countryOptions = <?php echo json_encode($countryOptions); ?>;
     </script>

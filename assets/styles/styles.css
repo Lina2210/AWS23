@@ -294,7 +294,11 @@ footer .icon-github img {
     font-style: normal;
     font-weight: 700;
     line-height: 32px;
-    color: var(--secondary-blue);
+    color: var(--light-blue);
+    margin: 0;
+    position: absolute;
+    left: 80px;
+    top: 55px;
 }
 .register-body main {
     width: 100%;
@@ -311,6 +315,7 @@ footer .icon-github img {
     flex-direction: column;
     gap: 25px;
     align-items: center;
+    margin-top: 50px;
 }
 .register-body div.input-container {
     height: 50px;
