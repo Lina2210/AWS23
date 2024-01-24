@@ -1,3 +1,36 @@
+<?php
+    session_start();
+    if (!isset($_SESSION["user_name"])) {
+        include("./error403.php");
+        exit;
+    }
+
+    // Obtener el user_id a partir del user_name (correo electrónico)
+    $user_name = $_SESSION["user_name"];
+    try {
+        $hostname = "localhost";
+        $dbname = "encuesta2";
+        $username = "encuesta2";
+        $pw = "naranjasVerdes";
+        $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
+    } catch (PDOException $e) {
+        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+        exit;
+    }
+
+    $user_id_query = $pdo->prepare("SELECT user_id FROM User WHERE user_name = :user_name");
+    $user_id_query->bindParam(':user_name', $user_name);
+    $user_id_query->execute();
+    $user_id_result = $user_id_query->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user_id_result) {
+        // Si no se encuentra el usuario, puedes manejar el error o redirigir a una página de error.
+        echo "No se encontró el usuario en la base de datos.";
+        exit;
+    }
+
+    $user_id = $user_id_result["user_id"];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +59,7 @@
                     echo "Failed to get DB handle: " . $e->getMessage() . "\n";
                     exit;
                 }
-                $userId= 1;
+                
                 $namePoll = $_POST["namePoll"];
                 $dateStart = $_POST["dateStart"];
                 $dateFinish = $_POST["dateFinish"];
@@ -52,7 +85,7 @@
                         $questionId = $pdo->lastInsertId();
                         
                         foreach ($answers[$questionIndex] as $answer) {
-                            $queryAnswer = $pdo -> prepare("INSERT INTO Answer (question_id, question_text) VALUES (?, ?)");
+                            $queryAnswer = $pdo -> prepare("INSERT INTO Answer (question_id, answer_text) VALUES (?, ?)");
                             $queryAnswer->bindParam(1, $questionId, PDO::PARAM_INT);
                             $queryAnswer->bindParam(2, $answer, PDO::PARAM_STR);
                             $queryAnswer->execute();
