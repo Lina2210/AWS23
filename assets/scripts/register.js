@@ -1,220 +1,176 @@
-// $(function() {
-//     // Crear el elemento main y el formulario
-//     var main = $('<main></main>');
-//     var form = $('<form action="register.php" method="post"></form>');
-//     main.append(form);
-//     $('body').append(main);
+$(function() {
+    // Crear el elemento main y el formulario
+    var main = $('<main></main>');
+    var form = $('<form action="register.php" method="post"></form>');
+    main.append(form);
+    $('body').append(main);
 
-//     $.get('ruta_al_archivo_php', function(data) {
-//         var countryOptions = JSON.parse(data);
-//         createInputContainer('country', 'select', 'Pais', validateCountry, countryOptions);
-//     });
+    
 
-//     function createInputContainer(id, type, placeholder, validator, options) {
-//         var div = $('<div class="input-container"></div>');
-//         var button = $('<button class="next-button" disabled>CONTINUAR</button>');
-//         if (type === 'select') {
-//             var select = $('<select class="field" id="' + id + '" name="' + id + '" required></select>');
-//             options.forEach(function(option) {
-//                 var optionElement = $('<option></option>');
-//                 optionElement.text(option);
-//                 select.append(optionElement);
-//             });
-//             div.append(select);
-//         } else {
-//             var input = $('<input class="field" type="' + type + '" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '" autocomplete="off" required>');
-//             div.append(input);
-//         }
-//     }
+    createInputContainer('userName', 'text', 'Nombre', validateLength);
 
-//     function createInputContainer(id, type, placeholder, validator) {
-//         var div = $('<div class="input-container"></div>');
-//         var input = $('<input class="field" type="' + type + '" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '"autocomplete="off" required>');
-//         var button = $('<button class="next-button" disabled>CONTINUAR</button>');
+    function createInputContainer(id, type, placeholder, validator, options=[]) {
+        var div = $('<div class="input-container"></div>');
+        var button = $('<button class="continue-button" disabled>CONTINUAR</button>');
 
-//         // Habilitar el boton cuando el usuario introduzca texto
-//         input.on('keyup', function() {
-//             button.prop('disabled', !$(this).val());
-//         });
+        if (type === 'select') {
+            var select = $('<select class="field" id="' + id + '" name="' + id + '" required></select>');
 
-//         // Quitar la clase 'invalid' cuando el campo de entrada recibe el foco
-//         input.on('focus', function() {
-//             $(this).parent('.input-container').removeClass('invalid');
-//         });
+            var initialOption = $('<option selected disabled>País</option>');
+            select.append(initialOption);
 
-//         // Validar el campo de entrada cuando se haga clic en el boton
-//         button.on('click', function(e) {
-//             e.preventDefault();
-//             if (validator(input.val())) {
-//                 $(this).remove();
-//                 input.prop('disabled', true);
-//                 // Crear el siguiente div.input-container si el campo de entrada es valido
-//                 switch (id) {
-//                     case 'userName':
-//                         createInputContainer('password', 'password', 'Contraseña', validatePassword);
-//                         break;
-//                     case 'password':
-//                         createInputContainer('confirmPassword', 'password', 'Confirmar contraseña', validateConfirmPassword);
-//                         break;
-//                     case 'confirmPassword':
-//                         createInputContainer('email', 'email', 'E-Mail', validateEmail);
-//                         break;
-//                     case 'email':
-//                         createInputContainer('mobile', 'number', 'Telefono', validateMobile);
-//                         break;
-//                     case 'mobile':
-//                         createInputContainer('country', 'text', 'Pais', validateCountry);
-//                         break;
-//                     case 'country':
-//                         createInputContainer('city', 'text', 'Ciudad', validateCity);
-//                         break;
-//                     case 'city':
-//                         createInputContainer('postalCode', 'number', 'Código Postal', validatePostalCode);
-//                         break;
-//                     case 'postalCode':
-//                         var submitButton = $('<input type="submit" value="REGISTRARSE">');
-//                         form.append(submitButton);
-//                         break;
-//                 }
-//             } else {
-//                 input.parent('.input-container').addClass('invalid');
-//             }
-//         });
+            options.forEach(function(option) {
+                var optionElement = $('<option></option>');
+                optionElement.text(option);
+                select.append(optionElement);
+            });
 
-//         div.append(input);
-//         div.append(button);
-//         form.append(div);
-//     }
+            // Habilitar el botón "CONTINUAR" solo cuando se selecciona una opción diferente a "País"
+            select.on('change', function() {
+                button.prop('disabled', $(this).val() === 'País');
+            });
 
-//     // Funciones de validacion
-//     function validateUserName(userName) {
-//         return userName.length > 0;
-//     }
+            div.append(select);
+            setTimeout(function() {
+                select.focus();
+            }, 0);
+        } else if (type === 'tlfn') {
+            var select = $('<select class="field" id="' + id + 'Prefix" name="' + id + 'Prefix" required></select>');
 
-//     function validatePassword(password) {
-//         return password.length > 8;
-//     }
+            // Get the selected country prefix number
+            var selectedCountryName = $('#country').val();
+            var selectedCountry = countryOptions.find(function(country) {
+                return country.country_name === selectedCountryName;
+            });
+            if (selectedCountry) var prefix = selectedCountry.phone_prefix;
+            if (prefix) {
+                var initialOption = $('<option selected> +' + prefix + '</option>');
+            } else {
+                var initialOption = $('<option selected> -- </option>');
+            }
 
-//     function validateConfirmPassword(confirmPassword) {
-//         return confirmPassword === $('#password').val();
-//     }
+            select.append(initialOption);
 
-//     function validateEmail(email) {
-//         var regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-//         return regex.test(email);
-//     }
+            options.forEach(function(option) {
+                var optionElement = $('<option></option>');
+                optionElement.text('+' + option);
+                if (option != prefix) select.append(optionElement);
+            });
 
-//     function validateMobile(mobile) {
-//         return mobile.length === 9;
-//     }
+            var input = $('<input class="field" type="number" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '" autocomplete="off" required>');
 
-//     function validateCountry(country) {
-//         return true;
-//     }
+            div.append(select);
+            div.append(input);
+            setTimeout(function() {
+                input.focus();
+            }, 0);
+        } else {
+            var input = $('<input class="field" type="' + type + '" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '" autocomplete="off" required>');
+            div.append(input);
+            setTimeout(function() {
+                input.focus();
+            }, 0);
+        }
 
-//     function validateCity(city) {
-//         return true;
-//     }
+        
 
-//     function validatePostalCode(postalCode) {
-//         return postalCode.length === 5;
-//     }
-// });
+        // Habilitar el boton cuando el usuario introduzca texto
+        if (type !== 'select') {
+            input.on('keyup', function() {
+                button.prop('disabled', !$(this).val());
+            });
 
+            // Quitar la clase 'invalid' cuando el campo de entrada recibe el foco
+            input.on('focus', function() {
+                $(this).parent('.input-container').removeClass('invalid');
+            });
+        }
 
+        // Validar el campo de entrada cuando se haga clic en el boton
+        button.on('click', function(e) {
+            e.preventDefault();
 
+            if (id === 'country') {
+                var selectedCountry = $(this).prev('.field').val();
+                if (validateCountry(selectedCountry, options)) {
+                    createInputContainer('city', 'text', 'Ciudad', validateLength);
+                } else {
+                    $(this).parent('.input-container').addClass('invalid');
+                    $(this).prev('.field').blur();
+                }
+            }
+            if (validator($(this).prev('.field').val(), options)) {
+                $(this).remove();
+                $(this).prev('.field').prop('disabled', true);
+                // Crear el siguiente div.input-container si el campo de entrada es valido
+                switch (id) {
+                    case 'userName':
+                        createInputContainer('password', 'password', 'Contraseña', validateLength);
+                        break;
+                    case 'password':
+                        createInputContainer('confirmPassword', 'password', 'Confirmar contraseña', validateConfirmPassword);
+                        break;
+                    case 'confirmPassword':
+                        createInputContainer('email', 'email', 'E-Mail', validateEmail);
+                        break;
+                    case 'email':
+                        createInputContainer('country', 'select', 'País', validateCountry, countryOptions.map(function (country) {
+                            return country.country_name;
+                        }));
+                        break;
+                    case 'city':
+                        createInputContainer('postalCode', 'number', 'Código Postal', validatePostalCode);
+                        break;
+                    case 'postalCode':
+                        createInputContainer('mobile', 'tlfn', 'Telefono', validateMobile, countryOptions.map(function (country) {
+                            return country.phone_prefix;
+                        }));
+                        break;
+                    case 'mobile':
+                        var submitButton = $('<input type="submit" value="REGISTRARSE">');
+                        form.append(submitButton);
+                        break;
+                }
 
+            } else {
+                $(this).parent('.input-container').addClass('invalid');
+                $(this).prev('.field').blur();
+            }
+        });
+        div.append(button);
+        form.append(div);
 
-
-
-
-// $(function() {
-//     // Crear el elemento main y el formulario
-//     var main = $('<main></main>');
-//     var form = $('<form action="register.php" method="post"></form>');
-//     main.append(form);
-//     $('body').append(main);
-
-//     $.get('../../register.php', function(data) {
-//         var countryOptions = JSON.parse(data);
-//         createInputContainer('country', 'select', 'Pais', validateCountry, countryOptions);
-//     });
-
-//     function createInputContainer(id, type, placeholder, validator, options) {
-//         var div = $('<div class="input-container"></div>');
-//         var divButton = $('<div class="continue-div-button" disabled>CONTINUAR</div>');
-//         if (type === 'select') {
-//             var select = $('<select class="field" id="' + id + '" name="' + id + '" required></select>');
-//             options.forEach(function(option) {
-//                 var optionElement = $('<option></option>');
-//                 optionElement.text(option);
-//                 select.append(optionElement);
-//             });
-//             div.append(select);
-//         } else {
-//             var input = $('<input class="field" type="' + type + '" id="' + id + '" name="' + id + '" placeholder="' + placeholder + '" autocomplete="off" required>');
-//             div.append(input);
-//         }
-//         div.append(divButton);
-//         form.append(div);
-
-//         // Habilitar el boton cuando el usuario introduzca texto
-//         if (type !== 'select') {
-//             input.on('keyup', function() {
-//                 divButton.prop('disabled', !$(this).val());
-//             });
-
-//             // Quitar la clase 'invalid' cuando el campo de entrada recibe el foco
-//             input.on('focus', function() {
-//                 $(this).parent('.input-container').removeClass('invalid');
-//             });
-//         }
-
-//         // Validar el campo de entrada cuando se haga clic en el boton
-//         divButton.on('click', function() {
-//             if (validator($(this).prev('.field').val())) {
-//                 $(this).parent('.input-container').removeClass('invalid');
-//                 $(this).parent('.input-container').next('.input-container').fadeIn();
-//             } else {
-//                 $(this).parent('.input-container').addClass('invalid');
-//             }
-//         });
-//     }
+        setTimeout(function() {
+            $('html, body').animate({
+                scrollTop: form.children(':last-child').offset().top
+            }, 1000); // Desplaza la página al div en 1 segundo
+        }, 0);
+    }
 
 
-//     // Funciones de validacion
-//     function validateUserName(userName) {
-//         return userName.length > 0;
-//     }
+    // Funciones de validación
+    function validateLength(value) {
+        return value.length > 0;
+    }
 
-//     function validatePassword(password) {
-//         return password.length > 8;
-//     }
+    function validateConfirmPassword(confirmPassword) {
+        return confirmPassword === $('#password').val();
+    }
 
-//     function validateConfirmPassword(confirmPassword) {
-//         return confirmPassword === $('#password').val();
-//     }
+    function validateEmail(email) {
+        var regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        return regex.test(email);
+    }
 
-//     function validateEmail(email) {
-//         var regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-//         return regex.test(email);
-//     }
+    function validateCountry(country, countryOptions) {
+        return countryOptions.includes(country);
+    }
 
-//     function validateCountry(country, countryOptions) {
-//         return countryOptions.includes(country);
-//     }
+    function validatePostalCode(postalCode) {
+        return /^\d{5}$/.test(postalCode);
+    }
 
-//     function validateCity(city) {
-//         return true;
-//     }
-
-//     function validatePostalCode(postalCode) {
-//         return postalCode.length === 5;
-//     }
-
-//     function validateMobile(mobile) {
-//         return mobile.length === 9;
-//     }
-
-//     // Aquí puedes llamar a createInputContainer para otros campos
-// });
+    function validateMobile(mobile) {
+        return /^\d{7,15}$/.test(mobile);
+    }
+});

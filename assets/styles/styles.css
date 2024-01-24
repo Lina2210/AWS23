@@ -206,11 +206,11 @@ header nav a.buttonRight {
 .register-body div.input-container.invalid > input.field {
     color: red;
 }
-.register-body div.input-container.invalid > div.continue-div-button {
+.register-body div.input-container.invalid > button.continue-button {
     background-color: red;
     color: #FFF;
 }
-.register-body div.continue-div-button {
+.register-body button.continue-button {
     width: fit-content;
     height: 100%;
     border: none;
@@ -226,10 +226,12 @@ header nav a.buttonRight {
     line-height: 24px;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
-.register-body div.continue-div-button:hover {
+.register-body button.continue-button:hover,
+.register-body button.continue-button:focus {
     background-color: #021024;
     color: #C1E8FF;
     transition: background-color 0.5s ease, color 0.5s ease;
+    outline: none;
 }
 .register-body input.field {
     height: 100%;
@@ -247,7 +249,8 @@ header nav a.buttonRight {
     font-weight: 400;
     line-height: 24px;
 }
-.register-body input.field:focus {
+.register-body input.field:focus,
+.register-body select.field:focus {
     outline: none;
 }
 
