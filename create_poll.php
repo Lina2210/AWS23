@@ -159,12 +159,12 @@
 
          
             $("#addQuestion").on("click", function() {
-                var countQuestion = $(".question").length-1;
+                var countQuestion = $(".question").length;
                 var newQuestion = $(".question:first").clone();
                 newQuestion.find("textarea").attr("name", "questions[" + countQuestion + "]").attr("id", "question" + countQuestion).attr("placeholder", "Pregunta").val("");
                 newQuestion.find("input").attr("name", "answers[" + countQuestion + "][]")
                 newQuestion.find(".moreAnswer").empty();
-                countQuestion--;
+                countQuestion;
                 
 
                 $("#questions").append(newQuestion);
