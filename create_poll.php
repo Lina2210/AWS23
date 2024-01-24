@@ -7,6 +7,7 @@
 
     // Obtener el user_id a partir del user_name (correo electrónico)
     $mail = $_SESSION["mail"];
+    file_put_contents('user_id_result.txt', print_r($mail, true));
     try {
         $hostname = "localhost";
         $dbname = "encuesta2";
@@ -22,7 +23,7 @@
     $user_id_query->bindParam(':mail', $mail);
     $user_id_query->execute();
     $user_id_result = $user_id_query->fetch(PDO::FETCH_ASSOC);
-
+    
     if (!$user_id_result) {
         // Si no se encuentra el usuario, puedes manejar el error o redirigir a una página de error.
         echo "No se encontró el usuario en la base de datos.";
@@ -30,6 +31,7 @@
     }
 
     $user_id = $user_id_result["user_id"];
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -59,7 +61,7 @@
                     echo "Failed to get DB handle: " . $e->getMessage() . "\n";
                     exit;
                 }
-                
+                file_put_contents('user_id_result.txt', print_r($user_id, true));
                 $namePoll = $_POST["namePoll"];
                 $dateStart = $_POST["dateStart"];
                 $dateFinish = $_POST["dateFinish"];
@@ -70,7 +72,7 @@
                     $querySurvey = $pdo -> prepare("INSERT INTO Survey (title, user_id, start_date, end_date, state, creation) 
                     VALUES (?, ?, ?, ?, 'Activo', NOW())");
                     $querySurvey->bindParam(1, $namePoll, PDO::PARAM_STR);
-                    $querySurvey->bindParam(2, $userId, PDO::PARAM_INT); 
+                    $querySurvey->bindParam(2, $user_id, PDO::PARAM_INT); 
                     $querySurvey->bindParam(3, $dateStart, PDO::PARAM_STR);
                     $querySurvey->bindParam(4, $dateFinish, PDO::PARAM_STR);
                     $querySurvey->execute();
@@ -113,6 +115,7 @@
                     
                     <button type="button" class="addAnswer">Agregar respuesta</button>
                     <button type="button" class="deleteAnswer" disabled>Eliminar respuesta</button>
+                    <button type="button" class="deleteQuestion" disabled>Eliminar pregunta</button>
                     
                 </div>
             </div>
@@ -190,19 +193,35 @@
                 updateDeleteAnswerButton(answerContainer);
             });
 
+            $("#questions").on("click", ".deleteQuestion", function() {
+                var questionContainer = $(this).closest(".question");
+
+                // Verificar que siempre haya al menos una pregunta
+                if ($("#questions .question").length > 1) {
+                    questionContainer.remove();
+                    initializeDeleteAnswerButton();
+                    initializeDeleteQuestionButton();
+                }
+            });
          
             $("#addQuestion").on("click", function() {
                 var countQuestion = $(".question").length;
                 var newQuestion = $(".question:first").clone();
                 newQuestion.find("textarea").attr("name", "questions[" + countQuestion + "]").attr("id", "question" + countQuestion).attr("placeholder", "Pregunta").val("");
-                newQuestion.find("input").attr("name", "answers[" + countQuestion + "][]")
+                newQuestion.find("input").attr("name", "answers[" + countQuestion + "][]").val("")
                 newQuestion.find(".moreAnswer").empty();
                 countQuestion;
                 
+                var deleteQuestionButton = newQuestion.find(".deleteQuestion");
+                deleteQuestionButton.prop("disabled", false);
+
 
                 $("#questions").append(newQuestion);
                 initializeDeleteAnswerButton();
+                initializeDeleteQuestionButton();
             });
+
+            
 
             function initializeDeleteAnswerButton() {
                 $(".question").each(function() {
@@ -214,6 +233,13 @@
             function updateDeleteAnswerButton(container) {
                 var numAnswers = container.children("input").length;
                 container.siblings(".deleteAnswer").prop("disabled", numAnswers <= 0);
+            }
+
+            function initializeDeleteQuestionButton() {
+                $(".question").each(function() {
+                    var numQuestions = $("#questions .question").length;
+                    $(this).find(".deleteQuestion").prop("disabled", numQuestions <= 1);
+                });
             }
         });
     </script>

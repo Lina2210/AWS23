@@ -80,7 +80,6 @@
     
     <?php
       $mail = $_SESSION["mail"];
-
       $servername = "localhost";
       $username = "encuesta2";
       $password = "naranjasVerdes";
@@ -98,7 +97,6 @@
 
           if ($user_id_result) {
               $user_id = $user_id_result["user_id"];
-
               $survey_query = "SELECT title, state FROM Survey WHERE user_id = :user_id";
               $survey_statement = $conn->prepare($survey_query);
               $survey_statement->bindParam(':user_id', $user_id);

@@ -366,7 +366,31 @@ footer .icon-github img {
     color: #052659;
 }
 
+.createPoll-body .main-content .deleteAnswer:disabled {
+    opacity: 0.5; 
+    cursor: not-allowed;
+}
+
+
+.createPoll-body .main-content .deleteAnswer:disabled:hover {
+    background-color: #eee;
+    color: #888; 
+}
+
 .createPoll-body .main-content #addQuestion{
+    background-color: transparent;
+    width: 100%;
+    margin: 20px auto 10px auto;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding: 15px 40px;
+    font-size: 20px;
+    transition: background-color 0.5s;
+}
+
+.createPoll-body .main-content button.deleteQuestion {
     background-color: transparent;
     width: 100%;
     margin: 20px auto 10px auto;
