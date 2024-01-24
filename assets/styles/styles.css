@@ -21,6 +21,11 @@ header {
     justify-content: center;
     margin-top: 20px;
 }
+header h1 {
+    color: #C1E8FF;
+    position: absolute;
+    left: 30px;
+}
 header .logo {
     height: 80px;
     width: auto;
@@ -60,11 +65,77 @@ header nav a.buttonRight {
     padding-bottom: 16px;
     border-radius: 50px;
 }
-/* -----------------------------------------------------
- * Index page
- * -----------------------------------------------------*/
+/* Footer */
+footer {
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #C1E8FF;
+}
+footer a {
+    text-decoration: none;
+    color: #C1E8FF;
+}
+footer ul {
+    display: flex;
+    list-style: none;
+}
+footer li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+footer .copyright {
+    padding-top: 20px;
+    width: 95%;
+    border-top: 1px solid #C1E8FF;
+    text-align: center;
+    color: #C1E8FF;
+}
+footer .copyright a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+footer .copyright a:hover {
+    text-decoration: underline;
+}
+footer .copyright a img {
+    height: 25px;
+    width: auto;
+    margin-right: 10px;
+}
+footer ul li img {
+    height: 25px;
+    width: auto;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+footer .icon-github {
+    position: absolute;
+    align-self: flex-end;
+    margin-top: 60px;
+    margin-right: 60px;
+    border-radius: 50px;
+    transition: transform 0.5s;
+}
+footer .icon-github:hover {
+    transform: scale(1.2);
+}
+footer .icon-github img {
+    height: 50px;
+    width: auto;
+}
+.login-body footer, .dashboard-body footer {
+    position: absolute;
+    bottom: 0px;
+}
+/* Index page */
 .index-body .main-container {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,13 +144,15 @@ header nav a.buttonRight {
 }
 .index-body .main-text {
     color: #C1E8FF;
-    font-size: 180px;
+    font-size: 130px;
     text-align: center;
+    line-height: 150px;
 }
 .index-body .buttonBottom {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 100px;
     text-decoration: none;
     color: #C1E8FF;
     border: 1px solid #C1E8FF;
@@ -105,7 +178,10 @@ header nav a.buttonRight {
     align-items: center;
 }
 .login-body h1 {
-    margin-left: 80px;
+    margin: 0;
+    position: absolute;
+    left: 80px;
+    top: 55px;
     color: #C1E8FF;
 }
 .login-body .main-content form {
@@ -114,30 +190,34 @@ header nav a.buttonRight {
     justify-content: center;
     align-items: flex-start;
     text-align: left;
+    margin-top: 50px;
 }
 .login-body .main-content form label {
     color: #C1E8FF;
-    font-size: 30px;
+    font-size: 20px;
     margin-left: 20px;
     margin-bottom: 10px;
 }
 .login-body .main-content form input.field {
-    height: 50px;
-    width: 600px;
-    border: none;
+    font-weight: bold;
+    height: 35px;
+    width: 450px;
+    background-color: #053377;
+    border: 1px solid #07429b;
     border-radius: 50px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     transition: background-color 0.5s;
+    padding-left: 20px;
 }
 .login-body .main-content form input.field:hover {
-    background-color: rgb(190, 190, 190);
+    background-color: #07429b;
 }
 .login-body .main-content form input.field:focus {
     outline: none;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    border: 1px solid #C1E8FF;
 }
 .login-body .main-content form input[type="submit"] {
-    font-size: 30px;
+    font-size: 15px;
     margin-left: auto;
     margin-right: auto;
     background-color: #021024;
@@ -149,7 +229,55 @@ header nav a.buttonRight {
     border: none;
     border-radius: 50px;
     cursor: pointer;
+    transition: background-color 0.5s, box-shadow 0.5s;
 }
+.login-body .main-content form input[type="submit"]:hover {
+    background-color: #010914;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+/* Errors page */
+.body-error h1 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 130px;
+    color: #C1E8FF;
+    width: 100%;
+    text-align: center;
+}
+.body-error .number {
+    margin: 0;
+    font-weight: bold;
+    font-size: 280px;
+    color: transparent;
+    width: 100%;
+    text-align: center;
+    -webkit-text-stroke: 5px #C1E8FF;
+}
+/* Dashboard page */
+.dashboard-body h1 {
+    font-size: 130px;
+    color: #C1E8FF;
+    text-align: center;
+}
+.dashboard-body .dashboard-nav {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+}
+.dashboard-body .dashboard-nav a {
+    text-decoration: none;
+    color: white;
+    background-color: #010914;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 50px;
+}
+.dashboard-body .dashboard-nav a:hover {
+    border: 1px solid #C1E8FF;
+}
+
 /* -----------------------------------------------------
  * Register page
  * -----------------------------------------------------*/
