@@ -50,7 +50,6 @@
       }
 
       .listPolls-body .main-content a {
-
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -66,11 +65,11 @@
         font-size: 20px;
         transition: background-color 0.5s;
       }
-      
-.index-body .buttonBottom:hover {
-    background-color: #C1E8FF;
-    color: #052659;
-}
+
+      .listPolls-body .main-content a:hover {
+          background-color: #C1E8FF;
+          color: #052659;
+      }
   </style>
 
 <body class="listPolls-body">
