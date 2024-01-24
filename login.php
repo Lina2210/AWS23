@@ -35,7 +35,7 @@
         $userEmail = $_POST['email'];
         $userpass = $_POST['password'];
 
-        $query = $pdo -> prepare("SELECT user_name FROM user WHERE mail = ? AND password=SHA2(?, 512)");
+        $query = $pdo -> prepare("SELECT user_name FROM User WHERE mail = ? AND password=SHA2(?, 512)");
         $query->bindParam(1, $userEmail, PDO::PARAM_STR);
         $query->bindParam(2, $userpass, PDO::PARAM_STR);
         $query->execute();
