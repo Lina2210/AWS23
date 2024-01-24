@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION["user_name"])) {
+    if (!isset($_SESSION["mail"])) {
         include("./error403.php");
         exit;
     }
@@ -79,7 +79,7 @@
   <main class="main-content">
     
     <?php
-      $user_name = $_SESSION["user_name"];
+      $mail = $_SESSION["mail"];
 
       $servername = "localhost";
       $username = "encuesta2";
@@ -90,9 +90,9 @@
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-          $user_id_query = "SELECT user_id FROM User WHERE user_name = :user_name";
+          $user_id_query = "SELECT user_id FROM User WHERE mail = :mail";
           $user_id_statement = $conn->prepare($user_id_query);
-          $user_id_statement->bindParam(':user_name', $user_name);
+          $user_id_statement->bindParam(':mail', $mail);
           $user_id_statement->execute();
           $user_id_result = $user_id_statement->fetch(PDO::FETCH_ASSOC);
 
