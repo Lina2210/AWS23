@@ -86,53 +86,49 @@
       $password = "naranjasVerdes";
       $dbname = "encuesta2";
 
-      $conn = new mysqli($servername, $username, $password, $dbname);
+      try {
+          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      // Verificar la conexión
-      if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
+          $user_id_query = "SELECT user_id FROM User WHERE user_name = :user_name";
+          $user_id_statement = $conn->prepare($user_id_query);
+          $user_id_statement->bindParam(':user_name', $user_name);
+          $user_id_statement->execute();
+          $user_id_result = $user_id_statement->fetch(PDO::FETCH_ASSOC);
+
+          if ($user_id_result) {
+              $user_id = $user_id_result["user_id"];
+
+              $survey_query = "SELECT title, state FROM Survey WHERE user_id = :user_id";
+              $survey_statement = $conn->prepare($survey_query);
+              $survey_statement->bindParam(':user_id', $user_id);
+              $survey_statement->execute();
+              $survey_result = $survey_statement->fetchAll(PDO::FETCH_ASSOC);
+
+              if ($survey_result) {
+                  echo "<table>";
+                  echo '<tr><th class="name-column">Name</th><th>Estado de Publicación</th><th>Estado de Bloqueo</th></tr>';
+
+                  foreach ($survey_result as $row) {
+                      echo "<tr>";
+                      echo "<td>".$row["title"]."</td>";
+                      echo "<td>".$row["state"]."</td>";
+                      echo "<td>Desbloqueada</td>"; // Campo adicional con valor por defecto
+                      echo "</tr>";
+                  }
+
+                  echo "</table>";
+              } else {
+                  echo "No se encontraron encuestas para este usuario.";
+              }
+          } else {
+              echo "No se encontró el usuario en la base de datos.";
+          }
+      } catch (PDOException $e) {
+          echo "Error: " . $e->getMessage();
+      } finally {
+          $conn = null;
       }
-
-      $user_id_query = "SELECT user_id FROM User WHERE user_name = '$user_name'";
-      $user_id_result = $conn->query($user_id_query);
-
-
-
-      // Query para obtener los datos de la base de datos
-      if ($user_id_result->num_rows > 0) {
-      // Obtener el user_id
-      $user_row = $user_id_result->fetch_assoc();
-      $user_id = $user_row["user_id"];
-
-      // Query para obtener los datos de la base de datos
-      $survey_query = "SELECT title, state FROM Survey WHERE user_id = $user_id";
-      $survey_result = $conn->query($survey_query);
-
-      // Verificar si hay resultados en la encuesta
-        if ($survey_result->num_rows > 0) {
-            echo "<table>";
-            echo '<tr><th class="name-column">Name</th><th>Estado de Publicación</th><th>Estado de Bloqueo</th></tr>';
-
-
-            // Mostrar datos en la tabla
-            while ($row = $survey_result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>".$row["title"]."</td>";
-                echo "<td>".$row["state"]."</td>";
-                echo "<td>Desbloqueada</td>"; // Campo adicional con valor por defecto
-                echo "</tr>";
-            }
-
-            echo "</table>";
-        } else {
-            echo "No se encontraron encuestas para este usuario.";
-        }
-      } else {
-          echo "No se encontró el usuario en la base de datos.";
-      }
-
-        // Cerrar la conexión
-        $conn->close();
     ?>
     <a href="dashboard.php">Atras</a>
     
