@@ -265,3 +265,144 @@ footer .icon-github img {
 .dashboard-body .dashboard-nav a:hover {
     border: 1px solid #C1E8FF;
 }
+
+/*create poll page*/
+
+.createPoll-body h1 {
+    margin: 0;
+    position: absolute;
+    left: 80px;
+    top: 55px;
+    color: #C1E8FF;
+}
+
+.createPoll-body .main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.createPoll-body .main-content form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    margin-top: 50px;
+}
+
+.createPoll-body .main-content form label {
+    color: #C1E8FF;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.createPoll-body .main-content form input.field{
+    font-weight: bold;
+    height: 50px;
+    width: 450px;
+    background-color: #053377;
+    border: 1px solid #07429b;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    transition: background-color 0.5s;
+    padding-left: 20px;
+}
+
+.createPoll-body .main-content form textarea {
+    font-weight: bold;
+    width: 450px;
+    height: auto;
+    background-color: #053377;
+    border: 1px solid #07429b;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    transition: background-color 0.5s;
+    padding-left: 20px;
+}
+
+.createPoll-body .main-content form textarea::placeholder {
+    color: #fff;
+    padding-top: 20px;
+}
+
+.createPoll-body .main-content form input.field::placeholder {
+    color: #fff;
+}
+
+.createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-text,
+.createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-year-field,
+.createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-month-field,
+.createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-day-field {
+    color: #fff; 
+}
+
+.createPoll-body .main-content .question,
+.createPoll-body .moreAnswer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.createPoll-body .main-content .question button {
+    background-color: transparent;
+    width: fit-content;
+    margin: 20px auto 10px auto;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding: 15px 40px;
+    font-size: 20px;
+    transition: background-color 0.5s;
+}
+
+.createPoll-body .main-content .question button:hover{
+    background-color: #C1E8FF;
+    color: #052659;
+}
+
+.createPoll-body .main-content #addQuestion{
+    background-color: transparent;
+    width: 100%;
+    margin: 20px auto 10px auto;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding: 15px 40px;
+    font-size: 20px;
+    transition: background-color 0.5s;
+}
+
+.createPoll-body .main-content #addQuestion:hover {
+    background-color: #C1E8FF;
+    color: #052659;
+}
+
+.createPoll-body .main-content .buttonAddQuestion {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.createPoll-body .main-content #send {
+    background-color: black;
+    width: fit-content;
+    margin: 20px auto 10px auto;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #C1E8FF;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 20px;
+    transition: background-color 0.5s;
+}
+
+.createPoll-body .main-content #send:hover {
+    background-color: white;
+    color: black;
+}
