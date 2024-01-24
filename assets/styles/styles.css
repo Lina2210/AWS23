@@ -65,7 +65,9 @@ header nav a.buttonRight {
     padding-bottom: 16px;
     border-radius: 50px;
 }
-/* Footer */
+/* -----------------------------------------------------
+ * Footer
+ * -----------------------------------------------------*/
 footer {
     font-weight: bold;
     width: 100%;
@@ -133,7 +135,9 @@ footer .icon-github img {
     position: absolute;
     bottom: 0px;
 }
-/* Index page */
+/* -----------------------------------------------------
+ * Index page
+ * -----------------------------------------------------*/
 .index-body .main-container {
     width: 80%;
     display: flex;
@@ -235,7 +239,9 @@ footer .icon-github img {
     background-color: #010914;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-/* Errors page */
+/* -----------------------------------------------------
+ * Errors page
+ * -----------------------------------------------------*/
 .body-error h1 {
     margin-bottom: 10px;
     font-weight: bold;
@@ -253,7 +259,9 @@ footer .icon-github img {
     text-align: center;
     -webkit-text-stroke: 5px #C1E8FF;
 }
-/* Dashboard page */
+/* -----------------------------------------------------
+ * Dashboard page
+ * -----------------------------------------------------*/
 .dashboard-body h1 {
     font-size: 130px;
     color: #C1E8FF;
@@ -277,7 +285,6 @@ footer .icon-github img {
 .dashboard-body .dashboard-nav a:hover {
     border: 1px solid #C1E8FF;
 }
-
 /* -----------------------------------------------------
  * Register page
  * -----------------------------------------------------*/
@@ -381,13 +388,11 @@ footer .icon-github img {
 .register-body select.field:focus {
     outline: none;
 }
-
 .register-body input[type="number"]::-webkit-inner-spin-button, 
 .register-body input[type="number"]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
 }
-
 .register-body input[type="number"] {
   -moz-appearance: textfield;
 }
