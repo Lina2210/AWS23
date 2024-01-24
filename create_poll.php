@@ -6,155 +6,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link rel="stylesheet" href="./assets/styles/styles.css">
     <title>Crear Encuesta</title>
-    <style>
-        .createPoll-body {
-            margin: 0;
-            padding: 0;
-            background-color: #052659;
-            font-family: "Saans", Arial, sans-serif;    
-        }
-
-        .createPoll-body h1 {
-            margin: 0;
-            position: absolute;
-            left: 80px;
-            top: 55px;
-            color: #C1E8FF;
-        }
-
-        .createPoll-body .main-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        
-        .createPoll-body .main-content form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: left;
-            margin-top: 50px;
-        }
-
-        .createPoll-body .main-content form label {
-            color: #C1E8FF;
-            font-size: 20px;
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .createPoll-body .main-content form input.field{
-            font-weight: bold;
-            height: 50px;
-            width: 450px;
-            background-color: #053377;
-            border: 1px solid #07429b;
-            border-radius: 50px;
-            margin-bottom: 30px;
-            transition: background-color 0.5s;
-            padding-left: 20px;
-        }
-
-        .createPoll-body .main-content form textarea {
-            font-weight: bold;
-            width: 450px;
-            height: auto;
-            background-color: #053377;
-            border: 1px solid #07429b;
-            border-radius: 50px;
-            margin-bottom: 30px;
-            transition: background-color 0.5s;
-            padding-left: 20px;
-        }
-
-        .createPoll-body .main-content form textarea::placeholder {
-            color: #fff;
-            padding-top: 20px;
-        }
-
-        .createPoll-body .main-content form input.field::placeholder {
-            color: #fff;
-        }
-
-        .createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-text,
-        .createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-year-field,
-        .createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-month-field,
-        .createPoll-body .main-content form input[type="date"]::-webkit-datetime-edit-day-field {
-            color: #fff; 
-        }
-
-        .createPoll-body .main-content .question,
-        .createPoll-body .moreAnswer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .createPoll-body .main-content .question button {
-            background-color: transparent;
-            width: fit-content;
-            margin: 20px auto 10px auto;
-            text-decoration: none;
-            color: #C1E8FF;
-            border: 1px solid #C1E8FF;
-            border-radius: 10px;
-            padding: 15px 40px;
-            font-size: 20px;
-            transition: background-color 0.5s;
-        }
-
-        .createPoll-body .main-content .question button:hover{
-            background-color: #C1E8FF;
-            color: #052659;
-        }
-
-        .createPoll-body .main-content #addQuestion{
-            background-color: transparent;
-            width: 100%;
-            margin: 20px auto 10px auto;
-            text-decoration: none;
-            color: #C1E8FF;
-            border: 1px solid #C1E8FF;
-            border-radius: 10px;
-            padding: 15px 40px;
-            font-size: 20px;
-            transition: background-color 0.5s;
-        }
-
-        .createPoll-body .main-content #addQuestion:hover {
-            background-color: #C1E8FF;
-            color: #052659;
-        }
-
-        .createPoll-body .main-content .buttonAddQuestion {
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .createPoll-body .main-content #send {
-            background-color: black;
-            width: fit-content;
-            margin: 20px auto 10px auto;
-            text-decoration: none;
-            color: #fff;
-            border: 1px solid #C1E8FF;
-            border-radius: 50px;
-            padding: 15px 40px;
-            font-size: 20px;
-            transition: background-color 0.5s;
-        }
-
-        .createPoll-body .main-content #send:hover {
-            background-color: white;
-            color: black;
-        }
-
-        
-    </style>
 </head>
 <body class="createPoll-body">
     <h1>Crear Encuesta</h1>
@@ -162,17 +13,69 @@
         include("./templates/header.php");
     ?>
     <main class="main-content">
+        <?php 
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                try {
+                    $hostname = "localhost";
+                    $dbname = "encuesta2";
+                    $username = "encuesta2";
+                    $pw = "naranjasVerdes";
+                    $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+                  } catch (PDOException $e) {
+        
+                    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+                    exit;
+                }
+                $userId= 1;
+                $namePoll = $_POST["namePoll"];
+                $dateStart = $_POST["dateStart"];
+                $dateFinish = $_POST["dateFinish"];
+                $questions = $_POST["questions"];
+                $answers = $_POST["answers"];
+                
+                if ($namePoll && $dateStart && $dateFinish && $questions && $answers) {
+                    $querySurvey = $pdo -> prepare("INSERT INTO Survey (title, user_id, start_date, end_date, state, creation) 
+                    VALUES (?, ?, ?, ?, 'Activo', NOW())");
+                    $querySurvey->bindParam(1, $namePoll, PDO::PARAM_STR);
+                    $querySurvey->bindParam(2, $userId, PDO::PARAM_INT); 
+                    $querySurvey->bindParam(3, $dateStart, PDO::PARAM_STR);
+                    $querySurvey->bindParam(4, $dateFinish, PDO::PARAM_STR);
+                    $querySurvey->execute();
+                    $surveyId = $pdo->lastInsertId();
+                    
+                    foreach ($questions as $questionIndex => $question) {
+                        file_put_contents('debug_log.txt', "Pregunta index: $questionIndex\n", FILE_APPEND);
+                        $queryQuestion = $pdo -> prepare("INSERT INTO Question (questionText, survey_id) VALUES (?, ?)");
+                        $queryQuestion->bindParam(1, $question, PDO::PARAM_STR);
+                        $queryQuestion->bindParam(2, $surveyId, PDO::PARAM_INT);
+                        $queryQuestion->execute();
+                        $questionId = $pdo->lastInsertId();
+                        
+                        foreach ($answers[$questionIndex] as $answer) {
+                            $queryAnswer = $pdo -> prepare("INSERT INTO Answer (question_id, question_text) VALUES (?, ?)");
+                            $queryAnswer->bindParam(1, $questionId, PDO::PARAM_INT);
+                            $queryAnswer->bindParam(2, $answer, PDO::PARAM_STR);
+                            $queryAnswer->execute();
+                        }
+                    }
+                } else {
+                    
+                    echo "Error: Faltan datos en el formulario.";
+                }
+            }
+        ?>
         <form action="" method="post">
             <input type="text" class="field" name="namePoll" placeholder="Nombre de la encuesta" required>
             <label for="dateStart">Fecha de apertura</label>
             <input type="date" class="field" name="dateStart" required>
             <label for="dateFinish">Fecha de cierre</label>
             <input type="date" class="field" name="dateFinish" required>
+            <div id="errorContainer"></div>
             <div id="questions">
                 <div class="question">
-                    <textarea name="question1" class="question1" cols="30" rows="10" placeholder="Pregunta1" required></textarea>
-                    <input type="text" class="field" name="answer1" placeholder="Respuesta" required>
-                    <input type="text" class="field" name="answer2" placeholder="Respuesta" required>
+                    <textarea name="questions[0]" class="question" cols="30" rows="10" placeholder="Pregunta" required></textarea>
+                    <input type="text" class="field" name="answers[0][]" placeholder="Respuesta" required>
+                    <input type="text" class="field" name="answers[0][]" placeholder="Respuesta" required>
                     <div class="moreAnswer"></div>
                     
                     <button type="button" class="addAnswer">Agregar respuesta</button>
@@ -184,33 +87,85 @@
             
             <button type="button" id="addQuestion">Agregar pregunta</button>
             <input type="submit" id="send" value="Guardar">
-            
+        </form>
             
     </main>
     <script>
         $(document).ready(function() {
                        
+            //date configuration
+            var currentDate = new Date();
+            var formattedCurrentDate = currentDate.getFullYear() + '-' + 0 +(currentDate.getMonth() + 1) + '-' + currentDate.getDate();
+            
+
+            //Disable days before current day in dateStart
+            $('input[name="dateStart"]').attr('min', formattedCurrentDate);
+
+            //Disable days before the current day in dateFinish until dateStart is filled
+            $('input[name="dateFinish"]').prop('disabled', true);
+
+            var errorContainer = $('#errorContainer');
+
+            $('input[name="dateStart"]').on('change', function() {
+                
+                var initDate = $(this).val();
+                var parts = initDate.split("-");
+                var startDate = parts[2] + '-' + parts[1] + '-' + parts[0];
+                console.log(startDate)
+                console.log(initDate);
+                if (isValidDate(startDate) && isDateValid(startDate)) {
+                    $('input[name="dateFinish"]').prop('disabled', false);
+                    //Disable days before selected date in dateStart in dateFinish
+                    $('input[name="dateFinish"]').attr('min', initDate);
+                    errorContainer.text('');
+                } else {
+                    $('input[name="dateFinish"]').prop('disabled', true);
+                    errorContainer.text('La fecha de inicio debe ser válida y no puede ser anterior a la fecha actual.');
+                }
+            });
+
+            
+
+            // validate format
+            function isValidDate(dateString) {
+                var regex = /^\d{2}-\d{2}-\d{4}$/;
+                return regex.test(dateString);
+            }
+
+            //validate current date
+            function isDateValid(dateString) {
+                var parts = dateString.split("-");
+                var dateObject = new Date(parts[2], parts[1] - 1, parts[0]);
+                return dateObject >= currentDate;
+            }      
+
             // Delegación de eventos para el botón "Agregar Respuesta"
             $("#questions").on("click", ".addAnswer", function() {
-                var newAnswer = '<input type="text" class="field" name="answer" placeholder="Respuesta" required>';
-                $(this).siblings(".moreAnswer").append(newAnswer);
-                updateDeleteAnswerButton($(this).siblings(".moreAnswer"));
+                var questionContainer = $(this).closest(".question");
+                var answerContainer = questionContainer.find(".moreAnswer");
+                var questionIndex = $(".question").index(questionContainer);
+                var newAnswer = '<input type="text" class="field" name="answers[' + questionIndex + '][]" placeholder="Respuesta" required>';
+                answerContainer.append(newAnswer);
+                updateDeleteAnswerButton(answerContainer);
                 
             });
 
             $("#questions").on("click", ".deleteAnswer", function() {
-                var moreAnswerContainer = $(this).siblings(".moreAnswer");
-                moreAnswerContainer.children("input:last").remove();
-                updateDeleteAnswerButton(moreAnswerContainer);
+                var questionContainer = $(this).closest(".question");
+                var answerContainer = questionContainer.find(".moreAnswer");
+                answerContainer.children("input:last").remove();
+                updateDeleteAnswerButton(answerContainer);
             });
 
          
             $("#addQuestion").on("click", function() {
-                var countQuestion = $(".question").length + 1;
-                var newQuestion = $("#questions .question:first").clone();
-                newQuestion.find("textarea").attr("name", "question" + countQuestion).attr("id", "question" + countQuestion).attr("placeholder", "Pregunta" + countQuestion).val("");
+                var countQuestion = $(".question").length-1;
+                var newQuestion = $(".question:first").clone();
+                newQuestion.find("textarea").attr("name", "questions[" + countQuestion + "]").attr("id", "question" + countQuestion).attr("placeholder", "Pregunta").val("");
+                newQuestion.find("input").attr("name", "answers[" + countQuestion + "][]")
                 newQuestion.find(".moreAnswer").empty();
-                countQuestion++;
+                countQuestion--;
+                
 
                 $("#questions").append(newQuestion);
                 initializeDeleteAnswerButton();
