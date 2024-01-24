@@ -46,17 +46,22 @@ try {
                 $mobilePrefix = ltrim($_POST['mobilePrefix'], '+');
 
                 if (empty(trim($userName))) {
-                    echo "El nombre de usuario es requerido.";
+                    header('Location: register.php');
+                    echo "  <script>  
+                                setTimeout(function() {
+                                    addNotification('error', 'El nombre de usuario es requerido.');
+                                }, 0);
+                            </script>";
                     exit;
                 }
 
                 if (trim($password) != trim($confirmPassword)) {
-                    echo "La contraseña es requerida.";
+                    echo "<script>addNotification('error', 'La contraseña es requerida.');</script>";
                     exit;
                 }
 
                 if ($password != $confirmPassword) {
-                    echo "Las contraseñas no coinciden.";
+                    echo "<script>addNotification('error', 'Las contraseñas no coinciden.');</script>";
                     exit;
                 }
 
@@ -64,6 +69,7 @@ try {
 
                 if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
                     echo "El correo electrónico no es válido.";
+                    echo "<script>addNotification('error', 'El correo electrónico no es válido.');</script>";
                     exit;
                 }
 
@@ -71,7 +77,7 @@ try {
                 $query->execute([$email]);
 
                 if ($query->fetchColumn() > 0) {
-                    echo "El correo electrónico ya está en uso.";
+                    echo "<script>addNotification('error', 'Ya hay un usuario con este correo electrónico.');</script>";
                     exit;
                 }
 
@@ -87,29 +93,31 @@ try {
                     }
                 }
                 if (!$countryFound) {
-                    echo "El país no es válido.";
+                    echo "<script>addNotification('error', 'Selecciona un país de las opciones');</script>";
                     exit;
                 }
 
                 $mobilePrefix = intval(ltrim($mobilePrefix, '+'));
 
                 if ($countryPrefix != $mobilePrefix) {
-                    echo "El prefijo del móvil no corresponde al país seleccionado.";
+                    echo "<script>addNotification('error', 'El prefijo del móvil no corresponde al país seleccionado.');</script>";
                     exit;
                 }
 
                 if (empty(trim($city))) {
                     echo "La ciudad es requerida.";
+                    echo "<script>addNotification('error', 'El campo 'ciudad' es requerido.');</script>";
                     exit;
                 }
 
                 if (!ctype_digit($postalCode) || strlen($postalCode) != 5) {
-                    echo "El código postal debe ser un número entero de 5 dígitos.";
+                    echo "<script>addNotification('error', 'El código postal debe ser un número entero de 5 dígitos.');</script>";
                     exit;
                 }
 
                 if (!ctype_digit($mobile) || strlen($mobile) < 7 || strlen($mobile) > 15) {
-                    echo "El número de teléfono debe ser un número entero de entre 7 y 15 dígitos.";
+                    echo "<script>addNotification('error', 'El número de teléfono debe ser un número entero de entre 7 y 15 dígitos.');</script>";
+                    header('Location: login.php');
                     exit;
                 }
 
@@ -120,14 +128,16 @@ try {
                 $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode]);
 
-                echo "Usuario registrado con éxito.";
+                echo "<script>addNotification('success', 'Usuario registrado con éxito.');</script>";
+                header('Location: login.php');
+                exit;
 
             } catch (PDOException $e) {
-                echo "Error al registrar el usuario: " . $e->getMessage();
+                echo "<script>addNotification('error', 'Error al registrar el usuario: " . $e->getMessage() . "');</script>";
                 exit;
             }
         } else {
-            echo "Todos los campos son requeridos.";
+            echo "<script>addNotification('error', 'Rellena todo el formulario!');</script>";
             exit;
         }
     }

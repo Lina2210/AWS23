@@ -446,6 +446,7 @@ footer .icon-github img {
  * -----------------------------------------------------*/
 #notification-container {
     margin: 0;
+    margin-right: 10px;
     padding: 0;
     position: fixed;
     bottom: 155px;
@@ -456,7 +457,7 @@ footer .icon-github img {
     overflow-y: auto;
 }
 #notification-container::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 #notification-container::-webkit-scrollbar-track {
@@ -464,7 +465,7 @@ footer .icon-github img {
 }
 
 #notification-container::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 20px;
     border: 2px solid transparent;
     background-clip: content-box;

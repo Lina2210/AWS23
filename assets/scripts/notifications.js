@@ -12,6 +12,8 @@ function addNotification(type, message) {
 
     notification.append(closeBtn);
     $('#notification-container').append(notification);
+
+    $('#notification-container').scrollTop($('#notification-container')[0].scrollHeight);
 }
 
 function removeNotification(type, message) {

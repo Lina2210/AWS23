@@ -100,6 +100,7 @@ $(function() {
                 }
             }
             if (validator($(this).prev('.field').val(), options)) {
+                addNotification('success', '¡' + placeholder + ' correcto!');
                 $(this).remove();
                 $(this).prev('.field').prop('disabled', true);
                 // Crear el siguiente div.input-container si el campo de entrada es valido
