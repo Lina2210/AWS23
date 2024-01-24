@@ -12,6 +12,8 @@ if (isset($_SESSION["user_name"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/images/dos.png" type="image/png">
     <link rel="stylesheet" href="./assets/styles/styles.css">
+    <script src="./assets/scripts/notifications.js"></script>
+    <script src="./assets/scripts/login.js"></script>
     <title>Iniciar Sesión</title>
 </head>
 
