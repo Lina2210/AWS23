@@ -1,12 +1,12 @@
 <?php
     session_start();
-    if (!isset($_SESSION["user_name"])) {
+    if (!isset($_SESSION["mail"])) {
         include("./error403.php");
         exit;
     }
 
     // Obtener el user_id a partir del user_name (correo electrónico)
-    $user_name = $_SESSION["user_name"];
+    $mail = $_SESSION["mail"];
     try {
         $hostname = "localhost";
         $dbname = "encuesta2";
@@ -18,8 +18,8 @@
         exit;
     }
 
-    $user_id_query = $pdo->prepare("SELECT user_id FROM User WHERE user_name = :user_name");
-    $user_id_query->bindParam(':user_name', $user_name);
+    $user_id_query = $pdo->prepare("SELECT user_id FROM User WHERE mail = :mail");
+    $user_id_query->bindParam(':mail', $mail);
     $user_id_query->execute();
     $user_id_result = $user_id_query->fetch(PDO::FETCH_ASSOC);
 
