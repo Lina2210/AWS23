@@ -343,7 +343,7 @@ footer .icon-github img {
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-.register-body div.input-container.invalid > input.field {
+.register-body div.input-container.invalid > .field {
     color: red;
 }
 .register-body div.input-container.invalid > button.continue-button {
@@ -373,7 +373,7 @@ footer .icon-github img {
     transition: background-color 0.5s ease, color 0.5s ease;
     outline: none;
 }
-.register-body input.field {
+.register-body .field {
     height: 100%;
     flex-grow: 1;
     padding: 0;
@@ -389,8 +389,8 @@ footer .icon-github img {
     font-weight: 400;
     line-height: 24px;
 }
-.register-body input.field:focus,
-.register-body select.field:focus {
+.register-body .field:focus,
+.register-body .field:focus {
     outline: none;
 }
 .register-body input[type="number"]::-webkit-inner-spin-button, 
@@ -426,4 +426,17 @@ footer .icon-github img {
 }
 .register-body button:disabled {
     cursor: not-allowed;
+}
+.register-body button:disabled:hover {
+    background-color: var(--dark-blue);
+    color: var(--light-blue);
+    border: 1px solid var(--light-blue);
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+.register-body select {
+    appearance: none; /* Elimina la flecha predeterminada en algunos navegadores */
+    -webkit-appearance: none; /* Elimina la flecha predeterminada en Chrome y Safari */
+    -moz-appearance: none; /* Elimina la flecha predeterminada en Firefox */
+    background: url('flecha.png') no-repeat right center; /* Añade tu propia flecha */
+    padding-right: 15px; /* Añade un poco de espacio a la derecha para que el texto no se superponga con la flecha */
 }

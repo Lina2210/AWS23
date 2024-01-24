@@ -35,7 +35,7 @@ $(function() {
                 select.focus();
             }, 0);
         } else if (type === 'tlfn') {
-            var select = $('<select class="field" id="' + id + 'Prefix" name="' + id + 'Prefix" required></select>');
+            var select = $('<select class="field" id="' + id + '-prefix" name="' + id + 'Prefix" required></select>');
 
             // Get the selected country prefix number
             var selectedCountryName = $('#country').val();
@@ -150,27 +150,27 @@ $(function() {
 
     // Funciones de validación
     function validateLength(value) {
-        return value.length > 0;
+        return value.trim().length > 0;
     }
 
     function validateConfirmPassword(confirmPassword) {
-        return confirmPassword === $('#password').val();
+        return confirmPassword.trim() === $('#password').val();
     }
 
     function validateEmail(email) {
         var regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-        return regex.test(email);
+        return regex.test(email.trim());
     }
 
     function validateCountry(country, countryOptions) {
-        return countryOptions.includes(country);
+        return countryOptions.includes(country.trim());
     }
 
     function validatePostalCode(postalCode) {
-        return /^\d{5}$/.test(postalCode);
+        return /^\d{5}$/.test(postalCode.trim());
     }
 
     function validateMobile(mobile) {
-        return /^\d{7,15}$/.test(mobile);
+        return /^\d{7,15}$/.test(mobile.trim());
     }
 });

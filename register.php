@@ -44,12 +44,12 @@ try {
                 $mobile = $_POST['mobile'];
                 $mobilePrefix = ltrim($_POST['mobilePrefix'], '+');
 
-                if (empty($userName)) {
+                if (empty(trim($userName))) {
                     echo "El nombre de usuario es requerido.";
                     exit;
                 }
 
-                if (empty($password)) {
+                if (trim($password) != trim($confirmPassword)) {
                     echo "La contraseña es requerida.";
                     exit;
                 }
@@ -59,9 +59,9 @@ try {
                     exit;
                 }
 
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $hashedPassword = hash('sha512', $password);
 
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
                     echo "El correo electrónico no es válido.";
                     exit;
                 }
@@ -70,7 +70,7 @@ try {
                 $countryPrefix = null;
                 $countryId = null;
                 foreach ($countryOptions as $option) {
-                    if ($option['country_name'] == $country) {
+                    if ($option['country_name'] == trim($country)) {
                         $countryFound = true;
                         $countryPrefix = $option['phone_prefix'];
                         $countryId = $option['country_id'];
@@ -89,7 +89,7 @@ try {
                     exit;
                 }
 
-                if (empty($city)) {
+                if (empty(trim($city))) {
                     echo "La ciudad es requerida.";
                     exit;
                 }
