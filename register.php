@@ -26,6 +26,7 @@ try {
 </head>
 
 <body class="register-body">
+
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (
@@ -46,30 +47,36 @@ try {
                 $mobilePrefix = ltrim($_POST['mobilePrefix'], '+');
 
                 if (empty(trim($userName))) {
-                    header('Location: register.php');
-                    echo "  <script>  
-                                setTimeout(function() {
-                                    addNotification('error', 'El nombre de usuario es requerido.');
-                                }, 0);
+                    echo "  <script>
+                                localStorage.setItem('error', 'El nombre de usuario es requerido.');
+                                window.location.href = 'register.php';
                             </script>";
                     exit;
                 }
 
                 if (trim($password) != trim($confirmPassword)) {
-                    echo "<script>addNotification('error', 'La contraseña es requerida.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'La contraseña es requerida.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
                 if ($password != $confirmPassword) {
-                    echo "<script>addNotification('error', 'Las contraseñas no coinciden.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'Las contraseñas no coinciden.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
                 $hashedPassword = hash('sha512', $password);
 
                 if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
-                    echo "El correo electrónico no es válido.";
-                    echo "<script>addNotification('error', 'El correo electrónico no es válido.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'El correo electrónico no es válido.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
@@ -77,7 +84,10 @@ try {
                 $query->execute([$email]);
 
                 if ($query->fetchColumn() > 0) {
-                    echo "<script>addNotification('error', 'Ya hay un usuario con este correo electrónico.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'Ya hay un usuario con este correo electrónico.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
@@ -93,31 +103,44 @@ try {
                     }
                 }
                 if (!$countryFound) {
-                    echo "<script>addNotification('error', 'Selecciona un país de las opciones');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'Selecciona un país de las opciones.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
                 $mobilePrefix = intval(ltrim($mobilePrefix, '+'));
 
                 if ($countryPrefix != $mobilePrefix) {
-                    echo "<script>addNotification('error', 'El prefijo del móvil no corresponde al país seleccionado.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'El prefijo del móvil no corresponde al país seleccionado.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
                 if (empty(trim($city))) {
-                    echo "La ciudad es requerida.";
-                    echo "<script>addNotification('error', 'El campo 'ciudad' es requerido.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'La ciudad es requerida.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
                 if (!ctype_digit($postalCode) || strlen($postalCode) != 5) {
-                    echo "<script>addNotification('error', 'El código postal debe ser un número entero de 5 dígitos.');</script>";
+                    echo "  <script>
+                                localStorage.setItem('error', 'El código postal debe ser un número entero de 5 dígitos.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
                 if (!ctype_digit($mobile) || strlen($mobile) < 7 || strlen($mobile) > 15) {
-                    echo "<script>addNotification('error', 'El número de teléfono debe ser un número entero de entre 7 y 15 dígitos.');</script>";
-                    header('Location: login.php');
+                    echo "  <script>
+                                localStorage.setItem('error', 'El número de teléfono debe ser un número entero de entre 7 y 15 dígitos.');
+                                window.location.href = 'register.php';
+                            </script>";
                     exit;
                 }
 
@@ -128,16 +151,24 @@ try {
                 $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode]);
 
-                echo "<script>addNotification('success', 'Usuario registrado con éxito.');</script>";
-                header('Location: login.php');
+                echo "  <script>
+                            localStorage.setItem('success', 'Usuario registrado con éxito.');
+                            window.location.href = 'register.php';
+                        </script>";
                 exit;
 
             } catch (PDOException $e) {
-                echo "<script>addNotification('error', 'Error al registrar el usuario: " . $e->getMessage() . "');</script>";
+                echo "  <script>
+                            localStorage.setItem('error', 'Error al registrar el usuario: " . $e->getMessage() . "');
+                            window.location.href = 'register.php';
+                        </script>";
                 exit;
             }
         } else {
-            echo "<script>addNotification('error', 'Rellena todo el formulario!');</script>";
+            echo "  <script>
+                        localStorage.setItem('error', 'Rellena todo el formulario!');
+                        window.location.href = 'register.php';
+                    </script>";
             exit;
         }
     }
