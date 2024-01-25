@@ -63,6 +63,26 @@ try {
                 }
 
                 if ($password != $confirmPassword) {
+                    
+                    /* Conseguir nuestra zona horaria para la fecha. */
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+
+                    /* Conseguir la fecha. */
+                    $dataSinCambiar = date("l jS \of F Y h:i:s A", time(), $tz);
+
+                    /* Cambiar los espacios de la fecha. */
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+
+                    /* Nombre del archivo. */
+                    $nombreArchivo = "errorLog-$dataReal";
+                    
+                    /* Indicamos el error. */
+                    $informacionError = "Error: Las contraseñas no coinciden. Hora del error:" . $dataSinCambiar . ". Error realizado por: ";
+
+                    /* Ponemos el error en el archivo. */
+                    file_put_contents($nombreArchivo, $informacionError);  
+
                     echo "  <script>
                                 localStorage.setItem('error', 'Las contraseñas no coinciden.');
                                 window.location.href = 'register.php';
