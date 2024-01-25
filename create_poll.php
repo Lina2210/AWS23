@@ -50,7 +50,6 @@ $user_id = $user_id_result["user_id"];
 </head>
 
 <body class="createPoll-body">
-    <h1>Crear Encuesta</h1>
     <?php
     include("./templates/header.php");
     ?>

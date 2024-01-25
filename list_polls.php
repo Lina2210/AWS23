@@ -14,7 +14,7 @@ if (!isset($_SESSION["mail"])) {
     <link rel="stylesheet" href="./assets/styles/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/scripts/notifications.js"></script>
-    <script src="./assets/scripts/create_poll.js"></script>
+    <script src="./assets/scripts/list_polls.js"></script>
     <title>List polls</title>
     <style>
         .listPolls-body {
