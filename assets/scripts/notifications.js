@@ -25,6 +25,10 @@ function removeNotification(type, message) {
     });
 }
 
-// Ejemplo de uso
-addNotification('success', '¡Usuario creado con éxito!');
-addNotification('error', 'Error al crear el usuario.');
+function checkAndNotify(key, type) {
+    var message = localStorage.getItem(key);
+    if (message) {
+        addNotification(type, message);
+        localStorage.removeItem(key);
+    }
+}

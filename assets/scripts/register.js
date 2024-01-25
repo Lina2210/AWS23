@@ -6,11 +6,8 @@ $(function() {
     $('body').append(main);
 
     // Comprobar si hay un mensaje de error en el Local Storage
-    var error = localStorage.getItem('error');
-    if (error) {
-        addNotification('error', error);
-        localStorage.removeItem('error');  // Elimina el mensaje de error del Local Storage
-    }
+    checkAndNotify('error', 'error');
+
 
     createInputContainer('userName', 'text', 'Nombre', validateLength);
 
