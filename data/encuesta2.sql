@@ -87,10 +87,6 @@ FOREIGN KEY (survey_id)
 ALTER TABLE `User` ADD CONSTRAINT FK_User_Country
 FOREIGN KEY (country_id)
     REFERENCES Country (country_id);
-    
--- Insertar datos en la tabla User
---INSERT INTO `User` (`user_name`, `mail`, `password`, `tlfn`, `country_id`, `city`, `postal_code`) VALUES
---('encuesta2', 'encuesta2@gmail.com', '123', 666666666, 1, 'Sevilla', 08940);
 
 -- Insertar datos en la tabla Country
 INSERT INTO `Country` (`country_name`, `phone_prefix`) VALUES
