@@ -263,7 +263,7 @@ footer .icon-github img {
 /* -----------------------------------------------------
  * Dashboard page
  * -----------------------------------------------------*/
-.dashboard-body h1 {
+.dashboard-body .title {
     font-size: 130px;
     color: #C1E8FF;
     text-align: center;

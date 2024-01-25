@@ -40,7 +40,7 @@ if (isset($_SESSION["user_name"])) {
             $userEmail = $_POST['email'];
             $userpass = $_POST['password'];
 
-            $query = $pdo->prepare("SELECT user_name FROM User WHERE mail = ? AND password=SHA2(?, 512)");
+            $query = $pdo->prepare("SELECT user_name, mail FROM User WHERE mail = ? AND password=SHA2(?, 512)");
             $query->bindParam(1, $userEmail, PDO::PARAM_STR);
             $query->bindParam(2, $userpass, PDO::PARAM_STR);
             $query->execute();
@@ -64,6 +64,7 @@ if (isset($_SESSION["user_name"])) {
                         </script>";
             } else {
                 $_SESSION["user_name"] = $row["user_name"];
+                $_SESSION["mail"] = $row["mail"];
                 echo "  <script>
                             localStorage.setItem('success', '¡Has iniciado sesión! Hola " . $_SESSION["user_name"] . "');
                             window.location.href = 'dashboard.php';
@@ -73,7 +74,7 @@ if (isset($_SESSION["user_name"])) {
         ?>
         <form action="login.php" method="post">
             <label for="email">E-Mail</label>
-            <input class="field" type="email" name="email" required>
+            <input class="field" type="email" name="email" autocomplete="off" required>
             <label for="password">Contraseña</label>
             <input class="field" type="password" name="password" required>
             <input type="submit" value="ENTRAR">
