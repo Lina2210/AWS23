@@ -16,65 +16,6 @@ if (!isset($_SESSION["mail"])) {
     <script src="./assets/scripts/notifications.js"></script>
     <script src="./assets/scripts/list_polls.js"></script>
     <title>List polls</title>
-    <style>
-        .listPolls-body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .listPolls-body .main-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 50px 0 100px 0;
-
-        }
-
-        .listPolls-body .main-content table {
-            border-collapse: collapse;
-            width: 50%;
-            margin-bottom: 20px;
-        }
-
-        .listPolls-body .main-content th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .listPolls-body .main-content th.name-column {
-            width: 50%;
-        }
-
-        .listPolls-body .main-content th {
-            background-color: #f2f2f2;
-        }
-
-        .listPolls-body .main-content a {
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 100px;
-            text-decoration: none;
-            color: #C1E8FF;
-            border: 1px solid #C1E8FF;
-            border-radius: 10px;
-            padding-left: 40px;
-            padding-right: 40px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: 20px;
-            transition: background-color 0.5s;
-        }
-
-        .listPolls-body .main-content a:hover {
-            background-color: #C1E8FF;
-            color: #052659;
-        }
-    </style>
 
 <body class="listPolls-body">
     <?php
@@ -87,7 +28,7 @@ if (!isset($_SESSION["mail"])) {
 
         $servername = "localhost";
         $username = "encuesta2";
-        $password = "naranjasVerdes";
+        $password = "naranjasV3rdes#";
         $dbname = "encuesta2";
 
         try {

@@ -19,10 +19,10 @@ if (isset($_SESSION["user_name"])) {
 </head>
 
 <body class="login-body">
-    <h1>INICIAR SESIÓN</h1>
-    <?php
-    include("./templates/header.php");
-    ?>
+    <h1>INICIAR SESIÓN</h1>    
+    
+    <?php include("./templates/header.php"); ?>
+
     <main class="main-content">
         <?php
         if (isset($_POST["email"]) && isset($_POST["password"])) {
@@ -30,7 +30,7 @@ if (isset($_SESSION["user_name"])) {
                 $hostname = "localhost";
                 $dbname = "encuesta2";
                 $username = "encuesta2";
-                $pw = "naranjasVerdes";
+                $pw = "naranjasV3rdes#";
                 $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
             } catch (PDOException $e) {
 

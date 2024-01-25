@@ -12,7 +12,7 @@ try {
     $hostname = "localhost";
     $dbname = "encuesta2";
     $username = "encuesta2";
-    $pw = "naranjasVerdes";
+    $pw = "naranjasV3rdes#";
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
 } catch (PDOException $e) {
     echo "Failed to get DB handle: " . $e->getMessage() . "\n";
