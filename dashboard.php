@@ -28,6 +28,7 @@ if (!isset($_SESSION["user_name"])) {
         <a href="createQuestion.php">CREAR ENCUESTA</a>
         <a href="list_polls.php">VER ENCUESTAS</a>
     </nav>
+    <ul id="notification-container"></ul>
     <?php
     include("./templates/footer.php");
     ?>

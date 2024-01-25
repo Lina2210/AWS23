@@ -254,6 +254,7 @@ $user_id = $user_id_result["user_id"];
             }
         });
     </script>
+    <ul id="notification-container"></ul>
     <?php
     include("./templates/footer.php");
     ?>

@@ -141,6 +141,7 @@ if (!isset($_SESSION["mail"])) {
         <a href="dashboard.php">Atras</a>
 
     </main>
+    <ul id="notification-container"></ul>
     <?php
     include("./templates/footer.php");
     ?>
