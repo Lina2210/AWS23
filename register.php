@@ -153,7 +153,7 @@ try {
 
                 echo "  <script>
                             localStorage.setItem('success', 'Usuario registrado con éxito.');
-                            window.location.href = 'register.php';
+                            window.location.href = 'login.php';
                         </script>";
                 exit;
 

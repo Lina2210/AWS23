@@ -12,6 +12,7 @@ if (isset($_SESSION["user_name"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/images/dos.png" type="image/png">
     <link rel="stylesheet" href="./assets/styles/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/scripts/notifications.js"></script>
     <script src="./assets/scripts/login.js"></script>
     <title>Iniciar Sesión</title>
@@ -48,15 +49,25 @@ if (isset($_SESSION["user_name"])) {
             $e = $query->errorInfo();
             if ($e[0] != '00000') {
                 echo "\nPDO::errorInfo():\n";
+                echo "  <script>
+                            localStorage.setItem('error', 'PDO::errorInfo()');
+                            window.location.href = 'login.php';
+                        </script>";
                 die("Error accedint a dades: " . $e[2]);
             }
 
             $row = $query->fetch();
             if (!$row) {
-                echo "<h2 class='feedback'>Credenciales Invalidas</h2>";
+                echo "  <script>
+                            localStorage.setItem('error', 'Credenciales Invalidas.');
+                            window.location.href = 'login.php';
+                        </script>";
             } else {
                 $_SESSION["user_name"] = $row["user_name"];
-                header("Location: dashboard.php");
+                echo "  <script>
+                            localStorage.setItem('success', '¡Has iniciado sesión! Hola " . $_SESSION["user_name"] . "');
+                            window.location.href = 'dashboard.php';
+                        </script>";
             }
         }
         ?>
@@ -68,6 +79,7 @@ if (isset($_SESSION["user_name"])) {
             <input type="submit" value="ENTRAR">
         </form>
     </main>
+    <ul id="notification-container"></ul>
     <?php
     include("./templates/footer.php");
     ?>
