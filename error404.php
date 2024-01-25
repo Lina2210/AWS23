@@ -10,7 +10,6 @@ http_response_code(404);
     <title>Error 404</title>
 </head>
 <body class="body-error">
-    <p>a</p>
     <?php
         include("./templates/header.php");
     ?>
