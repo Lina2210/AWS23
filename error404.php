@@ -13,7 +13,7 @@ http_response_code(404);
     <?php
         include("./templates/header.php");
     ?>
-    <h1>Error 404. Página no encontrada</h1>
+    <h1 class="title">Error 404. Página no encontrada</h1>
     <p class="number">404</p>
     <?php
         include("./templates/footer.php");

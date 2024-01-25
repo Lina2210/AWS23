@@ -14,7 +14,7 @@ header('HTTP/1.0 403 Forbidden');
     <?php
         include("./templates/header.php");
     ?>
-    <h1>Error 403. Permiso denegado</h1>
+    <h1 class="title">Error 403. Permiso denegado</h1>
     <p class="number">403</p>
     <?php
         include("./templates/footer.php");

@@ -243,7 +243,7 @@ footer .icon-github img {
 /* -----------------------------------------------------
  * Errors page
  * -----------------------------------------------------*/
-.body-error h1 {
+.body-error .title {
     margin-bottom: 10px;
     font-weight: bold;
     font-size: 130px;
