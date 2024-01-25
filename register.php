@@ -151,9 +151,16 @@ try {
                 $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode]);
 
+                // el usuario se ha creado correctamente
+
+                // formulario de auto envio para validar el correo
+                echo "<form id='auto-form' action='validate_email.php' method='post'>";
+                echo "      <input type='hidden' name='email' value='".$email."'>";
+                echo "</form>";
+
+                // Seleccionar el formulario y enviarlo automáticamente
                 echo "  <script>
-                            localStorage.setItem('success', 'Usuario registrado con éxito.');
-                            window.location.href = 'login.php';
+                            document.getElementById('formulario').submit();
                         </script>";
                 exit;
 
