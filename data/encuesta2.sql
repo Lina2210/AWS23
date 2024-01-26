@@ -12,7 +12,9 @@ CREATE TABLE `User` (
   `tlfn` bigint NOT NULL,
   `country_id` int NOT NULL,
   `city` varchar(255) NOT NULL,
-  `postal_code` int NOT NULL
+  `postal_code` int NOT NULL,
+  `email_token` varchar(255),
+  `terms_of_use` BOOLEAN NOT NULL
 );
 
 CREATE TABLE `Survey` (

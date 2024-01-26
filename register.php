@@ -147,20 +147,22 @@ try {
                 $mobile = intval($mobilePrefix . $mobile);
                 $postalCode = intval($postalCode);
                 $countryId = intval($countryId);
+                $token = bin2hex(random_bytes(32 / 2));
 
-                $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode]);
+                $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, verified_mail, terms_of_use) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0]);
 
                 // el usuario se ha creado correctamente
 
                 // formulario de auto envio para validar el correo
                 echo "<form id='auto-form' action='validate_email.php' method='post'>";
                 echo "      <input type='hidden' name='email' value='".$email."'>";
+                echo "      <input type='hidden' name='token' value='".$token."'>";
                 echo "</form>";
 
                 // Seleccionar el formulario y enviarlo automáticamente
                 echo "  <script>
-                            document.getElementById('formulario').submit();
+                            document.getElementById('auto-form').submit();
                         </script>";
                 exit;
 
