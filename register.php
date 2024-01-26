@@ -149,8 +149,8 @@ try {
                 $countryId = intval($countryId);
                 $token = bin2hex(random_bytes(32 / 2));
 
-                $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, verified_mail, terms_of_use) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0]);
+                $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0]);
 
                 // el usuario se ha creado correctamente
 
