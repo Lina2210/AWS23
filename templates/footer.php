@@ -1,4 +1,3 @@
-<!-- ens apareix la informació de contacte dels autors del projecte + link "Institut esteve terrades" + link github. -->
 <footer>
     <ul>
         <li><img src="/assets/images/email-icon.svg">Lina Ramírez - lramirezhernandez.cf@iesesteveterradas.cat</li>

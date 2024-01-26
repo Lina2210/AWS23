@@ -132,7 +132,7 @@ footer .icon-github img {
     height: 50px;
     width: auto;
 }
-.login-body footer, .dashboard-body footer, .register-body footer {
+.login-body footer, .dashboard-body footer {
     position: absolute;
     bottom: 0px;
 }
@@ -724,4 +724,15 @@ td {
 .listPolls-body .main-content a:hover {
     background-color: #C1E8FF;
     color: #052659;
+}
+/* ----------------------------------------------------- */
+/* CHECK_YOUR_EMAIL.PHP */
+/* ----------------------------------------------------- */
+.body-check-email .title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 130px;
+    color: #C1E8FF;
+    width: 100%;
+    text-align: center;
 }

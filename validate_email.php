@@ -3,9 +3,9 @@ require_once("./data/dbAccess.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_POST['token'])) {
     $link = "https://aws23.ieti.site/validate_email.php?token=".$_POST['token'];
-    mail($_POST['email'], 'Verifica tu cuenta de encuesta2', 'Haz clic en el siguiente enlace para verificar tu cuenta de encuesta2: '.$link);
-    // include de the hemos enviado un correo para verificar tu cuenta
-    echo "te hemos enviado un correo para verificar tu cuenta";
+    mail($_POST['email'], 'Verifica tu cuenta de encuesta2', 'No respondas a este mensaje. Haz clic en el siguiente enlace para verificar tu cuenta de encuesta2: '.$link);
+    // include de te hemos enviado un correo para verificar tu cuenta
+    include("./templates/check_your_email.php");
 }
 elseif (isset($_GET["token"]) && $_GET["token"] != "ok") {
     try {
@@ -26,7 +26,7 @@ elseif (isset($_GET["token"]) && $_GET["token"] != "ok") {
 
         $row = $query->fetch();
         if (!$row) {
-            // token not found
+            // token not found in encuesta2 bd
             include("./error404.php");
             exit;
         } else {
