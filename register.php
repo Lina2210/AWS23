@@ -47,6 +47,16 @@ try {
                 $mobilePrefix = ltrim($_POST['mobilePrefix'], '+');
 
                 if (empty(trim($userName))) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: El nombre de usuario es requerido. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'El nombre de usuario es requerido.');
                                 window.location.href = 'register.php';
@@ -55,6 +65,16 @@ try {
                 }
 
                 if (trim($password) != trim($confirmPassword)) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: No se puso contrasela. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'La contraseña es requerida.');
                                 window.location.href = 'register.php';
@@ -63,26 +83,16 @@ try {
                 }
 
                 if ($password != $confirmPassword) {
-                    
-                    /* Conseguir nuestra zona horaria para la fecha. */
                     $date = date_create(null, timezone_open("Europe/Paris"));
                     $tz = date_timezone_get($date);
-
-                    /* Conseguir la fecha. */
-                    $dataSinCambiar = date("l jS \of F Y h:i:s A", time(), $tz);
-
-                    /* Cambiar los espacios de la fecha. */
+                    $dataSinCambiar = date("d-m-Y");
                     $dataReal = str_replace(" ", "-", $dataSinCambiar);
-
-                    /* Nombre del archivo. */
-                    $nombreArchivo = "errorLog-$dataReal";
-                    
-                    /* Indicamos el error. */
-                    $informacionError = "Error: Las contraseñas no coinciden. Hora del error:" . $dataSinCambiar . ". Error realizado por: ";
-
-                    /* Ponemos el error en el archivo. */
-                    file_put_contents($nombreArchivo, $informacionError);  
-
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: Las contraseñas no coinciden. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FIL1E_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'Las contraseñas no coinciden.');
                                 window.location.href = 'register.php';
@@ -93,6 +103,16 @@ try {
                 $hashedPassword = hash('sha512', $password);
 
                 if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: El correo electrónico no es válido. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'El correo electrónico no es válido.');
                                 window.location.href = 'register.php';
@@ -104,6 +124,16 @@ try {
                 $query->execute([$email]);
 
                 if ($query->fetchColumn() > 0) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: Ya hay un usuario con este correo electrónico. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'Ya hay un usuario con este correo electrónico.');
                                 window.location.href = 'register.php';
@@ -120,9 +150,18 @@ try {
                         $countryPrefix = $option['phone_prefix'];
                         $countryId = $option['country_id'];
                         break;
-                    }
-                }
+                    }}
                 if (!$countryFound) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: No se seleccionó un país de las opciones. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'Selecciona un país de las opciones.');
                                 window.location.href = 'register.php';
@@ -133,6 +172,16 @@ try {
                 $mobilePrefix = intval(ltrim($mobilePrefix, '+'));
 
                 if ($countryPrefix != $mobilePrefix) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: El prefijo del móvil no corresponde al país seleccionado. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'El prefijo del móvil no corresponde al país seleccionado.');
                                 window.location.href = 'register.php';
@@ -141,6 +190,16 @@ try {
                 }
 
                 if (empty(trim($city))) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: No se seleccionó ciudad. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'La ciudad es requerida.');
                                 window.location.href = 'register.php';
@@ -149,6 +208,16 @@ try {
                 }
 
                 if (!ctype_digit($postalCode) || strlen($postalCode) != 5) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: El código postal no es correcto. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'El código postal debe ser un número entero de 5 dígitos.');
                                 window.location.href = 'register.php';
@@ -157,6 +226,16 @@ try {
                 }
 
                 if (!ctype_digit($mobile) || strlen($mobile) < 7 || strlen($mobile) > 15) {
+                    $date = date_create(null, timezone_open("Europe/Paris"));
+                    $tz = date_timezone_get($date);
+                    $dataSinCambiar = date("d-m-Y");
+                    $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                    echo "<h1>".$dataReal."</h1>";
+                    $carpetaArchivos = "logs/";
+                    if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                    $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                    $informacionError = "Error: El número de teléfono es erróneo. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'El número de teléfono debe ser un número entero de entre 7 y 15 dígitos.');
                                 window.location.href = 'register.php';
@@ -167,10 +246,8 @@ try {
                 $mobile = intval($mobilePrefix . $mobile);
                 $postalCode = intval($postalCode);
                 $countryId = intval($countryId);
-
                 $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode]);
-
                 echo "  <script>
                             localStorage.setItem('success', 'Usuario registrado con éxito.');
                             window.location.href = 'login.php';
@@ -178,6 +255,16 @@ try {
                 exit;
 
             } catch (PDOException $e) {
+                $date = date_create(null, timezone_open("Europe/Paris"));
+                $tz = date_timezone_get($date);
+                $dataSinCambiar = date("d-m-Y");
+                $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                echo "<h1>".$dataReal."</h1>";
+                $carpetaArchivos = "logs/";
+                if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                $informacionError = "Error: Error al registrar el usuario. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                 echo "  <script>
                             localStorage.setItem('error', 'Error al registrar el usuario: " . $e->getMessage() . "');
                             window.location.href = 'register.php';
@@ -185,6 +272,16 @@ try {
                 exit;
             }
         } else {
+            $date = date_create(null, timezone_open("Europe/Paris"));
+            $tz = date_timezone_get($date);
+            $dataSinCambiar = date("d-m-Y");
+            $dataReal = str_replace(" ", "-", $dataSinCambiar);
+            echo "<h1>".$dataReal."</h1>";
+            $carpetaArchivos = "logs/";
+            if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+            $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+            $informacionError = "Error: No se rellenó todo el formulario. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+            file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
             echo "  <script>
                         localStorage.setItem('error', 'Rellena todo el formulario!');
                         window.location.href = 'register.php';

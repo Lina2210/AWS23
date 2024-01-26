@@ -1,0 +1,11 @@
+Error: Las contraseñas no coinciden. Hora del error: 26-01-2024. Error realizado por: Miau@miau.miau.
+Error: Las contraseñas no coinciden. Hora del error: 26-01-2024. Error realizado por: prueba1@prueba1.com.
+Error: Las contraseñas no coinciden. Hora del error: 26-01-2024. Error realizado por: a@gmail.com.
+Error: Ya hay un usuario con este correo electrónico. Hora del error: 26-01-2024. Error realizado por: a@gmail.com.
+Error: No se pudo conectar a la base de datos. Hora del error: 26-01-2024. Error realizado por: .
+Error: Credenciales inválidas. Hora del error: 26-01-2024. Error realizado por: .
+Error: No se pudo conectar a la base de datos. Hora del error: 26-01-2024. Error realizado por: .
+Error: Ya hay un usuario con este correo electrónico. Hora del error: 26-01-2024. Error realizado por: claudiamoyamo@gmail.com.
+Error: No se pudo conectar a la base de datos. Hora del error: 26-01-2024. Error realizado por: .
+Acción:  ha iniciado sesión. Hora de la acción: 26-01-2024.
+Error: No se pudo acceder a los datos. Hora del error: 26-01-2024. Error realizado por: 5.
