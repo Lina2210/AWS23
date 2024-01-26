@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
     // include de the hemos enviado un correo para verificar tu cuenta
     echo "te hemos enviado un correo para verificar tu cuenta";
 }
-elseif (isset($_GET["token"])) {
+elseif (isset($_GET["token"]) && $_GET["token"] != "ok") {
     try {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
         $query = $pdo->prepare("SELECT email_token FROM User WHERE email_token = ?");
@@ -44,14 +44,8 @@ elseif (isset($_GET["token"])) {
                 die("Error accedint a dades: " . $e[2]);
             }
 
-            $row = $query->fetch();
-            if (!$row) {
-                // error al validar cuenta.
-                echo "<h1>error al validar la cuenta</h1>";
-            } else {
-                // include de has validado tu cuenta de encuesta2 con boton de ir al login
-                echo "<h1>has validado tu cuenta de encuesta2</h1>";
-            }
+            // include de has validado tu cuenta de encuesta2 con boton de ir al login
+            echo "<h1>has validado tu cuenta de encuesta2</h1>";
         }
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
