@@ -27,10 +27,7 @@ if (isset($_SESSION["user_name"])) {
         <?php
         if (isset($_POST["email"]) && isset($_POST["password"])) {
             try {
-                $hostname = "localhost";
-                $dbname = "encuesta2";
-                $username = "encuesta2";
-                $pw = "naranjasV3rdes#";
+                require_once("./data/dbAccess.php");
                 $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
             } catch (PDOException $e) {
 

@@ -45,7 +45,7 @@ elseif (isset($_GET["token"]) && $_GET["token"] != "ok") {
             }
 
             // include de has validado tu cuenta de encuesta2 con boton de ir al login
-            echo "<h1>has validado tu cuenta de encuesta2</h1>";
+            include("./templates/email_validation_ok.php");
         }
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";

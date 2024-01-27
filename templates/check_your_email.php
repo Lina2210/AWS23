@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/assets/styles/styles.css">
     <title>Mira Tu Correo</title>
 </head>
-<body class="body-check-email">
+<body class="body-email-validation">
     <?php
         include("./templates/header.php");
     ?>

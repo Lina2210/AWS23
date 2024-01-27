@@ -726,13 +726,33 @@ td {
     color: #052659;
 }
 /* ----------------------------------------------------- */
-/* CHECK_YOUR_EMAIL.PHP */
+/* CHECK_YOUR_EMAIL.PHP & email_validation_ok.php templates */
 /* ----------------------------------------------------- */
-.body-check-email .title {
+.body-email-validation .title {
     margin-bottom: 10px;
     font-weight: bold;
     font-size: 130px;
     color: #C1E8FF;
     width: 100%;
     text-align: center;
+}
+
+.body-email-validation .autocenter {
+    display: flex;
+    justify-content: center;
+}
+
+.body-email-validation .estandard-link {
+    text-decoration: none;
+    color: white;
+    background-color: #010914;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 50px;
+}
+
+.body-email-validation .estandard-link:hover {
+    border: 1px solid #C1E8FF;
 }
