@@ -8,8 +8,10 @@
         </p>
         <form id="terms-form" action="setCredentials.php" method="POST">
             <input type="checkbox">He leído, entendido y aceptado los <a href="">Términos y condiciones.</a>
-            <button id="accept" type="button" disabled>Aceptar</button>
-            <button id="decline" type="button">Rechazar</button>
+            <div class="buttons-container">
+                <button id="accept" type="button" disabled>Aceptar</button>
+                <button id="decline" type="button">Rechazar</button>
+            </div>
         </form>
     </div>
 </div>

@@ -783,9 +783,39 @@ TERMS_OF_USE.PHP
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
-
-.terms-container .terms-form {
-    display: inline;
+.terms-container a {
+    color: #C1E8FF;
+}
+.terms-container .buttons-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.terms-container button#accept {
+    border: none;
+    border-radius: 50px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+.terms-container button#accept:hover, .terms-container button#decline:hover {
+    border: 1px solid #C1E8FF;
+}
+.terms-container button#accept:disabled {
+    color: gray;
+    background-color: #275728;
+    cursor: not-allowed;
+    border: none;
+}
+.terms-container button#decline {
+    border: none;
+    border-radius: 50px;
+    padding: 10px 15px;
+    background-color: #f44336;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
 }
