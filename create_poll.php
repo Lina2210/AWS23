@@ -54,10 +54,7 @@ $user_id = $user_id_result["user_id"];
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             try {
-                $hostname = "localhost";
-                $dbname = "encuesta2";
-                $username = "encuesta2";
-                $pw = "naranjasVerdes";
+                require_once("./data/dbAccess.php");
                 $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
             } catch (PDOException $e) {
 
