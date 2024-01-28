@@ -75,6 +75,7 @@ if (isset($_SESSION["user_name"])) {
                     echo "  <script> checkTerms('$user_name', '$mail'); </script>";
 
                 } else {
+                    // inicio de sesion normal
                     $_SESSION["user_name"] = $row["user_name"];
                     $_SESSION["mail"] = $row["mail"];
                     echo "  <script>
