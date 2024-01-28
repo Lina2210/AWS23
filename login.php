@@ -60,19 +60,17 @@ if (isset($_SESSION["user_name"])) {
                             window.location.href = 'login.php';
                         </script>";
             } else {
-                $_SESSION["user_name"] = $row["user_name"];
-                $_SESSION["mail"] = $row["mail"];
-
                 if ($row["email_token"] !=  "ok") {
                     // cuenta no validada por email
                     echo "  <script>
                             localStorage.setItem('error', 'Debes validar tu cuenta. Comprueba tu email.');
                             window.location.href = 'login.php';
                         </script>";
-
                 }
                 echo "<h1>".$row["terms_of_use"]."</h1>";
                 /*
+                $_SESSION["user_name"] = $row["user_name"];
+                $_SESSION["mail"] = $row["mail"];
                 echo "  <script>
                             localStorage.setItem('success', '¡Has iniciado sesión! Hola " . $_SESSION["user_name"] . "');
                             window.location.href = 'dashboard.php';
