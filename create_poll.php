@@ -9,10 +9,7 @@ if (!isset($_SESSION["mail"])) {
 $mail = $_SESSION["mail"];
 file_put_contents('user_id_result.txt', print_r($mail, true));
 try {
-    $hostname = "localhost";
-    $dbname = "encuesta2";
-    $username = "encuesta2";
-    $pw = "naranjasV3rdes#";
+    require_once("./data/dbAccess.php");
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
 } catch (PDOException $e) {
     echo "Failed to get DB handle: " . $e->getMessage() . "\n";
