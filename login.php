@@ -37,7 +37,7 @@ if (isset($_SESSION["user_name"])) {
             $userEmail = $_POST['email'];
             $userpass = $_POST['password'];
 
-            $query = $pdo->prepare("SELECT user_name, mail FROM User WHERE mail = ? AND password=SHA2(?, 512)");
+            $query = $pdo->prepare("SELECT user_name, mail, email_token, terms_of_use FROM User WHERE mail = ? AND password=SHA2(?, 512)");
             $query->bindParam(1, $userEmail, PDO::PARAM_STR);
             $query->bindParam(2, $userpass, PDO::PARAM_STR);
             $query->execute();
@@ -62,10 +62,21 @@ if (isset($_SESSION["user_name"])) {
             } else {
                 $_SESSION["user_name"] = $row["user_name"];
                 $_SESSION["mail"] = $row["mail"];
+
+                if ($row["email_token"] !=  "ok") {
+                    // cuenta no validada por email
+                    echo "  <script>
+                            localStorage.setItem('error', 'Debes validar tu cuenta. Comprueba tu email.');
+                            window.location.href = 'login.php';
+                        </script>";
+
+                }
+                echo "<h1>".$row["terms_of_use"]."</h1>";
+                /*
                 echo "  <script>
                             localStorage.setItem('success', '¡Has iniciado sesión! Hola " . $_SESSION["user_name"] . "');
                             window.location.href = 'dashboard.php';
-                        </script>";
+                        </script>";*/
             }
         }
         ?>
