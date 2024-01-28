@@ -63,13 +63,16 @@ if (isset($_SESSION["user_name"])) {
                 if ($row["email_token"] != "ok") {
                     // cuenta no validada por email
                     echo "  <script>
-                            localStorage.setItem('error', 'Debes validar tu cuenta. Comprueba tu email.');
-                            window.location.href = 'login.php';
-                        </script>";
+                                localStorage.setItem('error', 'Debes validar tu cuenta. Comprueba tu email.');
+                                window.location.href = 'login.php';
+                            </script>";
                 }
-                if (!$row["terms_of_use"]) {
+                elseif (!$row["terms_of_use"]) {
                     // mostrar bocadillo de aceptacion de terminos de uso
-                    
+                    include("./templates/terms_of_use.php");
+                    $user_name = htmlspecialchars($row['user_name']);
+                    $mail = htmlspecialchars($row['mail']);
+                    echo "  <script> checkTerms('$user_name', '$mail'); </script>";
 
                 } else {
                     $_SESSION["user_name"] = $row["user_name"];
