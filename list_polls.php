@@ -26,10 +26,7 @@ if (!isset($_SESSION["mail"])) {
         <?php
         $mail = $_SESSION["mail"];
 
-        $servername = "localhost";
-        $username = "encuesta2";
-        $password = "naranjasV3rdes#";
-        $dbname = "encuesta2";
+        require_once("./data/dbAccess.php");
 
         try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -44,7 +41,7 @@ if (!isset($_SESSION["mail"])) {
             if ($user_id_result) {
                 $user_id = $user_id_result["user_id"];
 
-                $survey_query = "SELECT title, state FROM Survey WHERE user_id = :user_id";
+                $survey_query = "SELECT title, state, survey_id FROM Survey WHERE user_id = :user_id";
                 $survey_statement = $conn->prepare($survey_query);
                 $survey_statement->bindParam(':user_id', $user_id);
                 $survey_statement->execute();
@@ -59,6 +56,10 @@ if (!isset($_SESSION["mail"])) {
                         echo "<td>" . $row["title"] . "</td>";
                         echo "<td>" . $row["state"] . "</td>";
                         echo "<td>Desbloqueada</td>"; // Campo adicional con valor por defecto
+                        echo "<form method='POST' action='/survey_invitation.php'>";
+                        echo "  <input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
+                        echo "  <input type='submit' value='Invitar'>";
+                        echo "</form>";
                         echo "</tr>";
                     }
 
