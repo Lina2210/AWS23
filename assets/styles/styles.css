@@ -768,12 +768,13 @@ TERMS_OF_USE.PHP
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 .terms-container .pop-up {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    text-align: center;
+    text-align: justify;
     background: #052659;
     padding: 20px;
     border: 3px solid #C1E8FF;
@@ -782,4 +783,9 @@ TERMS_OF_USE.PHP
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+}
+
+.terms-container .terms-form {
+    display: inline;
 }
