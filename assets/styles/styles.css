@@ -787,6 +787,9 @@ TERMS_OF_USE.PHP
 .terms-container a {
     color: #C1E8FF;
 }
+.terms-container #terms-form {
+    display: inline;
+}
 .terms-container .buttons-container {
     margin-top: 20px;
     display: flex;
