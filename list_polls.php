@@ -57,6 +57,7 @@ if (!isset($_SESSION["mail"])) {
                         echo "<td>Desbloqueada</td>"; // Campo adicional con valor por defecto
                         echo "<form method='POST' action='/survey_invitation.php'>";
                         echo "  <input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
+                        echo "  <input type='hidden' name='title' value='".$row["title"]."'>";
                         echo "  <input type='submit' value='Invitar'>";
                         echo "</form>";
                         echo "</tr>";

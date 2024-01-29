@@ -57,6 +57,11 @@ CREATE TABLE `UserSurveyAccess` (
   PRIMARY KEY (`user_id`, `survey_id`)
 );
 
+CREATE TABLE `SendEmailTo` (
+  `email` varchar(255) NOT NULL,
+  `survey_id` int NOT NULL
+);
+
 
 ALTER TABLE `Survey` ADD CONSTRAINT FK_Survey_User
 FOREIGN KEY (user_id)
