@@ -66,6 +66,7 @@ if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
         <button id="checkEmails" type="button">Enviar Invitaciones</button>
     </form>
 
+    <ul id="notification-container"></ul>
     <?php include("./templates/footer.php"); ?>
 </body>
 </html>
