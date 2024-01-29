@@ -5,32 +5,31 @@ if (isset($_POST["emails"])) {
     try {
         require_once("./data/dbAccess.php");
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
+
+        $emailsArray = explode("\n", $_POST["emails"]);
+
+        foreach ($emailsArray as $email) {
+            $query = $pdo->prepare("INSERT INTO SendEmailTo (email, survey_id) VALUES (?, ?)");
+            $query->bindParam(1, $email, PDO::PARAM_STR);
+            $query->bindParam(2, $_POST["survey_id"], PDO::PARAM_STR);
+            $query->execute();
+
+            //comprovo errors:
+            $e = $query->errorInfo();
+            if ($e[0] != '00000') {
+                echo "\nPDO::errorInfo():\n";
+                echo "  <script>
+                            localStorage.setItem('error', 'PDO::errorInfo()');
+                            window.location.href = 'list_polls.php';
+                        </script>";
+                die("Error accedint a dades: " . $e[2]);
+            }
+        }
     } catch (PDOException $e) {
 
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
     }
-
-
-    /* INSERT INTO SendEmailTo (email, survey_id) VALUES ('correo_ejemplo@example.com', 123);
-
-
-    $query = $pdo->prepare("SELECT user_name, mail, email_token, terms_of_use FROM User WHERE mail = ? AND password=SHA2(?, 512)");
-    $query->bindParam(1, $userEmail, PDO::PARAM_STR);
-    $query->bindParam(2, $userpass, PDO::PARAM_STR);
-    $query->execute();
-
-    //comprovo errors:
-    $e = $query->errorInfo();
-    if ($e[0] != '00000') {
-        echo "\nPDO::errorInfo():\n";
-        echo "  <script>
-                    localStorage.setItem('error', 'PDO::errorInfo()');
-                    window.location.href = 'login.php';
-                </script>";
-        die("Error accedint a dades: " . $e[2]);
-    }*/
-
 
     echo "  <script>
                 localStorage.setItem('success', 'Tus invitaciones han sido enviadas con éxito.');
@@ -57,7 +56,7 @@ if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
 <body>
     <?php include("./templates/header.php"); ?>
 
-    <h1>Invitar participantes a la encuesta "<?php $_POST["title"] ?>"</h1>
+    <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
     <p>Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
     <form id="sendMailsForm" action="survey_invitation.php" method="post">
         <label for="emails">Lista de emails invitados a la encuesta:</label>
