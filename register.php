@@ -73,7 +73,7 @@ try {
                     $carpetaArchivos = "logs/";
                     if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
                     $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                    $informacionError = "Error: No se puso contrasela. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                    $informacionError = "Error: No se puso contraseña. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
                     file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                     echo "  <script>
                                 localStorage.setItem('error', 'La contraseña es requerida.');
