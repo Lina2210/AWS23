@@ -144,7 +144,7 @@ try {
                     exit;
                 }
 
-                $mobile = intval($mobilePrefix . $mobile);
+                
                 $postalCode = intval($postalCode);
                 $countryId = intval($countryId);
 
