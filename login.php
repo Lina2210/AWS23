@@ -17,7 +17,7 @@
 </head>
 
     <body class="login-body">
-        INICIAR SESIÓN</h1>    
+        <h!>INICIAR SESIÓN</h1>    
         
         <?php include("./templates/header.php"); ?>
 
@@ -30,44 +30,43 @@
                 
             } catch (PDOException $e) {
                 $date = date_create(null, timezone_open("Europe/Paris"));
-                        $tz = date_timezone_get($date);
-                        $dataSinCambiar = date("d-m-Y");
-                        $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                        $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                        $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                        $informacionError = "Error: No se pudo conectar a la base de datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                $tz = date_timezone_get($date);
+                $dataSinCambiar = date("d-m-Y");
+                $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                $carpetaArchivos = "logs/";
+                if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                $informacionError = "Error: No se pudo conectar a la base de datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
                 echo "Failed to get DB handle: " . $e->getMessage() . "\n";
                 exit;
             }
             $userEmail = $_POST['email'];
             $userpass = $_POST['password'];
-
             $query = $pdo->prepare("SELECT user_name, mail, email_token, terms_of_use FROM User WHERE mail = ? AND password=SHA2(?, 512)");
             $query->bindParam(1, $userEmail, PDO::PARAM_STR);
             $query->bindParam(2, $userpass, PDO::PARAM_STR);
             $query->execute();
 
-                    // Comprovem errors:
-                    $e = $query->errorInfo();
-                    if ($e[0] != '00000') {
-                        $date = date_create(null, timezone_open("Europe/Paris"));
-                        $tz = date_timezone_get($date);
-                        $dataSinCambiar = date("d-m-Y");
-                        $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                        $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                        $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                        $informacionError = "Error: No se pudo acceder a los datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $user_name . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
-                        echo "\nPDO::errorInfo():\n";
-                        echo "  <script>
-                                    localStorage.setItem('error', 'PDO::errorInfo()');
-                                    window.location.href = 'login.php';
-                                </script>";
-                        die("Error accediendo a los datos: " . $e[2]);
-                    }
+            // Comprovem errors:
+            $e = $query->errorInfo();
+            if ($e[0] != '00000') {
+                $date = date_create(null, timezone_open("Europe/Paris"));
+                $tz = date_timezone_get($date);
+                $dataSinCambiar = date("d-m-Y");
+                $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                $carpetaArchivos = "logs/";
+                if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                $informacionError = "Error: No se pudo acceder a los datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $user_name . ".\n";
+                file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                echo "\nPDO::errorInfo():\n";
+                echo "  <script>
+                            localStorage.setItem('error', 'PDO::errorInfo()');
+                            window.location.href = 'login.php';
+                        </script>";
+                die("Error accediendo a los datos: " . $e[2]);
+            }
 
             $row = $query->fetch();
             if (!$row) {
@@ -113,7 +112,7 @@
                     $_SESSION["user_name"] = $row["user_name"];
                     $_SESSION["mail"] = $row["mail"];
                     echo "  <script>
-                                localStorage.setItem('success', '¡Has iniciado sesión! Hola " . $_SESSION["user_name"] . "');
+                                localStorage.setItem('success', '¡Has iniciado sesión! Hola, " . $_SESSION["user_name"] . "');
                                 window.location.href = 'dashboard.php';
                             </script>";
                 }
