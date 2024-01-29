@@ -1,7 +1,8 @@
 <?php
 // INVITACIONS: enviament d'invitacions per llista d'emails. Els destinataris reben un link per a votar en una enquesta concreta. 
 // Els emails s'envien en diferit en un procés del CRON, en paquets de 5 emails cada 5 min per no ser detectats com a Spam.
-if (isset($_POST["emails"])) {
+if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
+    // COMPROBAR QUE FUNCIONA EN PROXMOX
     try {
         require_once("./data/dbAccess.php");
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
