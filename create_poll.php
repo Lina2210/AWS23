@@ -34,21 +34,14 @@ try {
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="robots" content="noindex, nofollow">
-        <meta name="keywords" content="encuesta2, votación en línea, votación, encuestas, elecciones, privacidad, seguridad">
-        <meta name="description" content="Plataforma de votación en línea comprometida con la privacidad y seguridad de los usuarios. Regístrate ahora y participa en encuestas y elecciones de manera segura.">
-        <meta property="og:title" content="encuesta2">
-        <meta property="og:description" content="Plataforma de votación en línea comprometida con la privacidad y seguridad de los usuarios. Regístrate ahora y participa en encuestas y elecciones de manera segura.">
-        <meta property="og:image" content="assets/images/logo2.png">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="author" content="Isaac Furió, Lina Ramírez, Eric Escrich i Claudia Moyano">
         <link rel="icon" href="./assets/images/dos.png" type="image/png">
         <link rel="stylesheet" href="./assets/styles/styles.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="./assets/scripts/notifications.js"></script>
         <script src="./assets/scripts/dashboard.js"></script>
-        <title>Panel de control  —  ENCUESTA2</title>
+        <title>Create Poll  —  ENCUESTA2</title>
     </head>
 
 <body class="createPoll-body">
@@ -84,46 +77,45 @@ try {
             $questions = $_POST["questions"];
             $answers = $_POST["answers"];
 
-                    if ($namePoll && $dateStart && $dateFinish && $questions && $answers) {
-                        $querySurvey = $pdo->prepare("INSERT INTO Survey (title, user_id, start_date, end_date, state, creation) 
-                            VALUES (?, ?, ?, ?, 'Activo', NOW())");
-                        $querySurvey->bindParam(1, $namePoll, PDO::PARAM_STR);
-                        $querySurvey->bindParam(2, $user_id, PDO::PARAM_INT);
-                        $querySurvey->bindParam(3, $dateStart, PDO::PARAM_STR);
-                        $querySurvey->bindParam(4, $dateFinish, PDO::PARAM_STR);
-                        $querySurvey->execute();
-                        $surveyId = $pdo->lastInsertId();
+            if ($namePoll && $dateStart && $dateFinish && $questions && $answers) {
+                $querySurvey = $pdo->prepare("INSERT INTO Survey (title, user_id, start_date, end_date, state, creation) VALUES (?, ?, ?, ?, 'Activo', NOW())");
+                $querySurvey->bindParam(1, $namePoll, PDO::PARAM_STR);
+                $querySurvey->bindParam(2, $user_id, PDO::PARAM_INT);
+                $querySurvey->bindParam(3, $dateStart, PDO::PARAM_STR);
+                $querySurvey->bindParam(4, $dateFinish, PDO::PARAM_STR);
+                $querySurvey->execute();
+                $surveyId = $pdo->lastInsertId();
 
-                        foreach ($questions as $questionIndex => $question) {
-                            file_put_contents('debug_log.txt', "Pregunta index: $questionIndex\n", FILE_APPEND);
-                            $queryQuestion = $pdo->prepare("INSERT INTO Question (questionText, survey_id) VALUES (?, ?)");
-                            $queryQuestion->bindParam(1, $question, PDO::PARAM_STR);
-                            $queryQuestion->bindParam(2, $surveyId, PDO::PARAM_INT);
-                            $queryQuestion->execute();
-                            $questionId = $pdo->lastInsertId();
+                foreach ($questions as $questionIndex => $question) {
+                    file_put_contents('debug_log.txt', "Pregunta index: $questionIndex\n", FILE_APPEND);
+                    $queryQuestion = $pdo->prepare("INSERT INTO Question (questionText, survey_id) VALUES (?, ?)");
+                    $queryQuestion->bindParam(1, $question, PDO::PARAM_STR);
+                    $queryQuestion->bindParam(2, $surveyId, PDO::PARAM_INT);
+                    $queryQuestion->execute();
+                    $questionId = $pdo->lastInsertId();
 
-                            foreach ($answers[$questionIndex] as $answer) {
-                                $queryAnswer = $pdo->prepare("INSERT INTO Answer (question_id, answer_text) VALUES (?, ?)");
-                                $queryAnswer->bindParam(1, $questionId, PDO::PARAM_INT);
-                                $queryAnswer->bindParam(2, $answer, PDO::PARAM_STR);
-                                $queryAnswer->execute();
-                            }}
-                        
-                        $date = date_create(null, timezone_open("Europe/Paris"));
-                        $tz = date_timezone_get($date);
-                        $dataSinCambiar = date("d-m-Y");
-                        $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                        $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                        $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                        $informacionError = "Acción: " . $user_id . " ha creado una encuesta. Hora de la acción: " . $dataSinCambiar . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
-                        echo "<script>
-                                localStorage.setItem('success', 'Encuesta creada correctamente.');
-                                window.location.href = 'list_polls.php';
-                            </script>";
-                        exit;
-                    } else { echo "<script>addNotification('warning', 'Error: Faltan datos en el formulario.');</script>"; }}
+                    foreach ($answers[$questionIndex] as $answer) {
+                        $queryAnswer = $pdo->prepare("INSERT INTO Answer (question_id, answer_text) VALUES (?, ?)");
+                        $queryAnswer->bindParam(1, $questionId, PDO::PARAM_INT);
+                        $queryAnswer->bindParam(2, $answer, PDO::PARAM_STR);
+                        $queryAnswer->execute();
+                    }}
+                
+                $date = date_create(null, timezone_open("Europe/Paris"));
+                $tz = date_timezone_get($date);
+                $dataSinCambiar = date("d-m-Y");
+                $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                $carpetaArchivos = "logs/";
+                if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                $informacionError = "Acción: " . $user_id . " ha creado una encuesta. Hora de la acción: " . $dataSinCambiar . ".\n";
+                file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                echo "<script>
+                        localStorage.setItem('success', 'Encuesta creada correctamente.');
+                        window.location.href = 'list_polls.php';
+                    </script>";
+                exit;
+            } else { echo "<script>addNotification('warning', 'Error: Faltan datos en el formulario.');</script>"; }}
             ?>
             <form method="post">
                 <input type="text" class="field" name="namePoll" placeholder="Nombre de la encuesta" required>
