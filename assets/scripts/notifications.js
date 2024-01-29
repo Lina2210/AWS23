@@ -11,15 +11,9 @@ function addNotification(type, message) {
         });
 
     notification.append(closeBtn);
+    $('#notification-container').append(notification);
 
-    var notificationContainer = $('#notification-container');
-    console.log(notificationContainer);
-    notificationContainer.append(notification);
-
-    if (notificationContainer[0].scrollHeight !== undefined) {
-        // Verifica si el scrollHeight está definido, lo que significa que la barra de desplazamiento existe
-        notificationContainer.scrollTop(notificationContainer[0].scrollHeight);
-    }
+    $('#notification-container').scrollTop($('#notification-container')[0].scrollHeight);
 }
 
 function removeNotification(type, message) {
