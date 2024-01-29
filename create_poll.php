@@ -5,19 +5,16 @@
         exit;
     }
 
-    // Obtener el "user_id" a partir del u"ser_name (correo electrónico).
-    $mail = $_SESSION["mail"];
-    file_put_contents('user_id_result.txt', print_r($mail, true));
-    try {
-        $hostname = "localhost";
-        $dbname = "encuesta2";
-        $username = "encuesta2";
-        $pw = "naranjasV3rdes#";
-        $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
-    } catch (PDOException $e) {
-        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
-        exit;
-    }
+// Obtener el user_id a partir del user_name (correo electrónico)
+$mail = $_SESSION["mail"];
+file_put_contents('user_id_result.txt', print_r($mail, true));
+try {
+    require_once("./data/dbAccess.php");
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
+} catch (PDOException $e) {
+    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+    exit;
+}
 
     $user_id_query = $pdo->prepare("SELECT user_id FROM User WHERE mail = :mail");
     $user_id_query->bindParam(':mail', $mail);
@@ -54,42 +51,38 @@
         <title>Panel de control  —  ENCUESTA2</title>
     </head>
 
-    <body class="createPoll-body">
-        
-    <?php include("./templates/header.php"); ?>
-        
-        <main class="main-content">
-            <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    try {
-                        $hostname = "localhost";
-                        $dbname = "encuesta2";
-                        $username = "encuesta2";
-                        $pw = "naranjasVerdes";
-                        $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
-                    } catch (PDOException $e) {
-                        $date = date_create(null, timezone_open("Europe/Paris"));
-                        $tz = date_timezone_get($date);
-                        $dataSinCambiar = date("d-m-Y");
-                        $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                        $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                        $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                        $informacionError = "Error: No se pudo acceder a los datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $user_id . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
-                        echo "  <script>
-                                    localStorage.setItem('error', 'Failed to get DB handle: " . $e->getMessage() . ");
-                                    window.location.href = 'login.php';
-                                </script>";
-                        exit;
-                    }
-
-                    file_put_contents('user_id_result.txt', print_r($user_id, true));
-                    $namePoll = $_POST["namePoll"];
-                    $dateStart = $_POST["dateStart"];
-                    $dateFinish = $_POST["dateFinish"];
-                    $questions = $_POST["questions"];
-                    $answers = $_POST["answers"];
+<body class="createPoll-body">
+    <?php
+    include("./templates/header.php");
+    ?>
+    <main class="main-content">
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            try {
+                require_once("./data/dbAccess.php");
+                $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
+            } catch (PDOException $e) {
+                $date = date_create(null, timezone_open("Europe/Paris"));
+                $tz = date_timezone_get($date);
+                $dataSinCambiar = date("d-m-Y");
+                $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                $carpetaArchivos = "logs/";
+                if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                $informacionError = "Error: No se pudo acceder a los datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $user_id . ".\n";
+                file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                echo "  <script>
+                                localStorage.setItem('error', 'Failed to get DB handle: " . $e->getMessage() . ");
+                                window.location.href = 'login.php';
+                            </script>";
+                exit;
+            }
+            file_put_contents('user_id_result.txt', print_r($user_id, true));
+            $namePoll = $_POST["namePoll"];
+            $dateStart = $_POST["dateStart"];
+            $dateFinish = $_POST["dateFinish"];
+            $questions = $_POST["questions"];
+            $answers = $_POST["answers"];
 
                     if ($namePoll && $dateStart && $dateFinish && $questions && $answers) {
                         $querySurvey = $pdo->prepare("INSERT INTO Survey (title, user_id, start_date, end_date, state, creation) 
