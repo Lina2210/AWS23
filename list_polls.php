@@ -26,9 +26,8 @@ if (!isset($_SESSION["mail"])) {
         <?php
         $mail = $_SESSION["mail"];
 
-        require_once("./data/dbAccess.php");
-
         try {
+            require_once("./data/dbAccess.php");
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
