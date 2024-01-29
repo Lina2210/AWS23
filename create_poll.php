@@ -175,15 +175,18 @@ try {
                         // Deshabilitar los días en la fecha de cierre si la fecha de inicio no está seleccionada.
                         $('input[name="dateFinish"]').attr('min', initDate);
                     } else {
-                        $date = date_create(null, timezone_open("Europe/Paris"));
-                        $tz = date_timezone_get($date);
-                        $dataSinCambiar = date("d-m-Y");
-                        $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                        $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                        $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                        $informacionError = "Error: La fecha de cierre es anterior a la actual. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $user_id . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                        <?php
+                            $date = date_create(null, timezone_open("Europe/Paris"));
+                            $tz = date_timezone_get($date);
+                            $dataSinCambiar = date("d-m-Y");
+                            $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                            $carpetaArchivos = "logs/";
+                            if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                            $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                            $informacionError = "Error: La fecha de cierre es anterior a la actual. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $user_id . ".\n";
+                            file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                        ?>
+                        
                         $('input[name="dateFinish"]').prop('disabled', true);
                         addNotification('warning', 'La fecha de inicio debe ser válida y no puede ser anterior a la fecha actual.');
                     }});
