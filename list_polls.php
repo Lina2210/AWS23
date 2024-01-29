@@ -24,6 +24,7 @@
         <script src="./assets/scripts/notifications.js"></script>
         <script src="./assets/scripts/list_polls.js"></script>
         <title>Encuestas  —  ENCUESTA2</title>
+    </head>
 
     <body class="listPolls-body">
         <?php include("./templates/header.php"); ?>

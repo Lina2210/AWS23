@@ -17,7 +17,7 @@
 </head>
 
     <body class="login-body">
-        <h!>INICIAR SESIÓN</h1>    
+        <h1>INICIAR SESIÓN</h1>    
         
         <?php include("./templates/header.php"); ?>
 
