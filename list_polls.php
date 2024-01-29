@@ -28,7 +28,7 @@ if (!isset($_SESSION["mail"])) {
 
         try {
             require_once("./data/dbAccess.php");
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $user_id_query = "SELECT user_id FROM User WHERE mail = :mail";
