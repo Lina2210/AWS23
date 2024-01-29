@@ -19,15 +19,10 @@ $query->execute();
 $e = $query->errorInfo();
 if ($e[0] != '00000') {
     echo "\nPDO::errorInfo():\n";
-    echo "  <script>
-                localStorage.setItem('error', 'PDO::errorInfo()');
-                window.location.href = 'login.php';
-            </script>";
     die("Error accedint a dades: " . $e[2]);
 }
 
-$row = $query->fetch();
-if ($row) {
-    file_put_contents("PRUEBA.txt");
+while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+    file_put_contents("PRUEBA.txt", json_encode(date("H:i:s") . $row) . PHP_EOL, FILE_APPEND);
 }
 ?>
