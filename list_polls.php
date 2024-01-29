@@ -64,7 +64,7 @@ if (!isset($_SESSION["mail"])) {
 
                     echo "</table>";
                 } else {
-                    echo "<script> setTimeout(addNotification('warning', 'No se encontraron encuestas para este usuario.'), 5000);</script>";
+                    echo "<script> $(function() {addNotification('warning', 'No se encontraron encuestas para este usuario.')};</script>";
                 }
             } else {
                 echo "  <script>
