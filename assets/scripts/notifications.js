@@ -13,6 +13,7 @@ function addNotification(type, message) {
     notification.append(closeBtn);
 
     var notificationContainer = $('#notification-container');
+    console.log(notificationContainer);
     notificationContainer.append(notification);
 
     if (notificationContainer[0].scrollHeight !== undefined) {
