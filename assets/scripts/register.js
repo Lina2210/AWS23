@@ -94,7 +94,7 @@ $(function() {
                 input.focus();
             }, 0);
         }      
-        console.log("input: " + input)
+        
         // Validar el campo de entrada cuando se haga clic en el boton
         input.on('keyup', function(e) {
             if (e.which === 13 || e.which === 9) {

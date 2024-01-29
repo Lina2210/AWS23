@@ -9,51 +9,148 @@
     <title>Document</title>
 </head>
 <body class="createPoll-body">
-    <h1>Crear encuesta</h1>
-    <script>
-        $(document).ready(function() {
-        var main = $('<main class="main-content"></main>');
-        var form = $('<form action="create_poll2.php" method="post"></form>');
-        main.append(form);
-        $('body').append(main);
 
-        var inputNamePoll = createInput("text", "namePoll", "Nombre de la encuesta");
-        form.append(inputNamePoll);
 
-        form.on('keydown', '.field', function(event) {
-            var $this = $(this);
-            if (event.which === 13 || event.which === 9) {
+<script>
+$(document).ready(function() {
+    // Variable para llevar el seguimiento del paso actual
+    var paso = 1;
+
+    // Crear campo para el nombre de la encuesta
+    function crearCampoNombre() {
+        var nombreEncuesta = $('<input id="nombreEncuesta" name="nombreEncuesta" type="text"  class="field" placeholder="Nombre de la encuesta" requered>');
+        $('#formulario').append(nombreEncuesta);
+        nombreEncuesta.focus();
+        nombreEncuesta.keypress(function(event) {
+            if (event.which === 13) {
                 event.preventDefault();
-                $this.trigger('blur');
+                validarNombreEncuesta();
             }
-        
-        });        
-        form.on('blur', '.field', function() {
-        var $this = $(this);
-        if ($this.val().trim() !== '') {
-            console.log('El campo está diligenciado.');
-            lDateStart = createLabel("dateStart", "Fecha de apertura")
-            iDateStart = createInput("date","dateStart")
-            form.append(lDateStart);
-            form.append(iDateStart);
+        });
+    }
+
+    // Validar el nombre de la encuesta
+    function validarNombreEncuesta() {
+        var nombre = $('#nombreEncuesta').val().trim();
+        if (nombre !== '') {
+            crearCampoFechaInicio();
+            paso++;
         } else {
-            console.log('El campo está vacío.');
-            // Aquí puedes realizar acciones adicionales si el campo está vacío
+            alert('Por favor ingrese un nombre para la encuesta.');
+        }
+    }
+
+    // Crear campo para la fecha de inicio
+    function crearCampoFechaInicio() {
+        var label = $('<label for="dateStart">Fecha de apertura</label>')
+        var fechaInicio = $('<input id="fechaInicio" name="fechaInicio" class="field" type="date"  requered>');
+        $('#formulario').append(label);
+        $('#formulario').append(fechaInicio);
+        fechaInicio.focus();
+        fechaInicio.keypress(function(event) {
+            if (event.which === 13) {
+                event.preventDefault();
+                validarFechaInicio();
+            }
+        });
+    }
+
+    // Validar la fecha de inicio
+    function validarFechaInicio() {
+        var fechaInicio = new Date($('#fechaInicio').val());
+        var fechaActual = new Date();
+        if (fechaInicio >= fechaActual) {
+            crearCampoFechaFin();
+            paso++;
+        } else {
+            alert('La fecha de inicio debe ser posterior o igual a la fecha actual.');
+        }
+    }
+
+    // Crear campo para la fecha final
+    function crearCampoFechaFin() {
+        var label = $('<label for="fechaFin">Fecha de apertura</label>')
+        var fechaFin = $('<input id="fechaFin" name="fechaFin" class="field" type="date" requered>');
+        $('#formulario').append(label);
+        $('#formulario').append(fechaFin);
+        fechaFin.focus();
+        fechaFin.keypress(function(event) {
+            if (event.which === 13) {
+                event.preventDefault();
+                validarFechaFin();
+            }
+        });
+    }
+
+    // Validar la fecha final
+    function validarFechaFin() {
+        var fechaInicio = new Date($('#fechaInicio').val());
+        var fechaFin = new Date($('#fechaFin').val());
+        if (fechaFin >= fechaInicio) {
+            crearCampoPregunta();
+            paso++;
+        } else {
+            alert('La fecha de fin debe ser posterior o igual a la fecha de inicio.');
+        }
+    }
+
+    // Crear campo para la pregunta
+    function crearCampoPregunta() {
+        var pregunta = $('<textarea id="pregunta" name="pregunta" class="question" cols="30" rows="10" placeholder="Pregunta" required></textarea>');
+        $('#formulario').append(pregunta);
+        pregunta.focus();
+        pregunta.keypress(function(event) {
+            if (event.which === 13) {
+                event.preventDefault();
+                validarPregunta();
+            }
+        });
+    }
+
+    // Validar la pregunta
+    function validarPregunta() {
+        var pregunta = $('#pregunta').val().trim();
+        if (pregunta !== '') {
+            crearCamposRespuestas();
+            paso++;
+        } else {
+            alert('Por favor ingrese una pregunta.');
+        }
+    }
+
+    // Crear campos para las respuestas
+    function crearCamposRespuestas() {
+        for (var i = 1; i <= 2; i++) {
+            var respuesta = $('<input id="respuesta' + i +'" type="text" name="respuesta' + i +'" class="field"  placeholder="Respuesta ' + i + '">');
+            var cargarImagen = $('<input id="respuesta' + i +'" type="file" class="imagen" accept="image/*">');
+            $('#formulario').append('<br>');
+            $('#formulario').append(respuesta);
+            $('#formulario').append(cargarImagen);
+        }
+        var enviar = $('<input type="submit" value="Enviar">');
+        $('#formulario').append('<br>');
+        $('#formulario').append(enviar);
+    }
+
+    // Evento para manejar el avance al siguiente paso
+    $('#formulario').on('keypress', '.respuesta', function(event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            if (paso === 4) {
+                // Se ha completado el formulario, podrías enviar los datos
+                alert('Formulario completado. Enviar datos...');
+            }
         }
     });
-        }); 
 
-    
+    // Iniciar creación del formulario
+    crearCampoNombre();
+});
+</script>
 
-    function createInput(iType, iName, iPlaceholder){ 
-        return $('<input type="'+ iType + '" class="field" "name="' + iName + '" placeholder="' + iPlaceholder +'" required></select>');
-    }
+<form id="formulario"></form>
 
-    function createLabel(lFor, lText){
-        return $('<label for="' + lFor +'">' + lText + '</label>')
-    }
-
-
-    </script>
 </body>
 </html>
+</html>
+
