@@ -7,7 +7,7 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
 
         $emailsArray = explode("\n", $_POST["emails"]);
-        $survey_id = intval($_POST["survey_id"]);
+        $survey_id = (int)$_POST["survey_id"];
 
         foreach ($emailsArray as $email) {
             $emailok = str_replace("\n", "", $email);
