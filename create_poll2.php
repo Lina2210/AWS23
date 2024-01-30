@@ -354,6 +354,7 @@ $user_id = $user_id_result["user_id"];
                 $('#enviar').remove();
                 paso = 5;
             }
+            
         });
 
             crearCampoNombre();
