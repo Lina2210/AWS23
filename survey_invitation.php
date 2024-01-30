@@ -9,7 +9,7 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
 
         $emailsArray = explode("\n", $_POST["emails"]);
 
-        foreach ($emailsArray as $email) {
+        /*foreach ($emailsArray as $email) {
             $query = $pdo->prepare("INSERT INTO SendEmailTo (email, survey_id) VALUES (?, ?)");
             $query->bindParam(1, $email, PDO::PARAM_STR);
             $query->bindParam(2, $_POST["survey_id"], PDO::PARAM_INT);
@@ -25,14 +25,14 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
                         </script>";
                 die("Error accedint a dades: " . $e[2]);
             }
-        }
+        }*/
     } catch (PDOException $e) {
 
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
     }
 
-    echo $emailsArray;
+    echo var_dump($emailsArray);
 
     /*echo "  <script>
                 localStorage.setItem('success', 'Tus invitaciones han sido enviadas con éxito.');
