@@ -2,16 +2,16 @@
 // INVITACIONS: enviament d'invitacions per llista d'emails. Els destinataris reben un link per a votar en una enquesta concreta. 
 // Els emails s'envien en diferit en un procés del CRON, en paquets de 5 emails cada 5 min per no ser detectats com a Spam.
 if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
-    // COMPROBAR QUE FUNCIONA EN PROXMOX
     try {
         require_once("./data/dbAccess.php");
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
 
         $emailsArray = explode("\n", $_POST["emails"]);
 
-        /*foreach ($emailsArray as $email) {
+        foreach ($emailsArray as $email) {
+            $emailok = str_replace("\n", "", $email);
             $query = $pdo->prepare("INSERT INTO SendEmailTo (email, survey_id) VALUES (?, ?)");
-            $query->bindParam(1, $email, PDO::PARAM_STR);
+            $query->bindParam(1, trim($emailok), PDO::PARAM_STR);
             $query->bindParam(2, $_POST["survey_id"], PDO::PARAM_INT);
             $query->execute();
 
@@ -25,19 +25,16 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
                         </script>";
                 die("Error accedint a dades: " . $e[2]);
             }
-        }*/
+        }
     } catch (PDOException $e) {
-
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
     }
 
-    echo var_dump($emailsArray);
-
-    /*echo "  <script>
+    echo "  <script>
                 localStorage.setItem('success', 'Tus invitaciones han sido enviadas con éxito.');
                 window.location.href = 'dashboard.php';
-            </script>";*/
+            </script>";
 }
 elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     include("./error403.php");
