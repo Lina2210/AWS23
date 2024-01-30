@@ -1,1 +1,4 @@
 Error: No se puso contrasela. Hora del error: 29-01-2024. Error realizado por: cd@gmail.com.
+Error: La fecha de cierre es anterior a la actual. Hora del error: 29-01-2024. Error realizado por: 1.
+Error: La fecha de cierre es anterior a la actual. Hora del error: 29-01-2024. Error realizado por: 1.
+Acción: 1 ha creado una encuesta. Hora de la acción: 29-01-2024.

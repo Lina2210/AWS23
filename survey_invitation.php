@@ -43,29 +43,29 @@ if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./assets/images/dos.png" type="image/png">
-    <link rel="stylesheet" href="./assets/styles/styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="./assets/scripts/notifications.js"></script>
-    <script src="./assets/scripts/survey_invitation.js"></script>
-    <title>Invitar a participantes</title>
-</head>
-<body>
-    <?php include("./templates/header.php"); ?>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="./assets/images/dos.png" type="image/png">
+        <link rel="stylesheet" href="./assets/styles/styles.css?no-cache=<?php echo time(); ?>">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="./assets/scripts/notifications.js"></script>
+        <script src="./assets/scripts/login.js"></script>
+        <title>Invitar a participantes</title>
+    </head>
+    <body>
+        <?php include("./templates/header.php"); ?>
 
-    <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
-    <p>Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
-    <form id="sendMailsForm" action="survey_invitation.php" method="post">
-        <label for="emails">Lista de emails invitados a la encuesta:</label>
-        <textarea id="emails" name="emails" rows="4" cols="50" required></textarea>
-        <input type="hidden" value="<?php $_POST["survey_id"] ?>">
-        <button id="checkEmails" type="button">Enviar Invitaciones</button>
-    </form>
+        <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
+        <p>Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
+        <form id="sendMailsForm" action="survey_invitation.php" method="post">
+            <label for="emails">Lista de emails invitados a la encuesta:</label>
+            <textarea id="emails" name="emails" rows="4" cols="50" required></textarea>
+            <input type="hidden" value="<?php $_POST["survey_id"] ?>">
+            <button id="checkEmails" type="button">Enviar invitaciones</button>
+        </form>
 
-    <ul id="notification-container"></ul>
-    <?php include("./templates/footer.php"); ?>
-</body>
+        <ul id="notification-container"></ul>
+        <?php include("./templates/footer.php"); ?>
+    </body>
 </html>
