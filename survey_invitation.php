@@ -12,7 +12,7 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
         foreach ($emailsArray as $email) {
             $query = $pdo->prepare("INSERT INTO SendEmailTo (email, survey_id) VALUES (?, ?)");
             $query->bindParam(1, $email, PDO::PARAM_STR);
-            $query->bindParam(2, $_POST["survey_id"], PDO::PARAM_STR);
+            $query->bindParam(2, $_POST["survey_id"], PDO::PARAM_INT);
             $query->execute();
 
             //comprovo errors:
@@ -57,7 +57,7 @@ elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
 <body>
     <?php include("./templates/header.php"); ?>
 
-    <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"] . $_POST["survey_id"]; ?>"</h1>
+    <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
     <p>Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
     <form id="sendMailsForm" action="survey_invitation.php" method="post">
         <label for="emails">Lista de emails invitados a la encuesta:</label>
