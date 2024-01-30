@@ -160,8 +160,7 @@ $user_id = $user_id_result["user_id"];
                 var initDate = $(this).val();
                 var parts = initDate.split("-");
                 var startDate = parts[2] + '-' + parts[1] + '-' + parts[0];
-                console.log(startDate)
-                console.log(initDate);
+                
                 if (isValidDate(startDate) && isDateValid(startDate)) {
                     $('input[name="dateFinish"]').prop('disabled', false);
                     //Disable days before selected date in dateStart in dateFinish

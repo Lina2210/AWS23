@@ -15,14 +15,37 @@
 $(document).ready(function() {
     // Variable para llevar el seguimiento del paso actual
     var paso = 1;
+    var respuestaCount = 0; 
+
+    $('#formulario').submit(function(event) {
+        event.preventDefault();
+        switch (paso) {
+            case 1:
+                validarNombreEncuesta();
+                break;
+            case 2:
+                validarFechaInicio();
+                break;
+            case 3:
+                validarFechaFin();
+                break;
+            case 4:
+                validarPregunta();
+                break;
+            case 5:
+                validarRespuesta();
+                break; 
+            
+        }
+    });
 
     // Crear campo para el nombre de la encuesta
     function crearCampoNombre() {
-        var nombreEncuesta = $('<input id="nombreEncuesta" name="nombreEncuesta" type="text"  class="field" placeholder="Nombre de la encuesta" requered>');
+        var nombreEncuesta = $('<input id="nombreEncuesta" name="nombreEncuesta" type="text"  class="field" placeholder="Nombre de la encuesta" required>');
         $('#formulario').append(nombreEncuesta);
         nombreEncuesta.focus();
-        nombreEncuesta.keypress(function(event) {
-            if (event.which === 13) {
+        nombreEncuesta.keydown(function(event) {
+            if (event.which === 13 || event.which === 9) {
                 event.preventDefault();
                 validarNombreEncuesta();
             }
@@ -42,13 +65,13 @@ $(document).ready(function() {
 
     // Crear campo para la fecha de inicio
     function crearCampoFechaInicio() {
-        var label = $('<label for="dateStart">Fecha de apertura</label>')
-        var fechaInicio = $('<input id="fechaInicio" name="fechaInicio" class="field" type="date"  requered>');
+        var label = $('<label for="dateStart">Fecha de apertura</label>');
+        var fechaInicio = $('<input id="fechaInicio" name="fechaInicio" class="field" type="date"  required>');
         $('#formulario').append(label);
         $('#formulario').append(fechaInicio);
         fechaInicio.focus();
-        fechaInicio.keypress(function(event) {
-            if (event.which === 13) {
+        fechaInicio.keydown(function(event) {
+            if (event.which === 13 || event.which === 9) {
                 event.preventDefault();
                 validarFechaInicio();
             }
@@ -69,13 +92,13 @@ $(document).ready(function() {
 
     // Crear campo para la fecha final
     function crearCampoFechaFin() {
-        var label = $('<label for="fechaFin">Fecha de apertura</label>')
-        var fechaFin = $('<input id="fechaFin" name="fechaFin" class="field" type="date" requered>');
+        var label = $('<label for="fechaFin">Fecha de finalización</label>');
+        var fechaFin = $('<input id="fechaFin" name="fechaFin" class="field" type="date" required>');
         $('#formulario').append(label);
         $('#formulario').append(fechaFin);
         fechaFin.focus();
-        fechaFin.keypress(function(event) {
-            if (event.which === 13) {
+        fechaFin.keydown(function(event) {
+            if (event.which === 13 || event.which === 9) {
                 event.preventDefault();
                 validarFechaFin();
             }
@@ -99,8 +122,8 @@ $(document).ready(function() {
         var pregunta = $('<textarea id="pregunta" name="pregunta" class="question" cols="30" rows="10" placeholder="Pregunta" required></textarea>');
         $('#formulario').append(pregunta);
         pregunta.focus();
-        pregunta.keypress(function(event) {
-            if (event.which === 13) {
+        pregunta.keydown(function(event) {
+            if (event.which === 13 || event.which === 9) {
                 event.preventDefault();
                 validarPregunta();
             }
@@ -120,37 +143,76 @@ $(document).ready(function() {
 
     // Crear campos para las respuestas
     function crearCamposRespuestas() {
-        for (var i = 1; i <= 2; i++) {
-            var respuesta = $('<input id="respuesta' + i +'" type="text" name="respuesta' + i +'" class="field"  placeholder="Respuesta ' + i + '">');
-            var cargarImagen = $('<input id="respuesta' + i +'" type="file" class="imagen" accept="image/*">');
-            $('#formulario').append('<br>');
-            $('#formulario').append(respuesta);
-            $('#formulario').append(cargarImagen);
-        }
-        var enviar = $('<input type="submit" value="Enviar">');
-        $('#formulario').append('<br>');
-        $('#formulario').append(enviar);
+        respuestaCount++; 
+        var respuesta = $('<input id="respuesta' + respuestaCount +'" type="text" name="respuesta' + respuestaCount +'" class="field respuesta"  placeholder="Respuesta ' + respuestaCount + '" required>');
+        var cargarImagen = $('<input name="imagen' + respuestaCount +'" type="file" class="imagen" accept="image/*" placeholder="Imagen respuesta ' + respuestaCount + '">');
+        $('#formulario').append(respuesta);
+        $('#formulario').append(cargarImagen);
+        respuesta.focus();
+        
+
+        respuesta.keydown(function(event) {
+            if (event.which === 13 || event.which === 9) {
+                event.preventDefault();
+                if (respuestaCount <= 1){
+                    crearCamposRespuestas();
+                }else {
+                    var respuestaActualValue = $(this).val().trim(); 
+                    if (respuestaActualValue !== '') {
+                        agregarBotonAgregarRespuesta();
+                        agregarSubmit();                            
+                    }
+                }
+
+            
+            }
+        })
+            
     }
 
-    // Evento para manejar el avance al siguiente paso
-    $('#formulario').on('keypress', '.respuesta', function(event) {
-        if (event.which === 13) {
-            event.preventDefault();
-            if (paso === 4) {
-                // Se ha completado el formulario, podrías enviar los datos
-                alert('Formulario completado. Enviar datos...');
-            }
+    function agregarBotonAgregarRespuesta() {
+        if ($('.agregar-respuesta').length === 0) {
+            var agregarRespuesta = $('<button class="agregar-respuesta">Agregar Respuesta</button>');
+            $('#formulario').append(agregarRespuesta);
+            
         }
+    }
+
+    function agregarSubmit(){
+        if ($('#enviar').length === 0) {
+            var enviar = $('<input id="enviar" type="submit" value="Enviar">'); 
+                $('#formulario').append(enviar); 
+        }
+    }
+
+    
+    $('#formulario').on('click', '.agregar-respuesta', function() { 
+        crearCamposRespuestas();
+        $('#enviar').remove();
+        
     });
 
-    // Iniciar creación del formulario
+    
+        
+    $('#formulario').on('submit', function(event) {
+        var respuestaActualValue = $('.respuesta').last().val().trim();
+        if (respuestaActualValue === '') {
+            event.preventDefault();
+            alert('Por favor ingrese la respuesta.');
+        }
+    }); 
+
     crearCampoNombre();
+
+
 });
+
+    
 </script>
 
 <form id="formulario"></form>
 
 </body>
-</html>
+
 </html>
 
