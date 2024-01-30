@@ -7,12 +7,13 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
 
         $emailsArray = explode("\n", $_POST["emails"]);
+        $survey_id = intval($_POST["survey_id"]);
 
         foreach ($emailsArray as $email) {
             $emailok = str_replace("\n", "", $email);
             $query = $pdo->prepare("INSERT INTO SendEmailTo (email, survey_id) VALUES (?, ?)");
             $query->bindParam(1, trim($emailok), PDO::PARAM_STR);
-            $query->bindParam(2, intval($_POST["survey_id"]), PDO::PARAM_INT);
+            $query->bindParam(2, $survey_id, PDO::PARAM_INT);
             $query->execute();
 
             //comprovo errors:
