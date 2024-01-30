@@ -32,12 +32,10 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
         exit;
     }
 
-    echo var_dump($survey_id);
-
-    /*echo "  <script>
+    echo "  <script>
                 localStorage.setItem('success', 'Tus invitaciones han sido enviadas con éxito.');
                 window.location.href = 'dashboard.php';
-            </script>";*/
+            </script>";
 }
 elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     include("./error403.php");

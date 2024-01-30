@@ -21,8 +21,8 @@ if ($e[0] != '00000') {
     echo "\nPDO::errorInfo():\n";
     die("Error accedint a dades: " . $e[2]);
 }
-
+// mail($row["email"], "Has sido invitado a participar en una encuesta de encuesta2", "url")
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-    file_put_contents("PRUEBA.txt", json_encode(date("H:i:s") . $row) . PHP_EOL, FILE_APPEND);
+    mail("ifuriomartin.cf@iesesteveterradas.cat", "Has sido invitado a participar en una encuesta de encuesta2", json_encode(date("H:i:s") . $row));
 }
 ?>
