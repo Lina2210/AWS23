@@ -37,7 +37,7 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
                 window.location.href = 'dashboard.php';
             </script>";
 }
-if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
+elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     include("./error403.php");
     exit;
 }
@@ -62,7 +62,7 @@ if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     <form id="sendMailsForm" action="survey_invitation.php" method="post">
         <label for="emails">Lista de emails invitados a la encuesta:</label>
         <textarea id="emails" name="emails" rows="4" cols="50" required></textarea>
-        <input type="hidden" value="<?php $_POST["survey_id"] ?>">
+        <input type="hidden" name="survey_id" value="<?php $_POST["survey_id"] ?>">
         <button id="checkEmails" type="button">Enviar Invitaciones</button>
     </form>
 
