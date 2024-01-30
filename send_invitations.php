@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     include("./error403.php");
     exit;
 }
