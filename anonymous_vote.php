@@ -1,14 +1,5 @@
 <?php
 if (isset($_GET["token"])) {
-
-    /* 
-    CREATE TABLE `InvitedUser` (
-        `email` varchar(255) NOT NULL,
-        `token` varchar(255) NOT NULL,
-        `survey_id` int NOT NULL
-    );
-    */
-
     require_once("./data/dbAccess.php");
     try {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
@@ -66,18 +57,27 @@ if (isset($_GET["token"])) {
         echo "</head>";
         echo "<body>";
         include("./templates/header.php");
+        // meto los datos necesarios. Piensa en hacer un fetch a solas para el titulo y la primera opcion y luego el while
+        $innerRow = $queryInner->fetch();
+        echo "    <h1>Título de Encuesta: ".$innerRow["title"]."</h1>";
+        echo "    <h2>Pregunta: ".$innerRow["questionText"]."</h2>";
         echo "    <form action='anonymous_vote.php' method='post'>";
-        // meto los datos necesarios. Piensa en hacer un fetch a solas para el titulo y la primera opcion y luego el while 
+        echo "          <label>".$innerRow["answer_text"]."</label>";
+        echo "          <input type='radio' name='opcion' value='".$innerRow["answer_text"]."'><br>";
+
         while ($innerRow = $queryInner->fetch(PDO::FETCH_ASSOC)) {
-            echo "        <input>";
+            echo "      <label>".$innerRow["answer_text"]."</label>";
+            echo "      <input type='radio' name='opcion' value='".$innerRow["answer_text"]."'><br>";
         }
-        echo "      <input type='submit' value='Guardar Voto'";
+        echo "          <input type='submit' value='Guardar Voto'>";
         echo "    </form>";
         include("./templates/header.php");
         echo "</body>";
         echo "</html>";
     }
-
+} 
+elseif (isset($_POST["opcion"])) {
+    echo "<h1>Has seleccionado la opcion: ".$_POST["opcion"]."</h1>";
 } else {
     include("./error404.php");
     exit;
