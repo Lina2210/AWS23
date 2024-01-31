@@ -17,6 +17,7 @@
             <?php
                 session_start();
                 $idUsuari = 1;
+                
 
                 if (isset($_GET['id'])) {
                     $id_encuesta = intval($_GET['id']);

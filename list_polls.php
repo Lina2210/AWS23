@@ -60,7 +60,7 @@
                                 echo "<input type='submit' value='Invitar'>";
                                 echo "</form>";
                                 
-                                echo "<form method='POST' action='detalles.php'>";
+                                echo "<form method='POST' action='/detalles.php'>";
                                 echo "<input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
                                 echo "<input type='hidden' name='title' value='".$row["title"]."'>";
                                 echo "<input type='submit' value='Detalles'>";
@@ -110,5 +110,27 @@
         </main>
         <ul id="notification-container"></ul>
         <?php include("./templates/footer.php"); ?>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Obtener todos los botones "Detalles" con su respectivo formulario
+                var detallesForms = document.querySelectorAll('form[action="detalles.php"]');
+                
+                // Iterar sobre cada formulario
+                detallesForms.forEach(function(form) {
+                    // Agregar un evento de escucha para el envío del formulario
+                    form.addEventListener('submit', function(event) {
+                        // Obtener el ID de la encuesta del formulario
+                        var surveyId = form.querySelector('input[name="survey_id"]').value;
+                        
+                        // Redirigir a detalles.php con el ID de la encuesta en la URL
+                        window.location.href = 'detalles.php?id=' + surveyId;
+                        
+                        // Prevenir el comportamiento predeterminado del formulario (envío)
+                        event.preventDefault();
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

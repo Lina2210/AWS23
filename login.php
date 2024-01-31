@@ -39,7 +39,7 @@
                     }
                     $userEmail = $_POST['email'];
                     $userpass = $_POST['password'];
-                    $query = $pdo->prepare("SELECT user_name, mail, email_token, terms_of_use FROM User WHERE mail = ? AND password=SHA2(?, 512)");
+                    $query = $pdo->prepare("SELECT user_id, user_name, mail, email_token, terms_of_use FROM User WHERE mail = ? AND password=SHA2(?, 512)");
                     $query->bindParam(1, $userEmail, PDO::PARAM_STR);
                     $query->bindParam(2, $userpass, PDO::PARAM_STR);
                     $query->execute();
@@ -80,40 +80,39 @@
                                     window.location.href = 'login.php';
                                 </script>";
                     } else {
-                        if ($row["email_token"] != "ok") {
-                            // cuenta no validada por email
-                            echo "  <script>
-                                        localStorage.setItem('error', 'Debes validar tu cuenta. Comprueba tu email.');
-                                        window.location.href = 'login.php';
-                                    </script>";
+                        if ($row) {
+                            if ($row["email_token"] != "ok") {
+                                // cuenta no validada por email
+                                echo "  <script>
+                                            localStorage.setItem('error', 'Debes validar tu cuenta. Comprueba tu email.');
+                                            window.location.href = 'login.php';
+                                        </script>";
+                            } elseif (!$row["terms_of_use"]) {
+                                // mostrar bocadillo de aceptacion de terminos de uso
+                                include("./templates/terms_of_use.php");
+                                $user_name = htmlspecialchars($row['user_name']);
+                                $mail = htmlspecialchars($row['mail']);
+                                echo "  <script> checkTerms('$user_name', '$mail'); </script>";
+                            } else {
+                                $date = date_create(null, timezone_open("Europe/Paris"));
+                                $tz = date_timezone_get($date);
+                                $dataSinCambiar = date("d-m-Y");
+                                $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                                $carpetaArchivos = "logs/";
+                                if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                                $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                                $informacionError = "Acción: " . $user_name . " ha iniciado sesión. Hora de la acción: " . $dataSinCambiar . ".\n";
+                                file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                                $_SESSION["user_name"] = $row["user_name"];
+                                $_SESSION["mail"] = $row["mail"];
+                                $_SESSION["user_id"] = $row["user_id"];
+                                echo "  <script>
+                                            localStorage.setItem('success', '¡Has iniciado sesión! Hola, " . $_SESSION["user_name"] . "');
+                                            window.location.href = 'dashboard.php';
+                                        </script>";
+                            }
                         }
-                        elseif (!$row["terms_of_use"]) {
-                            // mostrar bocadillo de aceptacion de terminos de uso
-                            include("./templates/terms_of_use.php");
-                            $user_name = htmlspecialchars($row['user_name']);
-                            $mail = htmlspecialchars($row['mail']);
-                            echo "  <script> checkTerms('$user_name', '$mail'); </script>";
-
-                        } else {
-                            // inicio de sesion normal
-                            $date = date_create(null, timezone_open("Europe/Paris"));
-                            $tz = date_timezone_get($date);
-                            $dataSinCambiar = date("d-m-Y");
-                            $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                            $carpetaArchivos = "logs/";
-                            if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                            $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                            $informacionError = "Acción: " . $user_name . " ha iniciado sesión. Hora de la acción: " . $dataSinCambiar . ".\n";
-                            file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
-                            $_SESSION["user_name"] = $row["user_name"];
-                            $_SESSION["mail"] = $row["mail"];
-                            echo "  <script>
-                                        localStorage.setItem('success', '¡Has iniciado sesión! Hola, " . $_SESSION["user_name"] . "');
-                                        window.location.href = 'dashboard.php';
-                                    </script>";
-                        }
-                    }
-                }
+                }}                    
             ?>
             <form action="login.php" method="post">
                 <label for="email">E-Mail</label>
