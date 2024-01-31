@@ -22,7 +22,7 @@ if (isset($_GET["token"])) {
     $query->execute();
     
     // compruebo errores
-    $e = $deleteQuery->errorInfo();
+    $e = $query->errorInfo();
     if ($e[0] != '00000') {
         echo "\nPDO::errorInfo():\n";
         die("Error accedint a dades: " . $e[2]);
@@ -35,6 +35,21 @@ if (isset($_GET["token"])) {
     } else {
         // consulta para mostrar el contenido y respuestas de x encuesta. OJO se muestran muchas veces el title y el question
         // SELECT Survey.title, Question.questionText, Answer.answer_text FROM Survey INNER JOIN Question ON Survey.survey_id = 2 AND Question.survey_id = 2 INNER JOIN Answer ON Question.question_id = Answer.question_id;
+        $queryInner = $pdo->prepare("
+        SELECT Survey.title, Question.questionText, Answer.answer_text FROM Survey 
+        INNER JOIN Question ON Survey.survey_id = ? AND Question.survey_id = ?
+        INNER JOIN Answer ON Question.question_id = Answer.question_id
+        ");
+        $queryInner->bindParam(1, $row["survey_id"], PDO::PARAM_INT);
+        $queryInner->bindParam(2, $row["survey_id"], PDO::PARAM_INT);
+        $queryInner->execute();
+        
+        // compruebo errores
+        $e = $queryInner->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
 
         // muestro el formulario que debo mostrar
         echo "<!DOCTYPE html>";
@@ -52,7 +67,11 @@ if (isset($_GET["token"])) {
         echo "<body>";
         include("./templates/header.php");
         echo "    <form action='anonymous_vote.php' method='post'>";
-        echo "        <input>";
+        // meto los datos necesarios. Piensa en hacer un fetch a solas para el titulo y la primera opcion y luego el while 
+        while ($innerRow = $queryInner->fetch(PDO::FETCH_ASSOC)) {
+            echo "        <input>";
+        }
+        echo "      <input type='submit' value='Guardar Voto'";
         echo "    </form>";
         include("./templates/header.php");
         echo "</body>";
