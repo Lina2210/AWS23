@@ -6,6 +6,7 @@ if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
         require_once("./data/dbAccess.php");
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
 
+        // metemos los mails y el id de las encuesta en la tabla SendEmailTo
         $emailsArray = explode("\n", $_POST["emails"]);
         $survey_id = intval($_POST["survey_id"]);
 

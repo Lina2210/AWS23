@@ -62,6 +62,12 @@ CREATE TABLE `SendEmailTo` (
   `survey_id` int NOT NULL
 );
 
+CREATE TABLE `InvitedUser` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `survey_id` int NOT NULL
+);
+
 
 ALTER TABLE `Survey` ADD CONSTRAINT FK_Survey_User
 FOREIGN KEY (user_id)
