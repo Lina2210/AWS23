@@ -545,7 +545,7 @@ footer .icon-github img {
     background-color: #053377;
     border: 1px solid #07429b;
     border-radius: 50px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     transition: background-color 0.5s;
     padding-left: 20px;
 }
@@ -557,7 +557,7 @@ footer .icon-github img {
     background-color: #053377;
     border: 1px solid #07429b;
     border-radius: 50px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     transition: background-color 0.5s;
     padding-left: 20px;
 }
@@ -577,14 +577,14 @@ footer .icon-github img {
 }
 
 .createPoll-body .main-content .question,
-.createPoll-body .moreAnswer {
+.createPoll-body .respuesta {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.createPoll-body .main-content .question button {
+.createPoll-body .main-content button {
     background-color: transparent;
     width: fit-content;
     margin: 20px auto 10px auto;
@@ -597,23 +597,12 @@ footer .icon-github img {
     transition: background-color 0.5s;
 }
 
-.createPoll-body .main-content .question button:hover{
+.createPoll-body .main-content button:hover{
     background-color: #C1E8FF;
     color: #052659;
 }
 
-.createPoll-body .main-content .deleteAnswer:disabled {
-    opacity: 0.5; 
-    cursor: not-allowed;
-}
-
-
-.createPoll-body .main-content .deleteAnswer:disabled:hover {
-    background-color: #eee;
-    color: #888; 
-}
-
-.createPoll-body .main-content #addQuestion{
+.createPoll-body .main-content .agregarRespuesta{
     background-color: transparent;
     width: 100%;
     margin: 20px auto 10px auto;
@@ -626,7 +615,7 @@ footer .icon-github img {
     transition: background-color 0.5s;
 }
 
-.createPoll-body .main-content button.deleteQuestion {
+.createPoll-body .main-content button.eliminarRespuesta {
     background-color: transparent;
     width: 100%;
     margin: 20px auto 10px auto;
@@ -639,7 +628,21 @@ footer .icon-github img {
     transition: background-color 0.5s;
 }
 
-.createPoll-body .main-content #addQuestion:hover {
+.createPoll-body .divQuestion{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.createPoll-body .divRespuesta {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.createPoll-body .main-content .agregarRespuesta:hover {
     background-color: #C1E8FF;
     color: #052659;
 }
@@ -649,7 +652,7 @@ footer .icon-github img {
     justify-content: flex-start;
 }
 
-.createPoll-body .main-content #send {
+.createPoll-body .main-content #enviar {
     background-color: black;
     width: fit-content;
     margin: 20px auto 10px auto;
@@ -662,7 +665,7 @@ footer .icon-github img {
     transition: background-color 0.5s;
 }
 
-.createPoll-body .main-content #send:hover {
+.createPoll-body .main-content #enviar:hover {
     background-color: white;
     color: black;
 }

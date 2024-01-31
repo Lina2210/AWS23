@@ -243,7 +243,7 @@ try {
                     exit;
                 }
 
-                $mobile = intval($mobilePrefix . $mobile);
+                
                 $postalCode = intval($postalCode);
                 $countryId = intval($countryId);
                 $token = bin2hex(random_bytes(32 / 2));
