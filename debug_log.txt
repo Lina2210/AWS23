@@ -1,5 +1,0 @@
-
-Pregunta index: 0
-El input imagen está vacioFile name: fiesta-playa3.png
-Nombre imagen unico: 65ba1de42543a.png
-ruta: ./uploads/65ba1de42543a.png
