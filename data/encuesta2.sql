@@ -22,19 +22,23 @@ CREATE TABLE `Survey` (
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `state` varchar(255) NOT NULL,
-  `creation` datetime NOT NULL
+  `creation` datetime NOT NULL,
+  `publication_survey` enum('oculto','publico','privado'),
+  `publication_results` enum('oculto','publico','privado')
 );
 
 CREATE TABLE `Question` (
   `question_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `questionText` varchar(255) NOT NULL,
-  `survey_id` int NOT NULL
+  `survey_id` int NOT NULL,
+  `image` varchar(255) NULL
 );
 
 CREATE TABLE `Answer` (
   `answer_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `question_id` int NOT NULL,
-  `answer_text` varchar(255) NOT NULL
+  `answer_text` varchar(255) NOT NULL,
+  `image` varchar(255) NULL
 );
 
 CREATE TABLE `Country` (
