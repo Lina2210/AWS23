@@ -45,16 +45,65 @@ try {
     </head>
     <body class="graphics">
         <?php include("./templates/header.php"); ?>
-        
         <main>
             <?php
-                
-                echo $user_id;
-
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $pSurvey = ""; 
+                    $pResult = "";
                     $id_encuesta = $_POST['survey_id'];
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        try {
+                            require_once("./data/dbAccess.php");
+                            $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
+                            
+                        } catch (PDOException $e) {
+                            $date = date_create(null, timezone_open("Europe/Paris"));
+                            $tz = date_timezone_get($date);
+                            $dataSinCambiar = date("d-m-Y");
+                            $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                            $carpetaArchivos = "logs/";
+                            if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                            $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                            $informacionError = "Error: No se pudo conectar a la base de datos. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                            file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                            echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+                            exit;
+                        }
+
+                        if ($_SERVER["REQUEST_METHOD"] == "POST"){ 
+                            $query = $pdo->prepare("SELECT publication_survey, publication_results from Survey where survey_id = :id_encuesta");
+                            $query->bindParam('_id_encuesta', $id_encuesta, PDO::PARAM_STR);
+                            $query->execute();
+                            $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            
+                            foreach ($queryResult as $dato):
+                                $pSurvey = $dato['publication_survey'];
+                                $pResult = $dato['publication_results'];
+                                
+                            endforeach;
+                        }
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            if (isset($_POST['opcionesEncuesta'])) {
+                                $estadoEncuesta = $_POST['opcionesEncuesta'];
+                                $queryInsertpEncuesta = $pdo->prepare("UPDATE Survey SET publication_survey = ? WHERE survey_id = :id_encuesta");
+                                $queryInsertpEncuesta->bindParam(1, $estadoEncuesta, PDO::PARAM_STR);
+                                $queryInsertpEncuesta->bindParam(2, $id_encuesta, PDO::PARAM_INT);
+                                $queryInsertpEncuesta->execute();
+                            }
+                        
+                        
+                            if (isset($_POST['opcionesResultado'])) {
+                                $estadoResultado = $_POST['opcionesResultado'];
+                                $queryInsertpResultado = $pdo->prepare("UPDATE Survey SET publication_results = ? WHERE survey_id = :id_encuesta");
+                                $queryInsertpResultado->bindParam(1, $estadoResultado, PDO::PARAM_STR);
+                                $queryInsertpResultado->bindParam(2, $id_encuesta, PDO::PARAM_INT);
+                                $queryInsertpResultado->execute();
+                            }
+                        }
                     
-                    echo $id_encuesta;
+                        $id_encuesta = $_POST['survey_id'];
+                        
                     try {
                         require_once("./data/dbAccess.php");
                         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
@@ -78,13 +127,9 @@ try {
                     $stmt->bindParam(':id_encuesta', $id_encuesta, PDO::PARAM_INT);
                     $stmt->execute();
                     $encuesta = $stmt->fetch(PDO::FETCH_ASSOC);
-                    echo $encuesta['user_id'] . " user";
 
                     if ($encuesta['user_id'] == $user_id) {
-                        echo "el if funciona";
                         echo "<h1 id='pollName'>Detalles de {$encuesta['title']}</h1>";
-
-                        // Consultar respuestas a las preguntas de la encuesta
                         $queryRespuestas = 'SELECT COUNT(*) as cantidad_respuestas, Answer.answer_text 
                                             FROM UserVote 
                                             JOIN Answer ON UserVote.answer_id = Answer.answer_id 
@@ -182,7 +227,7 @@ try {
                     }
 
                     unset($pdo);
-                } else {
+                }} else {
                     $date = date_create(null, timezone_open("Europe/Paris"));
                     $tz = date_timezone_get($date);
                     $dataSinCambiar = date("d-m-Y");
