@@ -45,6 +45,8 @@ try {
     </head>
     <body class="graphics">
         <?php include("./templates/header.php"); ?>
+
+        <a href="publish.php" class="publicaciónBoton"><p>Publicación</p></a>
         
         <main>
             <?php

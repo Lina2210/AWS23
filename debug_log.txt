@@ -1,2 +1,6 @@
 Pregunta index: 0
 Pregunta index: 0
+Pregunta index: 0
+File name: yoga-relax.jpg
+Nombre imagen unico: 65bbe6385cfa3.jpg
+ruta: ./uploads/65bbe6385cfa3.jpg

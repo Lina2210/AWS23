@@ -148,12 +148,14 @@ footer .icon-github img {
     margin-left: auto;
     margin-right: auto;
 }
+
 .index-body .main-text {
     color: #C1E8FF;
     font-size: 130px;
     text-align: center;
     line-height: 150px;
 }
+
 .index-body .buttonBottom {
     width: fit-content;
     margin-left: auto;
@@ -168,11 +170,29 @@ footer .icon-github img {
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: 20px;
-    transition: background-color 0.5s;
+    /*transition: background-color 0.5s;*/
 }
-.index-body .buttonBottom:hover {
-    background-color: #C1E8FF;
-    color: #052659;
+
+
+@keyframes canviaColorBoto {
+  0% {
+    color: (var(--light-blue))
+  }
+
+  1%{
+    color: (var(--light-blue))
+  }
+
+  100% {
+    color: (var(--dark-blue))
+  }
+}
+
+.index-body .main-text {
+  animation-duration: 0.1s;
+  animation-name: canviaColorBoto;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 /* ----------------------------------------------------- */
@@ -758,6 +778,19 @@ td {
 
 .body-email-validation .estandard-link:hover {
     border: 1px solid #C1E8FF;
+}
+
+/* DETALLES.PHP */
+.graphics .publicaciónBoton{
+    border: 1px solid var(--light-blue);
+    background-color: var(--background-blue);
+    color: var(--light-blue);
+}
+
+.graphics .publicaciónBoton{
+    border: 1px solid var(--light-blue);
+    background-color: var(--light-blue);
+    color: var(--background-blue);
 }
 
 /* --------------------------------------------------------
