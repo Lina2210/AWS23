@@ -1,5 +1,5 @@
 <?php
-if (isset($_GET["token"])) {
+if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
     require_once("./data/dbAccess.php");
     try {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
@@ -25,9 +25,9 @@ if (isset($_GET["token"])) {
         exit;
     } else {
         // consulta para mostrar el contenido y respuestas de x encuesta. OJO se muestran muchas veces el title y el question
-        // SELECT Survey.title, Question.questionText, Answer.answer_text FROM Survey INNER JOIN Question ON Survey.survey_id = 2 AND Question.survey_id = 2 INNER JOIN Answer ON Question.question_id = Answer.question_id;
+        // SELECT Survey.title, Question.questionText, Answer.answer_text, Answer.answer_id FROM Survey INNER JOIN Question ON Survey.survey_id = 2 AND Question.survey_id = 2 INNER JOIN Answer ON Question.question_id = Answer.question_id;
         $queryInner = $pdo->prepare("
-        SELECT Survey.title, Question.questionText, Answer.answer_text FROM Survey 
+        SELECT Survey.title, Question.questionText, Answer.answer_text, Answer.answer_id FROM Survey 
         INNER JOIN Question ON Survey.survey_id = ? AND Question.survey_id = ?
         INNER JOIN Answer ON Question.question_id = Answer.question_id
         ");
@@ -62,22 +62,47 @@ if (isset($_GET["token"])) {
         echo "    <h1>Título de Encuesta: ".$innerRow["title"]."</h1>";
         echo "    <h2>Pregunta: ".$innerRow["questionText"]."</h2>";
         echo "    <form action='anonymous_vote.php' method='post'>";
+        echo "          <input type='hidden' name='token' value='".$_GET["token"]."'>";
+        echo "          <input type='hidden' name='email' value='".$row["email"]."'>";
+        echo "          <input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
         echo "          <label>".$innerRow["answer_text"]."</label>";
-        echo "          <input type='radio' name='opcion' value='".$innerRow["answer_text"]."'><br>";
+        echo "          <input type='radio' name='opcion' value='".$innerRow["answer_id"]."'><br>";
 
         while ($innerRow = $queryInner->fetch(PDO::FETCH_ASSOC)) {
             echo "      <label>".$innerRow["answer_text"]."</label>";
-            echo "      <input type='radio' name='opcion' value='".$innerRow["answer_text"]."'><br>";
+            echo "      <input type='radio' name='opcion' value='".$innerRow["answer_id"]."'><br>";
         }
         echo "          <input type='submit' value='Guardar Voto'>";
         echo "    </form>";
-        include("./templates/header.php");
+        include("./templates/footer.php");
         echo "</body>";
         echo "</html>";
     }
 } 
-elseif (isset($_POST["opcion"])) {
-    echo "<h1>Has seleccionado la opcion: ".$_POST["opcion"]."</h1>";
+elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
+    // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
+    require_once("./data/dbAccess.php");
+    try {
+        $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
+    } catch (PDOException $e) {
+
+        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+        exit;
+    }
+    $query = $pdo->prepare("UPDATE InvitedUser SET token = ? WHERE token = ?");
+    $query->bindParam(1, 'ko', PDO::PARAM_STR);
+    $query->bindParam(2, $_POST["token"], PDO::PARAM_STR);
+    $query->execute();
+
+    $e = $query->errorInfo();
+    if ($e[0] != '00000') {
+        echo "\nPDO::errorInfo():\n";
+        die("Error accedint a dades: " . $e[2]);
+    }
+    // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
+
+    
+
 } else {
     include("./error404.php");
     exit;
