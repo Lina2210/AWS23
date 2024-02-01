@@ -46,45 +46,21 @@
 
                     if ($encuesta && $encuesta['user_id'] == $idUsuari) {
                         echo "<h1 id='pollName'>Detalles de {$encuesta['title']}</h1>";
-
-                        // Consultar respuestas a las preguntas de la encuesta
-                        $queryRespuestas = 'SELECT COUNT(*) as cantidad_respuestas, Answer.answer_text 
-                                            FROM UserVote 
-                                            JOIN Answer ON UserVote.answer_id = Answer.answer_id 
-                                            JOIN Question ON Answer.question_id = Question.question_id 
-                                            WHERE Question.survey_id = :id_encuesta 
-                                            GROUP BY Answer.answer_id';
-                        $stmtRespuestas = $pdo->prepare($queryRespuestas);
-                        $stmtRespuestas->bindParam(':id_encuesta', $id_encuesta, PDO::PARAM_INT);
-                        $stmtRespuestas->execute();
-                        $respuestas = $stmtRespuestas->fetchAll(PDO::FETCH_ASSOC);
-
-                        // Preparar datos para los gráficos
-                        $labelsBarra = [];
-                        $datosBarra = [];
-                        $labelsPastel = [];
-                        $datosPastel = [];
-                        foreach ($respuestas as $respuesta) {
-                            $labelsBarra[] = $respuesta['answer_text'];
-                            $datosBarra[] = $respuesta['cantidad_respuestas'];
-                            $labelsPastel[] = $respuesta['answer_text'];
-                            $datosPastel[] = $respuesta['cantidad_respuestas'];
-                        }
-
-                        // Generar gráfico de barras
                         echo '<div class="divGraficos"><canvas id="graficoBarras"></canvas></div>';
+
                         echo "
                         <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
+                                // Configuración para el gráfico de barras
                                 var graficoBarras = document.getElementById('graficoBarras').getContext('2d');
                                 var barrasGrafical = new Chart(graficoBarras, {
                                     type: 'bar',
                                     data: {
-                                        labels: " . json_encode($labelsBarra) . ",
+                                        labels: ['Opción 1', 'Opción 2', 'Opción 3'],
                                         datasets: [{
                                             label: 'Cantidad de Votos',
-                                            data: " . json_encode($datosBarra) . ",
+                                            data: [10, 50, 15],
                                             backgroundColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderWidth: 1
@@ -101,8 +77,8 @@
                             });
                         </script>";
 
-                        // Generar gráfico de anillo
                         echo '<div class="divGraficos" id="pieChart"><canvas id="graficoPastel"></canvas></div>';
+
                         echo "
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
@@ -110,10 +86,10 @@
                                 var pastelitoPastel = new Chart(grfPastel, {
                                     type: 'doughnut',
                                     data: {
-                                        labels: " . json_encode($labelsPastel) . ",
+                                        labels: ['Opción 1', 'Opción 2', 'Opción 3'],
                                         datasets: [{
                                             label: 'Cantidad de Votos',
-                                            data: " . json_encode($datosPastel) . ",
+                                            data: [10, 20, 15],
                                             backgroundColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderWidth: 1
@@ -131,6 +107,7 @@
                             });
                         </script>";
 
+                        echo '</div>';
                     } else {
                         $date = date_create(null, timezone_open("Europe/Paris"));
                         $tz = date_timezone_get($date);
@@ -159,6 +136,6 @@
                 }
             ?>
         </main>
-        <?php include("./templates/footer.php"); ?>
+        <?php include("./templates/header.php"); ?>
     </body>
 </html>

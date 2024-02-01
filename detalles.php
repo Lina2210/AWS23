@@ -1,3 +1,36 @@
+<?php
+    session_start();
+    if (!isset($_SESSION["mail"])) {
+        include("./error403.php");
+        exit;
+    }
+
+// Obtener el user_id a partir del user_name (correo electrónico)
+$mail = $_SESSION["mail"];
+file_put_contents('user_id_result.txt', print_r($mail, true));
+try {
+    require_once("./data/dbAccess.php");
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
+} catch (PDOException $e) {
+    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+    exit;
+}
+
+    $user_id_query = $pdo->prepare("SELECT user_id FROM User WHERE mail = :mail");
+    $user_id_query->bindParam(':mail', $mail);
+    $user_id_query->execute();
+    $user_id_result = $user_id_query->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user_id_result) {
+        // Si no se encuentra el usuario, manejamos el error o redirigimos a una página de error.
+        echo "  <script>
+                    localStorage.setItem('error', 'No se encontró el usuario en la base de datos.');
+                    window.location.href = 'login.php';
+                </script>";
+        exit;
+    }
+    $user_id = $user_id_result["user_id"];
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -15,12 +48,13 @@
         
         <main>
             <?php
-                session_start();
-                $idUsuari = 1;
                 
+                echo $user_id;
 
-                if (isset($_GET['id'])) {
-                    $id_encuesta = intval($_GET['id']);
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $id_encuesta = $_POST['survey_id'];
+                    
+                    echo $id_encuesta;
                     try {
                         require_once("./data/dbAccess.php");
                         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
@@ -44,24 +78,50 @@
                     $stmt->bindParam(':id_encuesta', $id_encuesta, PDO::PARAM_INT);
                     $stmt->execute();
                     $encuesta = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo $encuesta['user_id'] . " user";
 
-                    if ($encuesta && $encuesta['user_id'] == $idUsuari) {
+                    if ($encuesta['user_id'] == $user_id) {
+                        echo "el if funciona";
                         echo "<h1 id='pollName'>Detalles de {$encuesta['title']}</h1>";
-                        echo '<div class="divGraficos"><canvas id="graficoBarras"></canvas></div>';
 
+                        // Consultar respuestas a las preguntas de la encuesta
+                        $queryRespuestas = 'SELECT COUNT(*) as cantidad_respuestas, Answer.answer_text 
+                                            FROM UserVote 
+                                            JOIN Answer ON UserVote.answer_id = Answer.answer_id 
+                                            JOIN Question ON Answer.question_id = Question.question_id 
+                                            WHERE Question.survey_id = :id_encuesta 
+                                            GROUP BY Answer.answer_id';
+                        $stmtRespuestas = $pdo->prepare($queryRespuestas);
+                        $stmtRespuestas->bindParam(':id_encuesta', $id_encuesta, PDO::PARAM_INT);
+                        $stmtRespuestas->execute();
+                        $respuestas = $stmtRespuestas->fetchAll(PDO::FETCH_ASSOC);
+
+                        // Preparar datos para los gráficos
+                        $labelsBarra = [];
+                        $datosBarra = [];
+                        $labelsPastel = [];
+                        $datosPastel = [];
+                        foreach ($respuestas as $respuesta) {
+                            $labelsBarra[] = $respuesta['answer_text'];
+                            $datosBarra[] = $respuesta['cantidad_respuestas'];
+                            $labelsPastel[] = $respuesta['answer_text'];
+                            $datosPastel[] = $respuesta['cantidad_respuestas'];
+                        }
+
+                        // Generar gráfico de barras
+                        echo '<div class="divGraficos"><canvas id="graficoBarras"></canvas></div>';
                         echo "
                         <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                // Configuración para el gráfico de barras
                                 var graficoBarras = document.getElementById('graficoBarras').getContext('2d');
                                 var barrasGrafical = new Chart(graficoBarras, {
                                     type: 'bar',
                                     data: {
-                                        labels: ['Opción 1', 'Opción 2', 'Opción 3'],
+                                        labels: " . json_encode($labelsBarra) . ",
                                         datasets: [{
                                             label: 'Cantidad de Votos',
-                                            data: [10, 50, 15],
+                                            data: " . json_encode($datosBarra) . ",
                                             backgroundColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderWidth: 1
@@ -78,8 +138,8 @@
                             });
                         </script>";
 
+                        // Generar gráfico de anillo
                         echo '<div class="divGraficos" id="pieChart"><canvas id="graficoPastel"></canvas></div>';
-
                         echo "
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
@@ -87,10 +147,10 @@
                                 var pastelitoPastel = new Chart(grfPastel, {
                                     type: 'doughnut',
                                     data: {
-                                        labels: ['Opción 1', 'Opción 2', 'Opción 3'],
+                                        labels: " . json_encode($labelsPastel) . ",
                                         datasets: [{
                                             label: 'Cantidad de Votos',
-                                            data: [10, 20, 15],
+                                            data: " . json_encode($datosPastel) . ",
                                             backgroundColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderColor: ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'],
                                             borderWidth: 1
@@ -108,7 +168,6 @@
                             });
                         </script>";
 
-                        echo '</div>';
                     } else {
                         $date = date_create(null, timezone_open("Europe/Paris"));
                         $tz = date_timezone_get($date);
@@ -137,6 +196,6 @@
                 }
             ?>
         </main>
-        <?php include("./templates/header.php"); ?>
+        <?php include("./templates/footer.php"); ?>
     </body>
 </html>
