@@ -77,11 +77,14 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         include("./templates/footer.php");
         echo "</body>";
         echo "</html>";
+        $pdo = null; // Cierra la conexión PDO
     }
 } 
 elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
     try {
+        require_once("./data/dbAccess.php");
+        $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
         $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = ? WHERE token = ?");
         $queryUpdate->bindParam(1, 'ko', PDO::PARAM_STR);
         $queryUpdate->bindParam(2, $_POST["token"], PDO::PARAM_STR);
