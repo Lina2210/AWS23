@@ -41,7 +41,7 @@
                     $query = 'SELECT * FROM Survey WHERE survey_id = :id_encuesta';
                     $stmt = $pdo->prepare($query);
                     $stmt->bindParam(':id_encuesta', $id_encuesta, PDO::PARAM_INT);
-                    $stmt->execute();
+                    
                     $encuesta = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     if ($encuesta && $encuesta['user_id'] == $idUsuari) {

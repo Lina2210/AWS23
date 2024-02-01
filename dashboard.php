@@ -30,6 +30,6 @@
         
         <ul id="notification-container"></ul>
         
-        <?php include("./templates/footer.php"); ?>
+        
     </body>
 </html>
