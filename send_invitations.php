@@ -1,9 +1,8 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    include("./error403.php");
-    exit;
-}
-require_once("./data/dbAccess.php");
+$hostname = "localhost";
+$dbname = "encuesta2";
+$username = "encuesta2";
+$pw = "naranjasV3rdes#";
 try {
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
 } catch (PDOException $e) {
