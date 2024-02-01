@@ -81,14 +81,6 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
 } 
 elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
-    require_once("./data/dbAccess.php");
-    try {
-        $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
-    } catch (PDOException $e) {
-
-        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
-        exit;
-    }
     $query = $pdo->prepare("UPDATE InvitedUser SET token = ? WHERE token = ?");
     $query->bindParam(1, 'ko', PDO::PARAM_STR);
     $query->bindParam(2, $_POST["token"], PDO::PARAM_STR);
@@ -100,7 +92,7 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         die("Error accedint a dades: " . $e[2]);
     }
     // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
-    
+
 
     echo "<!DOCTYPE html>";
     echo "<html lang='es'>";
