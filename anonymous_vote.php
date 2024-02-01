@@ -81,16 +81,22 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
 } 
 elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
-    /*$queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = ? WHERE token = ?");
-    $queryUpdate->bindParam(1, 'ko', PDO::PARAM_STR);
-    $queryUpdate->bindParam(2, $_POST["token"], PDO::PARAM_STR);
-    $queryUpdate->execute();
+    try {
+        $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = ? WHERE token = ?");
+        $queryUpdate->bindParam(1, 'ko', PDO::PARAM_STR);
+        $queryUpdate->bindParam(2, $_POST["token"], PDO::PARAM_STR);
+        $queryUpdate->execute();
 
-    $e = $queryUpdate->errorInfo();
-    if ($e[0] != '00000') {
-        echo "\nPDO::errorInfo():\n";
-        die("Error accedint a dades: " . $e[2]);
-    }*/
+        $e = $queryUpdate->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+    } catch (PDOException $e) {
+        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+        exit;
+    }
+    
     // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
 
 
