@@ -82,10 +82,8 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
 elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
     try {
-        global $pdo;
-        $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = ? WHERE token = ?");
-        $queryUpdate->bindParam(1, 'ko', PDO::PARAM_STR);
-        $queryUpdate->bindParam(2, $_POST["token"], PDO::PARAM_STR);
+        $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = 'ko' WHERE token = ?");
+        $queryUpdate->bindParam(1, $_POST["token"], PDO::PARAM_STR);
         $queryUpdate->execute();
 
         $e = $queryUpdate->errorInfo();
