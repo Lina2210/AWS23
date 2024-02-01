@@ -45,16 +45,11 @@ try {
     </head>
     <body class="graphics">
         <?php include("./templates/header.php"); ?>
-        
         <main>
             <?php
-                
-                echo $user_id;
-
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $id_encuesta = $_POST['survey_id'];
                     
-                    echo $id_encuesta;
                     try {
                         require_once("./data/dbAccess.php");
                         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
@@ -78,10 +73,8 @@ try {
                     $stmt->bindParam(':id_encuesta', $id_encuesta, PDO::PARAM_INT);
                     $stmt->execute();
                     $encuesta = $stmt->fetch(PDO::FETCH_ASSOC);
-                    echo $encuesta['user_id'] . " user";
 
                     if ($encuesta['user_id'] == $user_id) {
-                        echo "el if funciona";
                         echo "<h1 id='pollName'>Detalles de {$encuesta['title']}</h1>";
 
                         // Consultar respuestas a las preguntas de la encuesta
