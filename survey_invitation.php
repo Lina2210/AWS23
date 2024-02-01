@@ -60,7 +60,7 @@ elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
 
     <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
     <p>Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
-    <form id="sendMailsForm" action="survey_invitation.php" method="post">
+    <form id="sendMailsForm" action="/survey_invitation.php" method="post">
         <label for="emails">Lista de emails invitados a la encuesta:</label>
         <textarea id="emails" name="emails" rows="4" cols="50" required></textarea>
         <input type="hidden" name="survey_id" value="<?php echo $_POST["survey_id"]; ?>">
