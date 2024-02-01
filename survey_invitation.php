@@ -1,17 +1,20 @@
 <?php
 // INVITACIONS: enviament d'invitacions per llista d'emails. Els destinataris reben un link per a votar en una enquesta concreta. 
 // Els emails s'envien en diferit en un procés del CRON, en paquets de 5 emails cada 5 min per no ser detectats com a Spam.
-if (isset($_POST["emails"])) {
+if (isset($_POST["emails"]) && isset($_POST["survey_id"])) {
     try {
         require_once("./data/dbAccess.php");
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
 
+        // metemos los mails y el id de las encuesta en la tabla SendEmailTo
         $emailsArray = explode("\n", $_POST["emails"]);
+        $survey_id = intval($_POST["survey_id"]);
 
         foreach ($emailsArray as $email) {
+            $emailok = str_replace("\n", "", $email);
             $query = $pdo->prepare("INSERT INTO SendEmailTo (email, survey_id) VALUES (?, ?)");
-            $query->bindParam(1, $email, PDO::PARAM_STR);
-            $query->bindParam(2, $_POST["survey_id"], PDO::PARAM_STR);
+            $query->bindParam(1, trim($emailok), PDO::PARAM_STR);
+            $query->bindParam(2, $survey_id, PDO::PARAM_INT);
             $query->execute();
 
             //comprovo errors:
@@ -26,7 +29,6 @@ if (isset($_POST["emails"])) {
             }
         }
     } catch (PDOException $e) {
-
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
     }
@@ -36,7 +38,7 @@ if (isset($_POST["emails"])) {
                 window.location.href = 'dashboard.php';
             </script>";
 }
-if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
+elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     include("./error403.php");
     exit;
 }
@@ -61,7 +63,7 @@ if (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     <form id="sendMailsForm" action="survey_invitation.php" method="post">
         <label for="emails">Lista de emails invitados a la encuesta:</label>
         <textarea id="emails" name="emails" rows="4" cols="50" required></textarea>
-        <input type="hidden" value="<?php $_POST["survey_id"] ?>">
+        <input type="hidden" name="survey_id" value="<?php echo $_POST["survey_id"]; ?>">
         <button id="checkEmails" type="button">Enviar Invitaciones</button>
     </form>
 

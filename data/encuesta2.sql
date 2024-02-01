@@ -14,7 +14,8 @@ CREATE TABLE `User` (
   `city` varchar(255) NOT NULL,
   `postal_code` int NOT NULL,
   `email_token` varchar(255),
-  `terms_of_use` BOOLEAN NOT NULL
+  `terms_of_use` BOOLEAN NOT NULL,
+  `invited_user` BOOLEAN
 );
 
 CREATE TABLE `Survey` (
@@ -63,6 +64,12 @@ CREATE TABLE `UserSurveyAccess` (
 
 CREATE TABLE `SendEmailTo` (
   `email` varchar(255) NOT NULL,
+  `survey_id` int NOT NULL
+);
+
+CREATE TABLE `InvitedUser` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `survey_id` int NOT NULL
 );
 
