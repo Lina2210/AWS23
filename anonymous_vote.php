@@ -96,50 +96,51 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
             echo "\nPDO::errorInfo():\n";
             die("Error accedint a dades: " . $e[2]);
         }
+
+        // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
+        $queryInsert = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) 
+        VALUES ('anonimo', ?, 'password1', 0, 1, 'Ciudad1', 12345, 'ok', 0, 1)");
+        $queryInsert->bindParam(1, $_POST["email"], PDO::PARAM_STR);
+        $queryInsert->execute();
+
+        $e = $queryInsert->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+
+        // seleccionar el id de usuario autogenerado y asociarlo con su respuesta
+        $querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
+        $querySelect->bindParam(1, $_POST["email"], PDO::PARAM_STR);
+        $querySelect->execute();
+
+        $e = $querySelect->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+
+        $selectRow = $querySelect->fetch();
+
+        if(!$selectRow) {
+            echo "<h1>NO SE HA PODIDO SELECIONAR EL USER_ID DEL USUARIO ANONIMO</h1>";
+            exit;   
+        }
+
+        $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
+        $queryInsertAnswer->bindParam(1, $selectRow["user_id"], PDO::PARAM_INT);
+        $queryInsertAnswer->bindParam(2, intval($_POST["opcion"]), PDO::PARAM_INT);
+        $queryInsertAnswer->execute();
+
+        $e = $queryInsertAnswer->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
-    }
-    
-    // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
-    $queryInsert = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) 
-    VALUES ('anonimo', ?, 'password1', 0, 1, 'Ciudad1', 12345, 'ok', 0, 1)");
-    $queryInsert->bindParam(1, $_POST["email"], PDO::PARAM_STR);
-    $queryInsert->execute();
-
-    $e = $queryInsert->errorInfo();
-    if ($e[0] != '00000') {
-        echo "\nPDO::errorInfo():\n";
-        die("Error accedint a dades: " . $e[2]);
-    }
-
-    // seleccionar el id de usuario autogenerado y asociarlo con su respuesta
-    $querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
-    $querySelect->bindParam(1, $_POST["email"], PDO::PARAM_STR);
-    $querySelect->execute();
-
-    $e = $querySelect->errorInfo();
-    if ($e[0] != '00000') {
-        echo "\nPDO::errorInfo():\n";
-        die("Error accedint a dades: " . $e[2]);
-    }
-
-    $selectRow = $querySelect->fetch();
-
-    if(!$selectRow) {
-        echo "NO SE HA PODIDO SELECIONAR EL USER_ID DEL USUARIO ANONIMO";
-        exit;   
-    }
-
-    $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
-    $queryInsertAnswer->bindParam(1, $selectRow["user_id"], PDO::PARAM_INT);
-    $queryInsertAnswer->bindParam(2, intval($_POST["opcion"]), PDO::PARAM_INT);
-    $queryInsertAnswer->execute();
-
-    $e = $queryInsertAnswer->errorInfo();
-    if ($e[0] != '00000') {
-        echo "\nPDO::errorInfo():\n";
-        die("Error accedint a dades: " . $e[2]);
     }
 
     // muestro feedback al usuario anonimo
