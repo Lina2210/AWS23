@@ -25,9 +25,9 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         exit;
     } else {
         // consulta para mostrar el contenido y respuestas de x encuesta. OJO se muestran muchas veces el title y el question
-        // SELECT Survey.title, Question.questionText, Answer.answer_text, Answer.answer_id FROM Survey INNER JOIN Question ON Survey.survey_id = 2 AND Question.survey_id = 2 INNER JOIN Answer ON Question.question_id = Answer.question_id;
+        // SELECT Survey.title, Question.questionText, Question.image AS question_image, Answer.answer_text, Answer.answer_id, Answer.image AS answer_image FROM Survey INNER JOIN Question ON Survey.survey_id = 1 AND Question.survey_id = 1 INNER JOIN Answer ON Question.question_id = Answer.question_id;
         $queryInner = $pdo->prepare("
-        SELECT Survey.title, Question.questionText, Answer.answer_text, Answer.answer_id FROM Survey 
+        SELECT Survey.title, Question.questionText, Question.image AS question_image, Answer.answer_text, Answer.answer_id, Answer.image AS answer_image FROM Survey 
         INNER JOIN Question ON Survey.survey_id = ? AND Question.survey_id = ?
         INNER JOIN Answer ON Question.question_id = Answer.question_id
         ");
@@ -61,14 +61,17 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         $innerRow = $queryInner->fetch();
         echo "    <h1>Título de Encuesta: ".$innerRow["title"]."</h1>";
         echo "    <h2>Pregunta: ".$innerRow["questionText"]."</h2>";
+        if ($innerRow["question_image"] != NULL) { echo "<img src='".$innerRow["question_image"]."'></img>"; }
         echo "    <form action='anonymous_vote.php' method='post'>";
         echo "          <input type='hidden' name='token' value='".$_GET["token"]."'>";
         echo "          <input type='hidden' name='email' value='".$row["email"]."'>";
         echo "          <input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
+        if ($innerRow["answer_image"] != NULL) { echo "<img src='".$innerRow["answer_image"]."'></img>"; }
         echo "          <label>".$innerRow["answer_text"]."</label>";
         echo "          <input type='radio' name='opcion' value='".$innerRow["answer_id"]."'><br>";
 
         while ($innerRow = $queryInner->fetch(PDO::FETCH_ASSOC)) {
+            if ($innerRow["answer_image"] != NULL) { echo "<img src='".$innerRow["answer_image"]."'></img>"; }
             echo "      <label>".$innerRow["answer_text"]."</label>";
             echo "      <input type='radio' name='opcion' value='".$innerRow["answer_id"]."'><br>";
         }
