@@ -822,3 +822,17 @@ TERMS_OF_USE.PHP
     cursor: pointer;
     text-decoration: none;
 }
+
+/* DETALLES.PHP */
+
+.graphics h1, h2, p{
+    color: var(--light-blue)
+}
+
+.graphics .publishPHP{
+    margin: 150px 20px 150px 20px;
+    color: var(--light-blue);
+    font-size: 20px;
+}
+
+.divGraficos #graficoBarras{ margin: 150px 20px 150px 20px; }
