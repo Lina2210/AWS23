@@ -52,7 +52,7 @@ elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
         <link rel="stylesheet" href="./assets/styles/styles.css?no-cache=<?php echo time(); ?>">
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="./assets/scripts/notifications.js"></script>
-        <script src="./assets/scripts/login.js"></script>
+        <script src="./assets/scripts/survey_invitation.js"></script>
         <title>Invitar a participantes</title>
     </head>
     <body>
