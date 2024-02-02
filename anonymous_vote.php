@@ -131,7 +131,7 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         // seleccionar el Id de usuario autogenerado y asociarlo con su respuesta
         $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
         $queryInsertAnswer->bindParam(1, $user_id, PDO::PARAM_INT);
-        $queryInsertAnswer->bindParam(2, intval($_POST["opcion"]), PDO::PARAM_INT);
+        $queryInsertAnswer->bindParam(2, $_POST["opcion"], PDO::PARAM_INT);
         $queryInsertAnswer->execute();
 
         $e = $queryInsertAnswer->errorInfo();
