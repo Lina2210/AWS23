@@ -13,6 +13,7 @@ body {
     --secondary-blue: #7DA0CA;
     --buttons-blue: #548383;
 }
+
 /* ----------------------------------------------------- */
 /* HEADER */
 /* ----------------------------------------------------- */
@@ -21,15 +22,18 @@ header {
     justify-content: center;
     margin-top: 20px;
 }
+
 header h1 {
     color: #C1E8FF;
     position: absolute;
     left: 30px;
 }
+
 header .logo {
     height: 80px;
     width: auto;
 }
+
 header nav {
     position: absolute;
     right: 30px;
@@ -37,6 +41,7 @@ header nav {
     font-weight: bold;
     font-size: 13px;
 }
+
 header nav a.buttonLeft {
     text-decoration: none;
     color: #021024;
@@ -49,9 +54,11 @@ header nav a.buttonLeft {
     border-radius: 50px;
     transition: background-color 0.5s;
 }
+
 header nav a.buttonLeft:hover {
     background-color: rgb(190, 190, 190);
 }
+
 header nav a.buttonRight {
     position: absolute;
     right: 30px;
