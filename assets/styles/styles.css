@@ -149,11 +149,26 @@ footer .icon-github img {
     margin-right: auto;
 }
 
+@keyframes sombraTexto {
+    0% {
+        text-shadow: 1px 1px 20px var(--light-blue);
+    }
+
+    50% {
+        text-shadow: none;
+    }
+    
+    100% {
+        text-shadow: 1px 1px 20px var(--light-blue);
+    }
+}
+
 .index-body .main-text {
     color: #C1E8FF;
     font-size: 130px;
     text-align: center;
     line-height: 150px;
+    animation: sombraTexto 3s infinite linear;
 }
 
 .index-body .buttonBottom {
@@ -170,29 +185,6 @@ footer .icon-github img {
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: 20px;
-    /*transition: background-color 0.5s;*/
-}
-
-
-@keyframes canviaColorBoto {
-  0% {
-    color: (var(--light-blue))
-  }
-
-  1%{
-    color: (var(--light-blue))
-  }
-
-  100% {
-    color: (var(--dark-blue))
-  }
-}
-
-.index-body .main-text {
-  animation-duration: 0.1s;
-  animation-name: canviaColorBoto;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
 /* ----------------------------------------------------- */
