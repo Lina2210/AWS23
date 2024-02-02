@@ -1,2 +1,8 @@
 Error: El número de teléfono es erróneo. Hora del error: 02-02-2024. Error realizado por: lina@gmail.com.
 Error: Ya hay un usuario con este correo electrónico. Hora del error: 02-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 02-02-2024. Error realizado por: anonimo@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 02-02-2024. Error realizado por: anonimo@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 02-02-2024. Error realizado por: anonimo@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 02-02-2024. Error realizado por: anonimo@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 02-02-2024. Error realizado por: anonimo@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 02-02-2024. Error realizado por: anonimo@gmail.com.
