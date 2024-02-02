@@ -14,6 +14,36 @@
     <script src="./assets/scripts/notifications.js"></script>
     <script src="./assets/scripts/login.js"></script>
     <title>Iniciar Sesión</title>
+    <style>
+        /* Estilos para el fondo oscuro */
+        .popup-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            
+        }
+
+        /* Estilos para el popup */
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+            max-width: 400px;
+            width: 80%;
+            text-align: center;
+            border: 3px solid #C1E8FF;
+            background: #052659;
+            color: white;
+        }
+    </style>
 </head>
 
     <body class="login-body">
@@ -126,7 +156,33 @@
             <input class="field" type="password" name="password" required>
             <input type="submit" value="ENTRAR">
         </form>
+        <a href="#" onclick="openPopup('popupWarning')">¿Has olvidado tu contraseña?</a>
     </main>
+    <div class="popup-background" id="popupWarning">
+        <div class="popup-content">
+            <h2>Advertencia</h2>
+            <p>
+                ten en cuenta que al recuperar tu contraseña, 
+                perderás la capacidad de revisar y cambiar los votos anteriores. 
+                Esta acción es irreversible. ¿Deseas continuar con la 
+                recuperación de la contraseña?"
+            </p>
+            <a href="#" onclick="closeAndOpenPopup('popupWarning', 'popupEmail')">SI</a>
+            <a href="#" onclick="closePopup('popupWarning')">NO</a>
+            
+        </div>
+    </div>
+    <div class="popup-background" id="popupEmail">
+        <div class="popup-content">
+
+            <p>
+                Se ha enviado un correo electrónico para recuperar tu contraseña.
+            </p>
+            <a href="#" onclick="closePopup('popupEmail')">Cerrar</a>
+            
+            
+        </div>
+    </div>
     <ul id="notification-container"></ul>
     <?php
     include("./templates/footer.php");
