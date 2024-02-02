@@ -6,6 +6,16 @@ body {
     background-color: #052659;
     font-family: "Saans", Arial, sans-serif;
 }
+
+body::-webkit-scrollbar { width: 5px; }  
+body::-webkit-scrollbar-track { background: none; }
+  
+body::-webkit-scrollbar-thumb {
+    background-color: var(--light-blue);
+    border-radius: 20px;
+    border: none;
+}
+
 :root {
     --dark-blue: #021024;
     --light-blue: #C1E8FF;
