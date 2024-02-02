@@ -1,10 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-
 if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
     require_once("./data/dbAccess.php");
     try {
@@ -61,7 +55,7 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         echo "    <script src='./assets/scripts/anonymous_vote.js'></script>";
         echo "    <title>Votar como Invitado</title>";
         echo "</head>";
-        echo "<body>";
+        echo "<body class='anonymous-body'><main>";
         include("./templates/header.php");
         // meto los datos necesarios. Piensa en hacer un fetch a solas para el titulo y la primera opcion y luego el while
         $innerRow = $queryInner->fetch();
@@ -84,7 +78,7 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         echo "          <input type='submit' value='Guardar Voto'>";
         echo "    </form>";
         include("./templates/footer.php");
-        echo "</body>";
+        echo "</main></body>";
         echo "</html>";
     }
 } 
@@ -92,10 +86,6 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
     require_once("./data/dbAccess.php");
     try {
-
-
-        echo "<br>A ";
-
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
         $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = 'ko' WHERE token = ?");
         $queryUpdate->bindParam(1, $_POST["token"], PDO::PARAM_STR);
@@ -107,8 +97,6 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
             die("Error accedint a dades: " . $e[2]);
         }
 
-        echo "<br>B ";
-
         // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
         $queryInsert = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) 
         VALUES ('anonimo', ?, 'password1', 0, 1, 'Ciudad1', 12345, 'ok', 0, 1)");
@@ -117,16 +105,11 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
 
         $user_id = $pdo->lastInsertId();
 
-        echo "<br>last insert id: ".$user_id;
-
         $e = $queryInsert->errorInfo();
         if ($e[0] != '00000') {
             echo "\nPDO::errorInfo():\n";
             die("Error accedint a dades: " . $e[2]);
         }
-
-        echo "<br>C2";
-
 
         // seleccionar el Id de usuario autogenerado y asociarlo con su respuesta
         $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
@@ -141,16 +124,11 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
             die("Error accedint a dades: " . $e[2]);
         }
 
-
-        echo "<br>D ";
-
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         file_put_contents("/logs/ANONIMO_VOTO.txt", $e->getMessage() . "\n");
         exit;
     }
-
-    file_put_contents("/logs/ANONIMO_VOTO.txt", "has llegado antes del feedback" . "\n");
 
     // muestro feedback al usuario anonimo
     echo "<!DOCTYPE html>";
