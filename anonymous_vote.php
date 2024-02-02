@@ -111,24 +111,7 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
             die("Error accedint a dades: " . $e[2]);
         }
 
-        // seleccionar el id de usuario autogenerado y asociarlo con su respuesta
-        /*$querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
-        $querySelect->bindParam(1, $_POST["email"], PDO::PARAM_STR);
-        $querySelect->execute();
-
-        $e = $querySelect->errorInfo();
-        if ($e[0] != '00000') {
-            echo "\nPDO::errorInfo():\n";
-            die("Error accedint a dades: " . $e[2]);
-        }
-
-        $selectRow = $querySelect->fetch();
-
-        if(!$selectRow) {
-            echo "<h1>NO SE HA PODIDO SELECIONAR EL USER_ID DEL USUARIO ANONIMO</h1>";
-            exit;   
-        }*/
-
+        // seleccionar el Id de usuario autogenerado y asociarlo con su respuesta
         $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
         $queryInsertAnswer->bindParam(1, $user_id, PDO::PARAM_INT);
         $queryInsertAnswer->bindParam(2, intval($_POST["opcion"]), PDO::PARAM_INT);
@@ -137,13 +120,17 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         $e = $queryInsertAnswer->errorInfo();
         if ($e[0] != '00000') {
             echo "\nPDO::errorInfo():\n";
+            file_put_contents("/logs/ANONIMO_VOTO.txt", $e[2]);
             die("Error accedint a dades: " . $e[2]);
         }
 
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+        file_put_contents("/logs/ANONIMO_VOTO.txt", $e->getMessage() . "\n");
         exit;
     }
+
+    file_put_contents("/logs/ANONIMO_VOTO.txt", "has llegado antes del feedback" . "\n");
 
     // muestro feedback al usuario anonimo
     echo "<!DOCTYPE html>";
