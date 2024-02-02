@@ -253,7 +253,7 @@
                     $token = bin2hex(random_bytes(32 / 2));
                     file_put_contents('debug_log.txt', "valores: " . $invited_user, FILE_APPEND);
                     file_put_contents('debug_log.txt', "valores: " . $userName . "," . $hashedPassword . "," . $mobile . "," . $countryId ."," . $city . "," . $postalCode . "," . $token . "," . '0' . "," . '1' . "," . $email, FILE_APPEND);
-                    if ($invited_user === 0) {
+                    if (!$invited_user) {
                         file_put_contents('debug_log.txt', "valores: " . $userName . $hashedPassword . $mobile . $countryId . $city . $postalCode . $token . '0' . '1' . $email, FILE_APPEND);
                         $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                         $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 1]);
