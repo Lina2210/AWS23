@@ -811,8 +811,8 @@ TERMS_OF_USE.PHP
     margin-right: auto;
     margin-bottom: 100px;
     text-decoration: none;
-    color: #C1E8FF;
-    border: 1px solid #C1E8FF;
+    color: var(--light-blue);
+    border: 1px solid var(--light-blue);
     border-radius: 10px;
     padding-left: 40px;
     padding-right: 40px;
