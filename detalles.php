@@ -97,7 +97,6 @@
                             $datosPastel[] = $respuesta['cantidad_respuestas'];
                         }
 
-                        // Generar gráfico de barras
                         echo '<div class="graficosContainer">';
                         echo '<div class="divGraficos"><canvas id="graficoBarras"></canvas></div>';
                         echo "
