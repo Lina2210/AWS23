@@ -1,6 +1,4 @@
 <?php
-    
-
     function actualizarEstadosPublicacion() {
         // Tu código para conectar a la base de datos y obtener los estados de publicación
         global $pSurvey, $pResult, $surveyId, $pdo;
@@ -22,10 +20,8 @@
             $pResult = $dato['publication_results'];
         endforeach;
     }
-    actualizarEstadosPublicacion();
-    
-    ?> 
-
+    actualizarEstadosPublicacion();  
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
