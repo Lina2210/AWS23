@@ -127,7 +127,7 @@
                         $invited_user = intval($row['invited_user']);
                     
                                     
-                        if ($count > 0 && $invited_user > 0) {
+                        if ($count > 0 && $invited_user) {
                             $date = date_create(null, timezone_open("Europe/Paris"));
                             $tz = date_timezone_get($date);
                             $dataSinCambiar = date("d-m-Y");
