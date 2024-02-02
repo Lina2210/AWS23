@@ -42,7 +42,10 @@
         <title>Detalles — encuesta2</title>
     </head>
     <body class="graphics">
-        <?php include("./templates/header.php"); ?>
+        <?php 
+            include("./templates/header.php");
+            include("./templates/publish.php"); 
+        ?>
         
         <main>
             <?php
