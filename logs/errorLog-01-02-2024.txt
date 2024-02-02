@@ -1,0 +1,10 @@
+Error: Ya hay un usuario con este correo electrónico. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Ya hay un usuario con este correo electrónico. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
+Error: Error al registrar el usuario. Hora del error: 01-02-2024. Error realizado por: lina@gmail.com.
