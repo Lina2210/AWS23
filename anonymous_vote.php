@@ -1,4 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+
 if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
     require_once("./data/dbAccess.php");
     try {
@@ -119,7 +125,7 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
             die("Error accedint a dades: " . $e[2]);
         }
 
-        echo "<br>C ";
+        echo "<br>C2";
 
 
         // seleccionar el Id de usuario autogenerado y asociarlo con su respuesta
