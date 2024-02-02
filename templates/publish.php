@@ -109,24 +109,24 @@
 </div>
 
 <form method="post" id="formEncuesta">
-    <label for="opcionesEncuesta">Modificar el estado de publicacion de la encuesta</label>
-    <select name="opcionesEncuesta" id="opcionesEncuesta">
+    <br><label for="opcionesEncuesta">Modificar el estado de publicacion de la encuesta</label>
+    <br><select name="opcionesEncuesta" id="opcionesEncuesta">
         <option value="opciones">Selecciona una opción</option>
         <option value="oculto">Oculto</option>
         <option value="publico">Público</option>
         <option value="privado">Privado</option>
     </select>   
-    <label for="opcionesResultado">Modificar el estado de publicacion de los resultados</label>
+    <br><label for="opcionesResultado">Modificar el estado de publicacion de los resultados</label><br>
     <select name="opcionesResultado" id="opcionesResultado" disabled>
         <option value="">Selecciona una opción</option>
         <option value="oculto">Oculto</option>
         <option value="publico">Público</option>
         <option value="privado">Privado</option>
     </select>
-    <input type="submit" value="Guardar">
+    <br><input type="submit" value="Guardar" id="guardarButton">
 </form>
 
-    <script>
+<script>
     $(document).ready(function(){
         
         $('#opcionesEncuesta').change(function(){
@@ -147,5 +147,3 @@
         });
     });
 </script>
-        
-    

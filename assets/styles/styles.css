@@ -724,6 +724,7 @@ TERMS_OF_USE.PHP
     align-items: center;
     color: white;
 }
+
 .terms-container .pop-up {
     text-align: justify;
     background: #052659;
@@ -735,17 +736,21 @@ TERMS_OF_USE.PHP
     flex-direction: column;
     align-items: center;
 }
+
 .terms-container a {
     color: #C1E8FF;
 }
+
 .terms-container #terms-form {
     display: inline;
 }
+
 .terms-container .buttons-container {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
 }
+
 .terms-container button#accept {
     border: none;
     border-radius: 50px;
@@ -755,15 +760,18 @@ TERMS_OF_USE.PHP
     cursor: pointer;
     text-decoration: none;
 }
+
 .terms-container button#accept:hover, .terms-container button#decline:hover {
     border: 1px solid #C1E8FF;
 }
+
 .terms-container button#accept:disabled {
     color: gray;
     background-color: #275728;
     cursor: not-allowed;
     border: none;
 }
+
 .terms-container button#decline {
     border: none;
     border-radius: 50px;
@@ -773,7 +781,6 @@ TERMS_OF_USE.PHP
     cursor: pointer;
     text-decoration: none;
 }
-
 
 /* DETALLES.PHP */
 .graphics {
@@ -792,6 +799,35 @@ TERMS_OF_USE.PHP
     width: 700px;
     margin: 200px 100px 150px 100px;
 }
+
+.graphics .h1{
+    font-size: 40px;
+}
+
+#opcionesEncuesta, #opcionesResultado, #guardarButton {
+    width: fit-content;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    background-color: var(--background-blue);
+    transition: background-color 0.5s;
+}
+
+#opcionesEncuesta:hover, #opcionesResultado:hover, #guardarButton:hover {
+    background-color: #C1E8FF;
+    color: #052659;
+}
+
 
 /* ----------------------------------------------------- */
 /* FOOTER */
