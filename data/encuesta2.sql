@@ -7,7 +7,7 @@ use `encuesta2`;
 CREATE TABLE `User` (
   `user_id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
-  `mail` varchar(255) NOT NULL,
+  `mail` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
   `tlfn` bigint NOT NULL,
   `country_id` int NOT NULL,

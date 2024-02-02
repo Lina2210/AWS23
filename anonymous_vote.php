@@ -103,6 +103,8 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         $queryInsert->bindParam(1, $_POST["email"], PDO::PARAM_STR);
         $queryInsert->execute();
 
+        $user_id = $pdo->lastInsertId();
+
         $e = $queryInsert->errorInfo();
         if ($e[0] != '00000') {
             echo "\nPDO::errorInfo():\n";
@@ -110,7 +112,7 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         }
 
         // seleccionar el id de usuario autogenerado y asociarlo con su respuesta
-        $querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
+        /*$querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
         $querySelect->bindParam(1, $_POST["email"], PDO::PARAM_STR);
         $querySelect->execute();
 
@@ -125,10 +127,10 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         if(!$selectRow) {
             echo "<h1>NO SE HA PODIDO SELECIONAR EL USER_ID DEL USUARIO ANONIMO</h1>";
             exit;   
-        }
+        }*/
 
         $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
-        $queryInsertAnswer->bindParam(1, $selectRow["user_id"], PDO::PARAM_INT);
+        $queryInsertAnswer->bindParam(1, $user_id, PDO::PARAM_INT);
         $queryInsertAnswer->bindParam(2, intval($_POST["opcion"]), PDO::PARAM_INT);
         $queryInsertAnswer->execute();
 
