@@ -824,8 +824,8 @@ TERMS_OF_USE.PHP
 }
 
 #opcionesEncuesta:hover, #opcionesResultado:hover, #guardarButton:hover {
-    background-color: #C1E8FF;
-    color: #052659;
+    background-color: var(--light-blue);
+    color: var(--background-blue);
 }
 
 /* ----------------------------------------------------- */
