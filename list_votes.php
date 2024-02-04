@@ -29,8 +29,8 @@ if (!isset($_SESSION["mail"])) {
             echo "Failed to get DB handle: " . $e->getMessage() . "\n";
             exit;
         }
-        // SELECT 
-        $query = $pdo->prepare("SELECT survey_id FROM UserSurveyAccess WHERE user_id = ?");
+        // SELECT
+        $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = ?");
         $query->bindParam(1, $_SESSION["user_id"], PDO::PARAM_INT);
         $query->execute();
         
@@ -42,10 +42,36 @@ if (!isset($_SESSION["mail"])) {
         }
 
         if ($query->rowCount() > 0) {
-            
+            // SELECT Survey.title, Question.questionText, Answer.answer_text FROM Survey INNER JOIN Question ON Survey.survey_id = 1 AND Question.survey_id = 1 INNER JOIN Answer ON Answer.answer_id = 1;
+            $querySelect = $pdo->prepare("
+            SELECT Survey.title, Question.questionText, Answer.answer_text FROM Survey 
+            INNER JOIN Question ON Survey.survey_id = ? AND Question.survey_id = ? INNER JOIN Answer ON Answer.answer_id = ?;
+            ");
+
             echo "<ul>";
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                echo "<li></li>";
+                $querySelect->bindParam(1, $row["survey_id"], PDO::PARAM_INT);
+                $querySelect->bindParam(2, $row["survey_id"], PDO::PARAM_INT);
+                $querySelect->bindParam(3, $row["answer_id"], PDO::PARAM_INT);
+                $querySelect->execute();
+                
+                // compruebo errores
+                $e = $querySelect->errorInfo();
+                if ($e[0] != '00000') {
+                    echo "\nPDO::errorInfo():\n";
+                    die("Error accedint a dades: " . $e[2]);
+                }
+
+                $selectRow = $querySelect->fetch();
+
+                if ($selectRow) {
+                    // imprimo las encuestas
+                    echo "<li>";
+                    echo "  <h1>Título: ".$selectRow["Survey.title"]."</h1>";
+                    echo "  <h2>Pregunta: ".$selectRow["Question.questionText"]."</h2>";
+                    echo "  <h3>Respuesta: ".$selectRow["Answer.answer_text"]."</h3>";
+                    echo "</li>";
+                }   
             }
             echo "</ul>";
         } else {
