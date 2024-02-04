@@ -254,10 +254,10 @@
                     if (!$invited_user) {
                         file_put_contents('debug_log.txt', "valores: " . $userName . $hashedPassword . $mobile . $countryId . $city . $postalCode . $token . '0' . '1' . $email, FILE_APPEND);
                         $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 1]);
+                        $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0]);
                     } else {
                         $query = $pdo->prepare("UPDATE User SET user_name = ?, password = ?, tlfn = ?, country_id = ?, city = ?, postal_code = ?, email_token = ?, terms_of_use = ?, invited_user = ? WHERE mail = ?");
-                        $query->execute([$userName, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 1, $email]);
+                        $query->execute([$userName, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0, $email]);
                         
                     }
 
