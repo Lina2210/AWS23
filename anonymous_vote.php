@@ -120,7 +120,18 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         $e = $queryInsertAnswer->errorInfo();
         if ($e[0] != '00000') {
             echo "\nPDO::errorInfo():\n";
-            file_put_contents("/logs/ANONIMO_VOTO.txt", $e[2]);
+            die("Error accedint a dades: " . $e[2]);
+        }
+
+        // darle accesso al usuario para cuando se registre y quiera ver sus votaciones
+        $queryInsertAccess = $pdo->prepare("INSERT INTO UserSurveyAccess (user_id, survey_id) VALUES (?, ?)");
+        $queryInsertAccess->bindParam(1, $user_id, PDO::PARAM_INT);
+        $queryInsertAccess->bindParam(2, $_POST["survey_id"], PDO::PARAM_INT);
+        $queryInsertAccess->execute();
+
+        $e = $queryInsertAccess->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
             die("Error accedint a dades: " . $e[2]);
         }
 
