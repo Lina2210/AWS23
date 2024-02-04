@@ -127,12 +127,11 @@
                         $invited_user = intval($row['invited_user']);
                     
                                     
-                        if ($count > 0 && $invited_user) {
+                        if ($count > 0 && !$invited_user) {
                             $date = date_create(null, timezone_open("Europe/Paris"));
                             $tz = date_timezone_get($date);
                             $dataSinCambiar = date("d-m-Y");
                             $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                            echo "<h1>".$dataReal."</h1>";
                             $carpetaArchivos = "logs/";
                             if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
                             $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
@@ -246,7 +245,6 @@
                                 </script>";
                         exit;
                     }
-
                 
                     $postalCode = intval($postalCode);
                     $countryId = intval($countryId);
@@ -262,8 +260,6 @@
                         $query->execute([$userName, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 1, $email]);
                         
                     }
-                    
-
 
                     // el usuario se ha creado correctamente
 
