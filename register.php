@@ -259,17 +259,14 @@
                         $query = $pdo->prepare("UPDATE User SET user_name = ?, password = ?, tlfn = ?, country_id = ?, city = ?, postal_code = ?, email_token = ?, terms_of_use = ?, invited_user = ? WHERE mail = ?");
                         $query->execute([$userName, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0, $email]);
 
-                        /* CREATE TABLE `UserVote` (
-                            `user_id` int NOT NULL,
-                            `survey_id`int NOT NULL,
-                            `answer_id` int NOT NULL
-                        ); */
+                        // hago un update de uservote para poder desencriptar luego con la password del usuario
                         require_once("./data/conf.php");
+                        $userId = $pdo->lastInsertId();
 
-                        //$stringUserId = 
-
-                        $queryUpdate = $pdo->prepare("UPDATE UserVote SET user_id = ?");
-                        $queryUpdate->bindParam(1, $stringUserId, PDO::PARAM_STR);
+                        $queryUpdate = $pdo->prepare("UPDATE UserVote SET user_id = AES_ENCRYPT(?, ?) WHERE user_id = ?");
+                        $queryUpdate->bindParam(1, $userId, PDO::PARAM_INT);
+                        $queryUpdate->bindParam(2, $password, PDO::PARAM_STR);
+                        $queryUpdate->bindParam(3, $userId, PDO::PARAM_INT);
                         $queryUpdate->execute();
                         
                     }
