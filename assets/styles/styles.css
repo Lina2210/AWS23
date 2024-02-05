@@ -788,7 +788,11 @@ TERMS_OF_USE.PHP
     color: var(--light-blue);
 }
 
-.graficosContainer{
+.tituloiconoEncuesta, .iconoResultado{
+    margin-top: 50px;
+}
+
+.graficosContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -800,26 +804,19 @@ TERMS_OF_USE.PHP
     margin: 200px 100px 150px 100px;
 }
 
-.graphics .h1{
-    font-size: 40px;
-}
+.graphics .h1 { font-size: 40px; }
 
 #opcionesEncuesta, #opcionesResultado, #guardarButton {
     width: fit-content;
     height: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 100px;
+    padding: 15px 15px;
+    margin: 20px auto 50px auto;
     text-decoration: none;
-    color: var(--light-blue);
+    background-color: var(--background-blue);
     border: 1px solid var(--light-blue);
     border-radius: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 20px;
-    background-color: var(--background-blue);
+    font-size: 15px;
+    color: var(--light-blue);
     transition: background-color 0.5s;
 }
 

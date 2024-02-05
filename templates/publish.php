@@ -62,8 +62,8 @@
 ?>  
 
 
-<div class="icono encuesta">
-    <h3>Estado de publicacion de la encuesta: </h3>
+<div class="iconoEncuesta">
+    <h3 class="tituloiconoEncuesta">Estado de publicacion de la encuesta: </h3>
     <?php
         switch ($pSurvey) {
             case 'oculto':
@@ -85,7 +85,7 @@
     ?>
 </div>
 
-<div class="icono resultado">
+<div class="iconoResultado">
     <h3>Estado de publicacion de los resultados: </h3>
     <?php
         switch ($pResult) {
@@ -109,14 +109,14 @@
 </div>
 
 <form method="post" id="formEncuesta">
-    <br><label for="opcionesEncuesta">Modificar el estado de publicacion de la encuesta</label>
+    <br><label for="opcionesEncuesta"><em>Modificar el estado de publicacion de la encuesta</em></label>
     <br><select name="opcionesEncuesta" id="opcionesEncuesta">
         <option value="opciones">Selecciona una opción</option>
         <option value="oculto">Oculto</option>
         <option value="publico">Público</option>
         <option value="privado">Privado</option>
     </select>   
-    <br><label for="opcionesResultado">Modificar el estado de publicacion de los resultados</label><br>
+    <br><label for="opcionesResultado"><em>Modificar el estado de publicacion de los resultados</em></label><br>
     <select name="opcionesResultado" id="opcionesResultado" disabled>
         <option value="">Selecciona una opción</option>
         <option value="oculto">Oculto</option>
