@@ -31,7 +31,10 @@ if (!isset($_SESSION["mail"])) {
         }
         // SELECT
         // $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = ?");
-        $query = $pdo->prepare("SELECT UserSurveyAccess.survey_id, Answer.answer_id FROM UserSurveyAccess INNER JOIN Question ON Question.survey_id = UserSurveyAccess.survey_id INNER JOIN Answer ON Question.question_id = Answer.question_id WHERE UserSurveyAccess.user_id = ?");
+        // SELECT UserSurveyAccess.survey_id, Answer.answer_id FROM UserSurveyAccess INNER JOIN Question ON Question.survey_id = UserSurveyAccess.survey_id INNER JOIN Answer ON Question.question_id = Answer.question_id WHERE UserSurveyAccess.user_id = 2;
+        // HACER AQUI EL SELECT DE LA SPEC 30 ENCRIPTACION VOTOS!!!!
+        // QUIZAS DEBES PEDIR LA CONTRASEÑA DE NUEVO AL USUARIO AL ACCEDER A LIST VOTES
+        $query = $pdo->prepare("");
         $query->bindParam(1, $_SESSION["user_id"], PDO::PARAM_INT);
         $query->execute();
         
@@ -49,6 +52,7 @@ if (!isset($_SESSION["mail"])) {
             INNER JOIN Question ON Survey.survey_id = ? AND Question.survey_id = ? INNER JOIN Answer ON Answer.answer_id = ?;
             ");
 
+            echo "<h1>Estos son tus votos: </h1>";
             echo "<ul>";
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                 $querySelect->bindParam(1, $row["survey_id"], PDO::PARAM_INT);
