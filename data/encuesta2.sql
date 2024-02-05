@@ -15,7 +15,8 @@ CREATE TABLE `User` (
   `postal_code` int NOT NULL,
   `email_token` varchar(255),
   `terms_of_use` BOOLEAN NOT NULL,
-  `invited_user` BOOLEAN
+  `invited_user` BOOLEAN,  
+  `change_pass` varchar(255) NULL
 );
 
 CREATE TABLE `Survey` (

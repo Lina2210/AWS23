@@ -1,0 +1,1 @@
+localhost:8080/forgot_password.php?token=0ddd753a6aec993f4f95dbeaa559ec44

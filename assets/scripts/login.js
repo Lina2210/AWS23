@@ -33,10 +33,6 @@ function checkTerms(username, mail) {
         window.location.href = 'login.php';
     });
 }
-function closeAndOpenPopup(currentPopupId, nextPopupId) {
-    closePopup(currentPopupId);
-    openPopup(nextPopupId);
-}
 
 function openPopup(popupId) {
     $('#' + popupId).css('display', 'flex');
