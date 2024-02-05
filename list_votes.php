@@ -30,7 +30,8 @@ if (!isset($_SESSION["mail"])) {
             exit;
         }
         // SELECT
-        $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = ?");
+        // $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = ?");
+        $query = $pdo->prepare("SELECT UserSurveyAccess.survey_id, Answer.answer_id FROM UserSurveyAccess INNER JOIN Question ON Question.survey_id = UserSurveyAccess.survey_id INNER JOIN Answer ON Question.question_id = Answer.question_id WHERE UserSurveyAccess.user_id = ?");
         $query->bindParam(1, $_SESSION["user_id"], PDO::PARAM_INT);
         $query->execute();
         
