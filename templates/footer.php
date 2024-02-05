@@ -1,7 +1,10 @@
 <footer>
+    <div class="prueba1">
+        <a href="/" target="_blank"><img class="imgGIF" src="./assets/images/logo.gif" alt=""></a>
+    </div>
+    
     <ul>
         <li><img src="/assets/images/email-icon.svg">Lina Ramírez - lramirezhernandez.cf@iesesteveterradas.cat</li>
-        <li><img src="/assets/images/email-icon.svg">Eric Escrich - eescrichalmagro.cf@iesesteveterradas.cat</li>
         <li><img src="/assets/images/email-icon.svg">Isaac Furió - ifuriomartin.cf@iesesteveterradas.cat</li>
         <li><img src="/assets/images/email-icon.svg">Claudia Moyano - cmoyanoherrerias.cf@iesesteveterradas.cat</li>
     </ul>

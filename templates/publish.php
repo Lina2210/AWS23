@@ -123,6 +123,7 @@
         <option value="publico">Público</option>
         <option value="privado">Privado</option>
     </select>
+    <input type="hidden" name="survey_id" value="<?php echo $idEncuesta; ?>">
     <br><input type="submit" value="Guardar" id="guardarButton">
 </form>
 

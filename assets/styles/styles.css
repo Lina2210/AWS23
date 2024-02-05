@@ -101,7 +101,7 @@ header nav a.buttonRight {
     text-align: center;
     line-height: 150px;
 }
-.index-body .buttonBottom {
+.index-body .buttonBottom{
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -639,19 +639,14 @@ header nav a.buttonRight {
     margin-bottom: 20px;
 }
 
-.listPolls-body .main-content th,
-td {
-    border: 1px solid #ddd;
+.listPolls-body .main-content th, td {
+    border: 1px solid var(--light-blue);
     padding: 8px;
     text-align: left;
 }
 
 .listPolls-body .main-content th.name-column {
     width: 50%;
-}
-
-.listPolls-body .main-content th {
-    background-color: #f2f2f2;
 }
 
 .listPolls-body .main-content a {
@@ -674,6 +669,33 @@ td {
 .listPolls-body .main-content a:hover {
     background-color: #C1E8FF;
     color: #052659;
+}
+
+#invitarButton, #detallesButton{
+    width: fit-content;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    background-color: var(--background-blue);
+    transition: background-color 0.5s;
+}
+
+#invitarButton:hover, #detallesButton:hover {
+    background-color: #C1E8FF;
+    color: #052659;
+}
+
+.listPolls-body .main-content td {
+    color: var(--light-blue);
+}
+
+.listPolls-body .main-content th {
+    backface-visibility: var(--buttons-blue);
+    color: var(--light-blue);
 }
 
 /* ----------------------------------------------------- */
@@ -828,6 +850,19 @@ TERMS_OF_USE.PHP
 /* ----------------------------------------------------- */
 /* FOOTER */
 /* ----------------------------------------------------- */
+
+.prueba1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -100px 0 -50px 0;
+}
+
+.imgGIF {
+    max-width: 100%;
+    height: auto;
+}
+
 footer {
     font-weight: bold;
     width: 100%;
@@ -888,7 +923,7 @@ footer ul li img {
 footer .icon-github {
     position: absolute;
     align-self: flex-end;
-    margin-top: 60px;
+    margin-top: 180px;
     margin-right: 60px;
     border-radius: 50px;
     transition: transform 0.5s;
