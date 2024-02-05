@@ -85,6 +85,7 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
 elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
     require_once("./data/dbAccess.php");
+    require_once("./data/conf.php");
     try {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
         $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = 'ko' WHERE token = ?");
@@ -112,9 +113,21 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
         }
 
         // seleccionar el Id de usuario autogenerado y asociarlo con su respuesta
-        $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, answer_id) VALUES (?, ?)");
-        $queryInsertAnswer->bindParam(1, $user_id, PDO::PARAM_INT);
-        $queryInsertAnswer->bindParam(2, $_POST["opcion"], PDO::PARAM_INT);
+        /*
+        CREATE TABLE `UserVote` (
+            `user_id` int NOT NULL,
+            `survey_id`int NOT NULL,
+            `answer_id` int NOT NULL
+        );
+        */
+        // AES_ENCRYPT("text","mykey")
+        $stringUserId = strval($user_id);
+
+        $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, survey_id, answer_id) VALUES (AES_ENCRYPT(?, ?), ?, ?)");
+        $queryInsertAnswer->bindParam(1, $stringUserId, PDO::PARAM_STR);
+        $queryInsertAnswer->bindParam(2, $key, PDO::PARAM_STR);
+        $queryInsertAnswer->bindParam(3, $_POST["survey_id"], PDO::PARAM_INT);
+        $queryInsertAnswer->bindParam(4, $_POST["opcion"], PDO::PARAM_INT);
         $queryInsertAnswer->execute();
 
         $e = $queryInsertAnswer->errorInfo();

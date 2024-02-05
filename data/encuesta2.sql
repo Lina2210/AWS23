@@ -52,8 +52,8 @@ CREATE TABLE `Country` (
 
 CREATE TABLE `UserVote` (
   `user_id` int NOT NULL,
-  `answer_id` int NOT NULL,
-  PRIMARY KEY (`user_id`, `answer_id`)
+  `survey_id`int NOT NULL,
+  `answer_id` int NOT NULL
 );
 
 CREATE TABLE `UserSurveyAccess` (
@@ -86,13 +86,13 @@ ALTER TABLE `Answer` ADD CONSTRAINT FK_Answer_Question
 FOREIGN KEY (question_id)
     REFERENCES Question (question_id);
 
+ALTER TABLE `UserVote` ADD CONSTRAINT FK_UserVote_Survey
+FOREIGN KEY (survey_id)
+    REFERENCES Survey (survey_id);
+
 ALTER TABLE `UserVote` ADD CONSTRAINT FK_UserVote_Answer
 FOREIGN KEY (answer_id)
     REFERENCES Answer (answer_id);
-
-ALTER TABLE `UserVote` ADD CONSTRAINT FK_UserVote_User
-FOREIGN KEY (user_id)
-    REFERENCES User (user_id);
 
 ALTER TABLE `UserSurveyAccess` ADD CONSTRAINT FK_UserSurveyAccess_User
 FOREIGN KEY (user_id)
