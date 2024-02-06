@@ -49,22 +49,23 @@ elseif (!isset($_POST["survey_id"]) && !isset($_POST["title"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/images/dos.png" type="image/png">
-    <link rel="stylesheet" href="./assets/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="../assets/styles/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/scripts/notifications.js"></script>
     <script src="./assets/scripts/survey_invitation.js"></script>
+    s
     <title>Invitar a participantes</title>
 </head>
-<body>
+<body class="invitationBody">
     <?php include("./templates/header.php"); ?>
 
-    <h1>Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
-    <p>Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
+    <h1 class="h1Invitation">Invitar participantes a la encuesta "<?php echo $_POST["title"]; ?>"</h1>
+    <p class="textInvitation">Por favor separa los correos con saltos de linea (pulsando "Intro")</p>
     <form id="sendMailsForm" action="survey_invitation.php" method="post">
-        <label for="emails">Lista de emails invitados a la encuesta:</label>
+        <label for="emails">Lista de emails invitados a la encuesta:</label><br>
         <textarea id="emails" name="emails" rows="4" cols="50" required></textarea>
         <input type="hidden" name="survey_id" value="<?php echo $_POST["survey_id"]; ?>">
-        <button id="checkEmails" type="button">Enviar Invitaciones</button>
+        <br><button id="checkEmails" type="button">Enviar</button>
     </form>
 
     <ul id="notification-container"></ul>

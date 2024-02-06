@@ -95,12 +95,7 @@ header nav a.buttonRight {
     margin-left: auto;
     margin-right: auto;
 }
-.index-body .main-text {
-    color: #C1E8FF;
-    font-size: 130px;
-    text-align: center;
-    line-height: 150px;
-}
+
 .index-body .buttonBottom{
     width: fit-content;
     margin-left: auto;
@@ -120,6 +115,28 @@ header nav a.buttonRight {
 .index-body .buttonBottom:hover {
     background-color: #C1E8FF;
     color: #052659;
+}
+
+@keyframes sombraTexto {
+    0% {
+        text-shadow: 1px 1px 20px var(--light-blue);
+    }
+
+    50% {
+        text-shadow: none;
+    }
+    
+    100% {
+        text-shadow: 1px 1px 20px var(--light-blue);
+    }
+}
+
+.index-body .main-text {
+    color: #C1E8FF;
+    font-size: 130px;
+    text-align: center;
+    line-height: 150px;
+    animation: sombraTexto 3s infinite linear;
 }
 
 /* ----------------------------------------------------- */
@@ -146,12 +163,14 @@ header nav a.buttonRight {
     text-align: left;
     margin-top: 50px;
 }
+
 .login-body .main-content form label {
     color: #C1E8FF;
     font-size: 20px;
     margin-left: 20px;
     margin-bottom: 10px;
 }
+
 .login-body .main-content form input.field {
     color: white;
     font-weight: bold;
@@ -164,13 +183,16 @@ header nav a.buttonRight {
     transition: background-color 0.5s;
     padding-left: 20px;
 }
+
 .login-body .main-content form input.field:hover {
     background-color: #07429b;
 }
+
 .login-body .main-content form input.field:focus {
     outline: none;
     border: 1px solid #C1E8FF;
 }
+
 .login-body .main-content form input[type="submit"] {
     font-size: 15px;
     margin-left: auto;
@@ -495,6 +517,7 @@ header nav a.buttonRight {
     margin-bottom: 15px;
     transition: background-color 0.5s;
     padding-left: 20px;
+    color: #FFFF;
 }
 
 .createPoll-body .main-content form textarea {
@@ -503,10 +526,11 @@ header nav a.buttonRight {
     height: auto;
     background-color: #053377;
     border: 1px solid #07429b;
-    border-radius: 50px;
+    border-radius: 20px;
     margin-bottom: 15px;
     transition: background-color 0.5s;
     padding-left: 20px;
+    color: #FFFF;
 }
 
 .createPoll-body .main-content form textarea::placeholder {
@@ -687,6 +711,7 @@ header nav a.buttonRight {
 #invitarButton:hover, #detallesButton:hover {
     background-color: #C1E8FF;
     color: #052659;
+    cursor: pointer;
 }
 
 .listPolls-body .main-content td {
@@ -848,6 +873,57 @@ TERMS_OF_USE.PHP
 }
 
 /* ----------------------------------------------------- */
+/* SURVEY_INVITATION.PHP */
+/* ----------------------------------------------------- */
+.invitationBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.h1Invitation{
+    margin-top: 60px;
+    font-size: 130px;
+    text-align: center;
+}
+
+.h1Invitation, .textInvitation, #sendMailsForm {
+    color: var(--light-blue);
+}
+
+#sendMailsForm > textarea{
+    margin: 20px 0 20px 0;
+    font-weight: bold;
+    width: 450px;
+    height: auto;
+    background-color: #053377;
+    color: #FFFF;
+    border: 1px solid var(--light-blue);
+    border-radius: 20px;
+    transition: background-color 0.5s;
+    padding-left: 20px;
+}
+
+#checkEmails{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    background-color: var(--background-blue);
+    padding: 10px 10px;
+    font-size: 15px;
+    transition: background-color 0.5s;
+}
+#checkEmails:hover {
+    background-color: #C1E8FF;
+    color: #052659;
+}
+
+/* ----------------------------------------------------- */
 /* FOOTER */
 /* ----------------------------------------------------- */
 
@@ -855,7 +931,6 @@ TERMS_OF_USE.PHP
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: -100px 0 -50px 0;
 }
 
 .imgGIF {
@@ -923,7 +998,7 @@ footer ul li img {
 footer .icon-github {
     position: absolute;
     align-self: flex-end;
-    margin-top: 180px;
+    margin-top: 300px;
     margin-right: 60px;
     border-radius: 50px;
     transition: transform 0.5s;
