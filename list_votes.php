@@ -28,7 +28,7 @@ if (!isset($_SESSION["mail"])) {
             echo "Failed to get DB handle: " . $e->getMessage() . "\n";
             exit;
         }
-        if (!isset($_POST["pass"])) {
+        if (isset($_POST["pass"])) {
             // consulta mysql pdo para mostrar los votos y si no hay votos que de un warning de que este usuario no tiene votos
             // SELECT
             // $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = ?");
