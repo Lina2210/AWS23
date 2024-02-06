@@ -52,8 +52,23 @@
                                 echo "<tr>";
                                 echo "<td>" . $row["title"] . "</td>";
                                 echo "<td>" . $row["state"] . "</td>";
-                                echo "<td>Desbloqueada</td>";
                                 echo "<td>";
+                                echo "<form method='POST' action='update_state.php'>";
+                                echo "<input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
+                                echo "<select name='new_state'>";
+                                if ($row["state"] == "bloqueado") {
+                                    echo "<option value='bloqueado' selected>Bloqueada</option>";
+                                    echo "<option value='desbloqueado'>Desbloqueada</option>";
+                                } else {
+                                    echo "<option value='bloqueado'>Bloqueada</option>";
+                                    echo "<option value='desbloqueado' selected>Desbloqueada</option>";
+                                }
+                                echo "</select>";
+                                echo "<input type='submit' value='Actualizar'>";
+                                echo "</form>";
+                                echo "</td>";
+                                echo "<td>";
+
                                 echo "<form method='POST' action='/survey_invitation.php'>";
                                 echo "<input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
                                 echo "<input type='hidden' name='title' value='".$row["title"]."'>";
