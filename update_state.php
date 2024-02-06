@@ -16,14 +16,15 @@ try {
         $update_statement->bindParam(':survey_id', $survey_id);
         $update_statement->execute();
 
-        $block_query = "SELECT state FROM Survey WHERE survey_id = :survey_id";
+        $block_query = "SELECT title, state FROM Survey WHERE survey_id = :survey_id";
         $block_statement = $conn->prepare($block_query);
         $block_statement->bindParam(':survey_id', $survey_id);
         $block_statement->execute();
         $result = $block_statement->fetch(PDO::FETCH_ASSOC);
         $state = $result['state'];
+        $name = $result['title'];
         if ($state === "bloqueado") {
-            $select_query = "SELECT email FROM InvitedUser WHERE survey_id = :survey_id and token != :token";
+            $select_query = "SELECT email, token FROM InvitedUser WHERE survey_id = :survey_id and token != :token";
             $select_statement = $conn->prepare($select_query);
             $select_statement->bindParam(':survey_id', $survey_id);
             $select_statement->bindValue(':token', 'ko');
@@ -31,7 +32,12 @@ try {
             
             while ($row = $select_statement->fetch(PDO::FETCH_ASSOC)) {
                 
-                mail($row["email"], "La encuesta ha sido bloqueada, no podras usar el link de votación", "No respondas a este mensaje.");
+                mail($row["email"], "Encuesta " . $name . " Bloqueada" , "La encuesta ha sido bloqueada, no podras usar el link de votación. No respondas a este mensaje.");
+            }
+
+            if ($_GET["token"] === $row["token"]){
+                include("./error404.php");
+                exit;
             }
         } 
         
