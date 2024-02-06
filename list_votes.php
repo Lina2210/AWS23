@@ -35,8 +35,20 @@ if (!isset($_SESSION["mail"])) {
             // SELECT UserSurveyAccess.survey_id, Answer.answer_id FROM UserSurveyAccess INNER JOIN Question ON Question.survey_id = UserSurveyAccess.survey_id INNER JOIN Answer ON Question.question_id = Answer.question_id WHERE UserSurveyAccess.user_id = 2;
             // HACER AQUI EL SELECT DE LA SPEC 30 ENCRIPTACION VOTOS!!!!
             // QUIZAS DEBES PEDIR LA CONTRASEÑA DE NUEVO AL USUARIO AL ACCEDER A LIST VOTES
-            $query = $pdo->prepare("");
+
+            /*
+            CREATE TABLE `UserVote` (
+                `user_id` int NOT NULL,
+                `survey_id`int NOT NULL,
+                `answer_id` int NOT NULL
+            );
+            select AES_ENCRYPT("text","mykey");
+            select cast(AES_DECRYPT(0x51C4607C0A37C8B875DE31682E4E6212,"mykey") as char);
+            */
+
+            $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = AES_ENCRYPT(?, ?)");
             $query->bindParam(1, $_SESSION["user_id"], PDO::PARAM_INT);
+            $query->bindParam(2, $_POST["pass"], PDO::PARAM_STR);
             $query->execute();
             
             // compruebo errores
@@ -73,9 +85,9 @@ if (!isset($_SESSION["mail"])) {
                     if ($selectRow) {
                         // imprimo las encuestas
                         echo "<li>";
-                        echo "  <h1>Título: ".$selectRow["Survey.title"]."</h1>";
-                        echo "  <h2>Pregunta: ".$selectRow["Question.questionText"]."</h2>";
-                        echo "  <h3>Respuesta: ".$selectRow["Answer.answer_text"]."</h3>";
+                        echo "  <h1>Título: ".$selectRow["title"]."</h1>";
+                        echo "  <h2>Pregunta: ".$selectRow["questionText"]."</h2>";
+                        echo "  <h3>Respuesta: ".$selectRow["answer_text"]."</h3>";
                         echo "</li>";
                     }   
                 }
