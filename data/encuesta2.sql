@@ -51,7 +51,7 @@ CREATE TABLE `Country` (
 );
 
 CREATE TABLE `UserVote` (
-  `user_id` varchar(255) NOT NULL,
+  `user_id` varbinary(300) NOT NULL,
   `survey_id`int NOT NULL,
   `answer_id` int NOT NULL
 );
