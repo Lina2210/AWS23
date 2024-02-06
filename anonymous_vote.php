@@ -8,7 +8,7 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
     }
-    $query = $pdo->prepare("SELECT IU.* FROM InvitedUser IU JOIN Survey S ON IU.survey_id = S.survey_id WHERE IU.token = ? and S.state <> 'bloqueado");
+    $query = $pdo->prepare("SELECT * FROM InvitedUser WHERE token = ?");
     $query->bindParam(1, $_GET["token"], PDO::PARAM_STR);
     $query->execute();
     
