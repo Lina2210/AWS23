@@ -118,7 +118,6 @@ try {
 
                     } else {
                         file_put_contents('debug_log.txt', "Error al mover la imagen\n", FILE_APPEND);
-                        
                     }
                 }
                 // else{

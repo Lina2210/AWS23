@@ -1,0 +1,4 @@
+Pregunta index: 0
+File name: d0292eb1-a44b-4dcf-ad91-d554d814e7b6.jpg
+Nombre imagen unico: 65c255f940df3.jpg
+ruta: ./uploads/65c255f940df3.jpg
