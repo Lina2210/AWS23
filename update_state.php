@@ -16,9 +16,19 @@ try {
         $update_statement->bindParam(':survey_id', $survey_id);
         $update_statement->execute();
 
-
-
+        $select_query = "SELECT email FROM InvitedUser WHERE survey_id = :survey_id and token != :token";
+        $select_statement = $conn->prepare($select_query);
+        $select_statement->bindParam(':survey_id', $survey_id);
+        $select_statement->bindValue(':token', 'ko');
+        $select_statement->execute();
         
+        while ($row = $select_statement->fetch(PDO::FETCH_ASSOC)) {
+            
+            mail($row["email"], "La encuesta ha sido bloqueada, no podras usar el link de votación");
+        }
+        
+
+      
     
         // Redirigir de vuelta a donde estabas
         header("Location: {$_SERVER['HTTP_REFERER']}");
