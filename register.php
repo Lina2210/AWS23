@@ -263,10 +263,11 @@
                         require_once("./data/conf.php");
                         $userId = $pdo->lastInsertId();
 
-                        $queryUpdate = $pdo->prepare("UPDATE UserVote SET user_id = AES_ENCRYPT(?, ?) WHERE user_id = ?");
+                        $queryUpdate = $pdo->prepare("UPDATE UserVote SET user_id = AES_ENCRYPT(?, ?) WHERE user_id = AES_ENCRYPT(?, ?)");
                         $queryUpdate->bindParam(1, $userId, PDO::PARAM_INT);
                         $queryUpdate->bindParam(2, $password, PDO::PARAM_STR);
                         $queryUpdate->bindParam(3, $userId, PDO::PARAM_INT);
+                        $queryUpdate->bindParam(4, $key, PDO::PARAM_INT);
                         $queryUpdate->execute();
                         
                     }
