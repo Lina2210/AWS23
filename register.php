@@ -275,9 +275,6 @@
                         $queryUpdate->bindParam(3, $selectRow["user_id"], PDO::PARAM_INT);
                         $queryUpdate->bindParam(4, $key, PDO::PARAM_STR);
                         $queryUpdate->execute();
-
-                        /*$contenido = "User id = (".$selectRow["user_id"].") | default key = (".$key.") | password = (".$password.")";
-                        file_put_contents("./logs/pruebasregister.txt", $contenido);*/
                         
                     }
 

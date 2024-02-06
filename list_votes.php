@@ -15,6 +15,7 @@ if (!isset($_SESSION["mail"])) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/scripts/notifications.js"></script>
     <script src="./assets/scripts/list_votes.js"></script>
+    <script src="https://kit.fontawesome.com/eaace330d4.js" crossorigin="anonymous"></script>
     <title>Mis Votos</title>
 </head>
 <body>
@@ -88,7 +89,7 @@ if (!isset($_SESSION["mail"])) {
                         echo "<li>";
                         echo "  <h1>Título: ".$selectRow["title"]."</h1>";
                         echo "  <h2>Pregunta: ".$selectRow["questionText"]."</h2>";
-                        echo "  <h3>Respuesta: ".$selectRow["answer_text"]."</h3>";
+                        echo "  <h3>Respuesta: </h3><h3 hidden>".$selectRow["answer_text"]."</h3><i class='fa-solid fa-eye toggle-response' style='color: #63E6BE;'></i>";
                         echo "</li>";
                     }   
                 }
