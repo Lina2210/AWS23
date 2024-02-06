@@ -3,7 +3,7 @@ $(function() {
     checkAndNotify('error', 'error');
 
     $(".toggle-response").click(function() {
-        var h3Element = $(this).closest("h3");
+        var h3Element = $(this).siblings("h3");
         console.log(h3Element);
 
         if (h3Element.attr('hidden')) {
