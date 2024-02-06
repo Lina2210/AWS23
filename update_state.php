@@ -35,10 +35,7 @@ try {
                 mail($row["email"], "Encuesta " . $name . " Bloqueada" , "La encuesta ha sido bloqueada, no podras usar el link de votación. No respondas a este mensaje.");
             }
 
-            if ($_GET["token"] === $row["token"]){
-                include("./error404.php");
-                exit;
-            }
+            
         } 
         
         
