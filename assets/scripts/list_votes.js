@@ -5,7 +5,7 @@ $(function() {
     $(".toggle-response").click(function() {
         var h3Element = $(this).closest("h3");
 
-        if (h3Element.hasAttribute('hidden')) {
+        if (h3Element.attr('hidden')) {
             h3Element.show();
         } else {
             h3Element.hide();
