@@ -44,6 +44,7 @@ if (!isset($_SESSION["mail"])) {
             );
             select AES_ENCRYPT("text","mykey");
             select cast(AES_DECRYPT(0x51C4607C0A37C8B875DE31682E4E6212,"mykey") as char);
+            SELECT * FROM UserVote WHERE user_id = AES_ENCRYPT(6, "Mata123_");
             */
 
             $query = $pdo->prepare("SELECT * FROM UserVote WHERE user_id = AES_ENCRYPT(?, ?)");
@@ -93,6 +94,8 @@ if (!isset($_SESSION["mail"])) {
                 }
                 echo "</ul>";
             } else {
+                echo $_SESSION["user_id"];
+                echo $_POST["pass"];
                 echo "<script> $(function() {addNotification('warning', 'No se encontraron votos para este usuario.')});</script>";
             }
         } else {
