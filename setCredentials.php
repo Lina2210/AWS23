@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST["username"]) && isset($_POST["mail"])) {
+if (isset($_POST["username"]) && isset($_POST["mail"]) && isset($_POST["user_id"])) {
     try {
         require_once("./data/dbAccess.php");
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
@@ -26,6 +26,7 @@ if (isset($_POST["username"]) && isset($_POST["mail"])) {
     }
 
     session_start();
+    $_SESSION["user_id"] = $_POST["user_id"];
     $_SESSION["user_name"] = $_POST["username"];
     $_SESSION["mail"] = $_POST["mail"];
 

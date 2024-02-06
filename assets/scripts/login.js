@@ -3,7 +3,7 @@ $(function() {
     checkAndNotify('error', 'error');
 });
 
-function checkTerms(username, mail) {
+function checkTerms(username, mail, userId) {
     var termsForm = $("#terms-form");
     var checkbox = $('input[type="checkbox"]');
     var acceptButton = $("#accept");
@@ -21,9 +21,11 @@ function checkTerms(username, mail) {
     acceptButton.click(function () {
         var inputElementName = $("<input type='hidden' name='username'>").val(username);
         var inputElementMail = $("<input type='hidden' name='mail'>").val(mail);
+        var inputElementUserId = $("<input type='hidden' name='user_id'>").val(userId);
 
         termsForm.append(inputElementName);
         termsForm.append(inputElementMail);
+        termsForm.append(inputElementUserId);
 
         termsForm.submit();
     });
