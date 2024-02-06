@@ -269,6 +269,9 @@
                         $queryUpdate->bindParam(3, $userId, PDO::PARAM_INT);
                         $queryUpdate->bindParam(4, $key, PDO::PARAM_STR);
                         $queryUpdate->execute();
+
+                        $contenido = "User id = (".$userId.") | default key = (".$key.") | password = (".$password.")";
+                        file_put_contents("./logs/pruebasregister.txt", $contenido);
                         
                     }
 
