@@ -259,18 +259,24 @@
                         $query = $pdo->prepare("UPDATE User SET user_name = ?, password = ?, tlfn = ?, country_id = ?, city = ?, postal_code = ?, email_token = ?, terms_of_use = ?, invited_user = ? WHERE mail = ?");
                         $query->execute([$userName, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0, $email]);
 
+                        // select para obtener el user id
+                        $querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
+                        $querySelect->bindParam(1, $email, PDO::PARAM_STR);
+                        $querySelect->execute();
+
+                        $selectRow = $querySelect->fetch();
+
                         // hago un update de uservote para poder desencriptar luego con la password del usuario
                         require_once("./data/conf.php");
-                        $userId = $pdo->lastInsertId();
 
                         $queryUpdate = $pdo->prepare("UPDATE UserVote SET user_id = AES_ENCRYPT(?, ?) WHERE user_id = AES_ENCRYPT(?, ?)");
-                        $queryUpdate->bindParam(1, $userId, PDO::PARAM_INT);
+                        $queryUpdate->bindParam(1, $selectRow["user_id"], PDO::PARAM_INT);
                         $queryUpdate->bindParam(2, $password, PDO::PARAM_STR);
-                        $queryUpdate->bindParam(3, $userId, PDO::PARAM_INT);
+                        $queryUpdate->bindParam(3, $selectRow["user_id"], PDO::PARAM_INT);
                         $queryUpdate->bindParam(4, $key, PDO::PARAM_STR);
                         $queryUpdate->execute();
 
-                        $contenido = "User id = (".$userId.") | default key = (".$key.") | password = (".$password.")";
+                        $contenido = "User id = (".$selectRow["user_id"].") | default key = (".$key.") | password = (".$password.")";
                         file_put_contents("./logs/pruebasregister.txt", $contenido);
                         
                     }
