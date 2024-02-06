@@ -267,7 +267,7 @@
                         $queryUpdate->bindParam(1, $userId, PDO::PARAM_INT);
                         $queryUpdate->bindParam(2, $password, PDO::PARAM_STR);
                         $queryUpdate->bindParam(3, $userId, PDO::PARAM_INT);
-                        $queryUpdate->bindParam(4, $key, PDO::PARAM_INT);
+                        $queryUpdate->bindParam(4, $key, PDO::PARAM_STR);
                         $queryUpdate->execute();
                         
                     }

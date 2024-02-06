@@ -98,7 +98,7 @@ if (!isset($_SESSION["mail"])) {
         } else {
             echo "<form action='list_votes.php' method='post'>";
             echo "  <label for='pass'>Valida tu password</label>";
-            echo "  <input type='text' name='pass'>";
+            echo "  <input type='password' name='pass'>";
             echo "  <input type='submit' value='Verificar'>";
             echo "</form>";
             echo "<p>En encuesta2 nos tomamos en serio la seguridad. Valida tu password para poder ver tus votaciones.</p>";
