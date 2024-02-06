@@ -24,7 +24,7 @@ try {
         
         while ($row = $select_statement->fetch(PDO::FETCH_ASSOC)) {
             
-            mail($row["email"], "La encuesta ha sido bloqueada, no podras usar el link de votación");
+            mail($row["email"], "La encuesta ha sido bloqueada, no podras usar el link de votación", "No respondas a este mensaje.");
         }
         
 
