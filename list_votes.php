@@ -94,7 +94,7 @@ if (!isset($_SESSION["mail"])) {
                 }
                 echo "</ul>";
             } else {
-                echo $_SESSION["user_id"];
+                echo "<h1>".$_SESSION["user_id"]."</h1>";
                 echo $_POST["pass"];
                 echo "<script> $(function() {addNotification('warning', 'No se encontraron votos para este usuario.')});</script>";
             }
