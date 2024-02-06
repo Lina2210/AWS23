@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="./assets/styles/styles.css?no-cache=<?php echo time(); ?>">
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="./assets/scripts/notifications.js"></script>
-        <script src="./assets/scripts/login.js"></script>
         <title>Iniciar sesión — encuesta2</title>
     </head>
     <body class="login-body">
@@ -121,9 +120,28 @@
                 <input class="field" type="password" name="password" required>
                 <input type="submit" value="ENTRAR">
             </form>
+            <a href="#" onclick="openPopup('popupWarning')">¿Has olvidado tu contraseña?</a>
         </main>
+        <!--Recuperar contraseña-->
+        <div class="popup-background" id="popupWarning">
+            <div class="popup-content">
+                <h2>Advertencia</h2>
+                <p>
+                    Ten en cuenta que al recuperar tu contraseña, 
+                    perderás la capacidad de revisar y cambiar los votos anteriores. 
+                    Esta acción es irreversible. ¿Deseas continuar con la 
+                    recuperación de la contraseña?"
+                </p>
+                <a href="/change_password.php" id="changeYes">SI</a>
+                <a href="#" id="changeNot" onclick="closePopup('popupWarning')">NO</a>    
+            </div>
+        </div>
+        
+
+        
         
         <ul id="notification-container"></ul>
         <?php include("./templates/footer.php"); ?>
+        <script src="./assets/scripts/login.js"></script>
     </body>
 </html>

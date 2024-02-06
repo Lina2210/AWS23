@@ -7,7 +7,7 @@
 
 // Obtener el user_id a partir del user_name (correo electrónico)
 $mail = $_SESSION["mail"];
-file_put_contents('user_id_result.txt', print_r($mail, true));
+
 try {
     require_once("./data/dbAccess.php");
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $pw);
