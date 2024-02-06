@@ -8,7 +8,10 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
     }
-    $query = $pdo->prepare("SELECT * FROM InvitedUser WHERE token = ?");
+    $query = $pdo->prepare("SELECT IU.*, S.state 
+                            FROM InvitedUser IU 
+                            LEFT JOIN Survey S ON IU.survey_id = S.survey_id 
+                            WHERE IU.token = ?");
     $query->bindParam(1, $_GET["token"], PDO::PARAM_STR);
     $query->execute();
     
@@ -20,7 +23,7 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
     }
 
     $row = $query->fetch();
-    if (!$row) {
+    if (!$row || $row['state'] == 'bloqueado') {
         include("./error404.php");
         exit;
     } else {
