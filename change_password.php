@@ -75,7 +75,7 @@
                     } else {
                         if ($row) {
                             $token = bin2hex(random_bytes(32 / 2));
-                            $link = "localhost:8080/forgot_password.php?token=".$token;//corregir
+                            $link = "https://aws23.ieti.site/forgot_password.php?token=".$token;//corregir
                             file_put_contents('token_result.txt', print_r($link, true));
                             $updateQuery = $pdo->prepare("UPDATE User SET change_pass = ? WHERE mail = ?;");
                             $updateQuery->bindParam(1, $token, PDO::PARAM_STR);
