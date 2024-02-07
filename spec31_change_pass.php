@@ -86,6 +86,7 @@ if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPa
         <input type="password" name="newPass2" required><br>
         <input type="submit" value="Cambiar Contraseña">
     </form>
+    <ul id="notification-container"></ul>
     <?php include("./templates/footer.php"); ?>
 </body>
 </html>
