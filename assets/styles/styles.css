@@ -1205,6 +1205,7 @@ footer {
     justify-content: center;
     align-items: center;
     color: #C1E8FF;
+    z-index: -99999;
 }
 
 footer a {
