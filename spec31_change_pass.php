@@ -97,6 +97,11 @@ if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPa
     $queryUpdateVote->bindParam(4, $_POST["password"], PDO::PARAM_STR);
     $queryUpdateVote->execute();
 
+    echo "  <script>
+                    localStorage.setItem('success', 'Has cambiado tu contraseña!');
+                    window.location.href = 'dashboard.php';
+            </script>";
+
 }
 ?>
 <!DOCTYPE html>
