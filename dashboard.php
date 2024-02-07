@@ -26,6 +26,7 @@
         <nav class="dashboard-nav">
             <a href="create_poll.php">CREAR ENCUESTA</a>
             <a href="list_votes.php">VER VOTACIONES</a>
+            <a href="spec31_change_pass.php">CAMBIAR CONTRASEÑA</a>
             <a href="list_polls.php">VER ENCUESTAS</a>
         </nav>
         
