@@ -89,7 +89,7 @@ if (!isset($_SESSION["mail"])) {
                         echo "<li>";
                         echo "  <h1>Título: ".$selectRow["title"]."</h1>";
                         echo "  <h2>Pregunta: ".$selectRow["questionText"]."</h2>";
-                        echo "  <h3>Respuesta: </h3><h3 hidden>".$selectRow["answer_text"]."</h3><i class='fa-solid fa-eye toggle-response' style='color: #63E6BE;'></i>";
+                        echo "  <h3>Respuesta: </h3><h3 class='answer' hidden>".$selectRow["answer_text"]."</h3><i class='fa-solid fa-eye toggle-response' style='color: #63E6BE;'></i>";
                         echo "</li>";
                     }   
                 }
