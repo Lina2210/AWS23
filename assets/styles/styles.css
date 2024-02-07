@@ -1186,11 +1186,14 @@ FORGOT PASSWORD
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 250px;
 }
 
 .imgGIF {
     max-width: 100%;
     height: auto;
+    margin: 200px 0 200px 0;
+    z-index: -999;
 }
 
 footer {
