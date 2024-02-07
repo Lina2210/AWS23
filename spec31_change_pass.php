@@ -5,12 +5,43 @@ if (!isset($_SESSION["mail"])) {
     exit;
 }
 if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPass2"])) {
+    function validarContraseña($contraseña) {
+        // Al menos 8 caracteres
+        if (strlen($contraseña) < 8) {
+            return false;
+        }
+    
+        // Al menos una letra minúscula
+        if (!preg_match('/[a-z]/', $contraseña)) {
+            return false;
+        }
+    
+        // Al menos una letra mayúscula
+        if (!preg_match('/[A-Z]/', $contraseña)) {
+            return false;
+        }
+    
+        // Al menos un dígito
+        if (!preg_match('/\d/', $contraseña)) {
+            return false;
+        }
+    
+        // Al menos un carácter especial
+        if (!preg_match('/[!@#$%^&*()-_=+{};:,<.>]/', $contraseña)) {
+            return false;
+        }
+    
+        // La contraseña cumple con todos los criterios
+        return true;
+    }
     // comprobar campos del formulario
+    if (!validarContraseña($_POST["newPass"])) {
+            echo "<script> $(function() {addNotification('error', 'La contraseña debe incluir al menos una minúscula, una mayúscula, un dígito y un carácter especial.')});</script>";
+        exit;
+    }
+
     if ($_POST["newPass"] != $_POST["newPass2"]) {
-        echo "  <script>
-                    localStorage.setItem('error', 'Las nuevas contraseñas no coinciden');
-                    window.location.href = 'spec31_change_pass.php';
-                </script>";
+            echo "<script> $(function() {addNotification('error', 'Las nuevas contraseñas no coinciden.')});</script>";
         exit;
     } 
     // acceder bd
@@ -38,10 +69,7 @@ if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPa
     $row = $query->fetch();
 
     if (!$row) {
-        echo "  <script>
-                    localStorage.setItem('error', 'La contraseña actual no coincide');
-                    window.location.href = 'spec31_change_pass.php';
-                </script>";
+        echo "<script> $(function() {addNotification('error', 'La contraseña actual no coincide.')});</script>";
         exit;
     }
 
