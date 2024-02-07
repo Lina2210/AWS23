@@ -36,12 +36,18 @@ if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPa
     }
     // comprobar campos del formulario
     if (!validarContraseña($_POST["newPass"])) {
-            echo "<script> $(function() {addNotification('error', 'La contraseña debe incluir al menos una minúscula, una mayúscula, un dígito y un carácter especial.')});</script>";
+        echo "  <script>
+                    localStorage.setItem('error', 'La contraseña debe incluir al menos una minúscula, una mayúscula, un dígito y un carácter especial.');
+                    window.location.href = 'spec31_change_pass.php';
+                </script>";
         exit;
     }
 
     if ($_POST["newPass"] != $_POST["newPass2"]) {
-            echo "<script> $(function() {addNotification('error', 'Las nuevas contraseñas no coinciden.')});</script>";
+        echo "  <script>
+                    localStorage.setItem('error', 'Las nuevas contraseñas no coinciden');
+                    window.location.href = 'spec31_change_pass.php';
+                </script>";
         exit;
     } 
     // acceder bd
@@ -69,7 +75,10 @@ if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPa
     $row = $query->fetch();
 
     if (!$row) {
-        echo "<script> $(function() {addNotification('error', 'La contraseña actual no coincide.')});</script>";
+        echo "  <script>
+                    localStorage.setItem('error', 'La contraseña actual no coincide');
+                    window.location.href = 'spec31_change_pass.php';
+                </script>";
         exit;
     }
 
