@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -7,6 +8,16 @@ body {
     color: #fff;
     font-family: "Saans", Arial, sans-serif;
 }
+
+body::-webkit-scrollbar { width: 5px; }  
+body::-webkit-scrollbar-track { background: none; }
+  
+body::-webkit-scrollbar-thumb {
+    background-color: var(--light-blue);
+    border-radius: 20px;
+    border: none;
+}
+
 :root {
     --dark-blue: #021024;
     --light-blue: #C1E8FF;
@@ -14,6 +25,7 @@ body {
     --secondary-blue: #7DA0CA;
     --buttons-blue: #548383;
 }
+
 /* ----------------------------------------------------- */
 /* HEADER */
 /* ----------------------------------------------------- */
@@ -22,15 +34,18 @@ header {
     justify-content: center;
     margin-top: 20px;
 }
+
 header h1 {
     color: #C1E8FF;
     position: absolute;
     left: 30px;
 }
+
 header .logo {
     height: 80px;
     width: auto;
 }
+
 header nav {
     position: absolute;
     right: 30px;
@@ -38,6 +53,7 @@ header nav {
     font-weight: bold;
     font-size: 13px;
 }
+
 header nav a.buttonLeft {
     text-decoration: none;
     color: #021024;
@@ -50,9 +66,11 @@ header nav a.buttonLeft {
     border-radius: 50px;
     transition: background-color 0.5s;
 }
+
 header nav a.buttonLeft:hover {
     background-color: rgb(190, 190, 190);
 }
+
 header nav a.buttonRight {
     position: absolute;
     right: 30px;
@@ -68,77 +86,6 @@ header nav a.buttonRight {
 }
 
 /* ----------------------------------------------------- */
-/* FOOTER */
-/* ----------------------------------------------------- */
-footer {
-    font-weight: bold;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #C1E8FF;
-}
-footer a {
-    text-decoration: none;
-    color: #C1E8FF;
-}
-footer ul {
-    display: flex;
-    list-style: none;
-}
-footer li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-footer .copyright {
-    padding-top: 20px;
-    width: 95%;
-    border-top: 1px solid #C1E8FF;
-    text-align: center;
-    color: #C1E8FF;
-}
-footer .copyright a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-footer .copyright a:hover {
-    text-decoration: underline;
-}
-footer .copyright a img {
-    height: 25px;
-    width: auto;
-    margin-right: 10px;
-}
-footer ul li img {
-    height: 25px;
-    width: auto;
-    margin-right: 10px;
-    margin-left: 20px;
-}
-footer .icon-github {
-    position: absolute;
-    align-self: flex-end;
-    margin-top: 60px;
-    margin-right: 60px;
-    border-radius: 50px;
-    transition: transform 0.5s;
-}
-footer .icon-github:hover {
-    transform: scale(1.2);
-}
-footer .icon-github img {
-    height: 50px;
-    width: auto;
-}
-.login-body footer, .register-body footer, .dashboard-body footer {
-    position: absolute;
-    bottom: 0px;
-}
-
-/* ----------------------------------------------------- */
 /* INDEX.PHP */
 /* ----------------------------------------------------- */
 .index-body .main-container {
@@ -149,13 +96,8 @@ footer .icon-github img {
     margin-left: auto;
     margin-right: auto;
 }
-.index-body .main-text {
-    color: #C1E8FF;
-    font-size: 130px;
-    text-align: center;
-    line-height: 150px;
-}
-.index-body .buttonBottom {
+
+.index-body .buttonBottom{
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -174,6 +116,28 @@ footer .icon-github img {
 .index-body .buttonBottom:hover {
     background-color: #C1E8FF;
     color: #052659;
+}
+
+@keyframes sombraTexto {
+    0% {
+        text-shadow: 1px 1px 20px var(--light-blue);
+    }
+
+    50% {
+        text-shadow: none;
+    }
+    
+    100% {
+        text-shadow: 1px 1px 20px var(--light-blue);
+    }
+}
+
+.index-body .main-text {
+    color: #C1E8FF;
+    font-size: 130px;
+    text-align: center;
+    line-height: 150px;
+    animation: sombraTexto 3s infinite linear;
 }
 
 /* ----------------------------------------------------- */
@@ -200,12 +164,14 @@ footer .icon-github img {
     text-align: left;
     margin-top: 50px;
 }
+
 .login-body .main-content form label {
     color: #C1E8FF;
     font-size: 20px;
     margin-left: 20px;
     margin-bottom: 10px;
 }
+
 .login-body .main-content form input.field {
     color: white;
     font-weight: bold;
@@ -218,13 +184,16 @@ footer .icon-github img {
     transition: background-color 0.5s;
     padding-left: 20px;
 }
+
 .login-body .main-content form input.field:hover {
     background-color: #07429b;
 }
+
 .login-body .main-content form input.field:focus {
     outline: none;
     border: 1px solid #C1E8FF;
 }
+
 .login-body .main-content form input[type="submit"] {
     font-size: 15px;
     margin-left: auto;
@@ -546,7 +515,7 @@ POPUP LOGIN
 
 #notification-container::-webkit-scrollbar-thumb:hover { background-color: rgba(0, 0, 0, 0.5); }
 
- #notification-container .notification {
+#notification-container .notification {
     padding: 20px;
     margin: 10px;
     border-radius: 5px;
@@ -612,6 +581,7 @@ POPUP LOGIN
     margin-bottom: 15px;
     transition: background-color 0.5s;
     padding-left: 20px;
+    color: #FFFF;
 }
 
 .createPoll-body .main-content form textarea {
@@ -620,10 +590,11 @@ POPUP LOGIN
     height: auto;
     background-color: #053377;
     border: 1px solid #07429b;
-    border-radius: 50px;
+    border-radius: 20px;
     margin-bottom: 15px;
     transition: background-color 0.5s;
     padding-left: 20px;
+    color: #FFFF;
 }
 
 .createPoll-body .main-content form textarea::placeholder {
@@ -756,19 +727,14 @@ POPUP LOGIN
     margin-bottom: 20px;
 }
 
-.listPolls-body .main-content th,
-td {
-    border: 1px solid #ddd;
+.listPolls-body .main-content th, td {
+    border: 1px solid var(--light-blue);
     padding: 8px;
     text-align: left;
 }
 
 .listPolls-body .main-content th.name-column {
     width: 50%;
-}
-
-.listPolls-body .main-content th {
-    background-color: #f2f2f2;
 }
 
 .listPolls-body .main-content a {
@@ -792,6 +758,35 @@ td {
     background-color: #C1E8FF;
     color: #052659;
 }
+
+#invitarButton, #detallesButton{
+    width: fit-content;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    background-color: var(--background-blue);
+    transition: background-color 0.5s;
+}
+
+#invitarButton:hover, #detallesButton:hover {
+    background-color: #C1E8FF;
+    color: #052659;
+    cursor: pointer;
+}
+
+.listPolls-body .main-content td {
+    color: var(--light-blue);
+}
+
+.listPolls-body .main-content th {
+    backface-visibility: var(--buttons-blue);
+    color: var(--light-blue);
+}
+
 /* ----------------------------------------------------- */
 /* CHECK_YOUR_EMAIL.PHP & email_validation_ok.php templates */
 /* ----------------------------------------------------- */
@@ -840,6 +835,7 @@ TERMS_OF_USE.PHP
     align-items: center;
     color: white;
 }
+
 .terms-container .pop-up {
     text-align: justify;
     background: #052659;
@@ -851,17 +847,21 @@ TERMS_OF_USE.PHP
     flex-direction: column;
     align-items: center;
 }
+
 .terms-container a {
     color: #C1E8FF;
 }
+
 .terms-container #terms-form {
     display: inline;
 }
+
 .terms-container .buttons-container {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
 }
+
 .terms-container button#accept {
     border: none;
     border-radius: 50px;
@@ -871,15 +871,18 @@ TERMS_OF_USE.PHP
     cursor: pointer;
     text-decoration: none;
 }
+
 .terms-container button#accept:hover, .terms-container button#decline:hover {
     border: 1px solid #C1E8FF;
 }
+
 .terms-container button#accept:disabled {
     color: gray;
     background-color: #275728;
     cursor: not-allowed;
     border: none;
 }
+
 .terms-container button#decline {
     border: none;
     border-radius: 50px;
@@ -888,6 +891,100 @@ TERMS_OF_USE.PHP
     color: white;
     cursor: pointer;
     text-decoration: none;
+}
+
+/* DETALLES.PHP */
+.graphics {
+    margin: 30px;
+    color: var(--light-blue);
+}
+
+.tituloiconoEncuesta, .iconoResultado{
+    margin-top: 50px;
+}
+
+.graficosContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.graphics #graficoBarras, #pieChart{
+    width: 700px;
+    margin: 200px 100px 150px 100px;
+}
+
+.graphics .h1 { font-size: 40px; }
+
+#opcionesEncuesta, #opcionesResultado, #guardarButton {
+    width: fit-content;
+    height: fit-content;
+    padding: 15px 15px;
+    margin: 20px auto 50px auto;
+    text-decoration: none;
+    background-color: var(--background-blue);
+    border: 1px solid var(--light-blue);
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--light-blue);
+    transition: background-color 0.5s;
+}
+
+#opcionesEncuesta:hover, #opcionesResultado:hover, #guardarButton:hover {
+    background-color: var(--light-blue);
+    color: var(--background-blue);
+}
+
+/* ----------------------------------------------------- */
+/* SURVEY_INVITATION.PHP */
+/* ----------------------------------------------------- */
+.invitationBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.h1Invitation{
+    margin-top: 60px;
+    font-size: 130px;
+    text-align: center;
+}
+
+.h1Invitation, .textInvitation, #sendMailsForm {
+    color: var(--light-blue);
+}
+
+#sendMailsForm > textarea{
+    margin: 20px 0 20px 0;
+    font-weight: bold;
+    width: 450px;
+    height: auto;
+    background-color: #053377;
+    color: #FFFF;
+    border: 1px solid var(--light-blue);
+    border-radius: 20px;
+    transition: background-color 0.5s;
+    padding-left: 20px;
+}
+
+#checkEmails{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    text-decoration: none;
+    color: #C1E8FF;
+    border: 1px solid #C1E8FF;
+    border-radius: 10px;
+    background-color: var(--background-blue);
+    padding: 10px 10px;
+    font-size: 15px;
+    transition: background-color 0.5s;
+}
+#checkEmails:hover {
+    background-color: #C1E8FF;
+    color: #052659;
 }
 
 /* --------------------------------------------------------
@@ -994,3 +1091,97 @@ FORGOT PASSWORD
     color: black;
 }
 
+/* ----------------------------------------------------- */
+/* FOOTER */
+/* ----------------------------------------------------- */
+
+.prueba1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgGIF {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #C1E8FF;
+}
+
+footer a {
+    text-decoration: none;
+    color: #C1E8FF;
+}
+
+footer ul {
+    display: flex;
+    list-style: none;
+}
+
+footer li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .copyright {
+    padding-top: 20px;
+    width: 95%;
+    border-top: 1px solid #C1E8FF;
+    text-align: center;
+    color: #C1E8FF;
+}
+
+footer .copyright a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .copyright a:hover {
+    text-decoration: underline;
+}
+
+footer .copyright a img {
+    height: 25px;
+    width: auto;
+    margin-right: 10px;
+}
+
+footer ul li img {
+    height: 25px;
+    width: auto;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+footer .icon-github {
+    position: absolute;
+    align-self: flex-end;
+    margin-top: 300px;
+    margin-right: 60px;
+    border-radius: 50px;
+    transition: transform 0.5s;
+}
+
+footer .icon-github:hover {
+    transform: scale(1.2);
+}
+
+footer .icon-github img {
+    height: 50px;
+    width: auto;
+}
+
+.login-body footer, .register-body footer, .dashboard-body footer {
+    position: absolute;
+    bottom: 0px;
+}

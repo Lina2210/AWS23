@@ -2,7 +2,7 @@
     <?php 
     session_start();
     if (isset($_SESSION["user_name"])) {
-        echo "\t\t<h1>Bienvenido, ".$_SESSION['user_name']."</h1>\n"; 
+        echo "\t\t<h1>Buenas, ".$_SESSION['user_name']."</h1>\n"; 
     }
     ?>
     <a href="/"><img href="" class="logo" src="/assets/images/logo2.png" alt="encuesta2"></a>
