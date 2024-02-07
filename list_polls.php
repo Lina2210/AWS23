@@ -55,7 +55,7 @@
                                 echo "<td>";
                                 echo "<form method='POST' action='update_state.php'>";
                                 echo "<input type='hidden' name='survey_id' value='".$row["survey_id"]."'>";
-                                echo "<select name='new_state'>";
+                                echo "<select class='aa23' name='new_state'>";
                                 if ($row["state"] == "bloqueado") {
                                     echo "<option value='bloqueado' selected>Bloqueada</option>";
                                     echo "<option value='desbloqueado'>Desbloqueada</option>";

@@ -213,6 +213,19 @@ header nav a.buttonRight {
     background-color: #010914;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+a.contrasenyaOlvidar{
+    text-decoration: none;
+    color: var(--light-blue);
+    margin-top: 20px;
+    transition-duration: 1s;
+}
+
+a.contrasenyaOlvidar:hover{
+    transition-duration: 1s;
+    color: var(--secondary-blue);
+}
+
 /* --------------------------------------------------------
 POPUP LOGIN
 ---------------------------------------------------------- */
@@ -231,14 +244,15 @@ POPUP LOGIN
 
 /* Estilos para el popup */
 .login-body .popup-content {
-    background: #C1E8FF;
+    text-align: justify;
+    background: #052659;
     padding: 20px;
+    border: 3px solid #C1E8FF;
     border-radius: 5px;
-    border: 3px solid #FFF;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
-    max-width: 400px;
-    width: 80%;
-    text-align: center;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .login-body .popup-content #changeYes {
@@ -787,6 +801,60 @@ POPUP LOGIN
     color: var(--light-blue);
 }
 
+/* LIST_VOTES.PHP */
+.list-votes , .spec31{
+    color: var(--light-blue);
+    margin-left: 30px;
+}
+
+.list-votes main, .spec31 main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+label[for=pass], .spec31 h2 {
+    font-size: 130px;
+}
+
+.change-password{
+    text-align: center;
+}
+
+.list-votes input[type=password], .spec31 input[name=password], .spec31 input[type=password] {
+    margin: 20px 0 20px 0;
+    font-weight: bold;
+    width: 250px;
+    height: 20px;
+    background-color: var(--background-blue);
+    color: #FFFF;
+    border: 1px solid var(--light-blue);
+    border-radius: 10px;
+    transition: background-color 0.5s;
+    padding-left: 20px;
+}
+
+.list-votes input[type=submit], .spec31 input[type=submit] {
+    width: fit-content;
+    height: fit-content;
+    padding: 15px 15px;
+    margin: 20px auto 50px auto;
+    text-decoration: none;
+    background-color: var(--background-blue);
+    border: 1px solid var(--light-blue);
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--light-blue);
+    transition: background-color 0.5s;
+}
+    
+.list-votes input[type=submit]:hover, .spec31 input[type=submit]:hover {
+        background-color: var(--light-blue);
+        color: var(--background-blue);
+        cursor: pointer;
+}
 /* ----------------------------------------------------- */
 /* CHECK_YOUR_EMAIL.PHP & email_validation_ok.php templates */
 /* ----------------------------------------------------- */
@@ -920,7 +988,7 @@ TERMS_OF_USE.PHP
 #opcionesEncuesta, #opcionesResultado, #guardarButton {
     width: fit-content;
     height: fit-content;
-    padding: 15px 15px;
+    padding: 10px 10px;
     margin: 20px auto 50px auto;
     text-decoration: none;
     background-color: var(--background-blue);
@@ -931,9 +999,24 @@ TERMS_OF_USE.PHP
     transition: background-color 0.5s;
 }
 
-#opcionesEncuesta:hover, #opcionesResultado:hover, #guardarButton:hover {
+.listPolls-body .aa23, .listPolls-body input[type=submit] {
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 10px;
+    margin: 5px auto 5px auto;
+    text-decoration: none;
+    background-color: var(--background-blue);
+    border: 1px solid var(--light-blue);
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--light-blue);
+    transition: background-color 0.5s;
+}
+
+#opcionesEncuesta:hover, #opcionesResultado:hover, #guardarButton:hover, .listPolls-body .aa23:hover, .listPolls-body input[type=submit]:hover {
     background-color: var(--light-blue);
     color: var(--background-blue);
+    cursor: pointer;
 }
 
 /* ----------------------------------------------------- */
@@ -990,15 +1073,16 @@ TERMS_OF_USE.PHP
 /* --------------------------------------------------------
 CHANGE PASSWORD
 ---------------------------------------------------------- */
-.change-password main{
+.change-password main {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--light-blue);
     gap: 50px;
 }
+
 
 .change-password form {
     width: 70%;
@@ -1010,10 +1094,12 @@ CHANGE PASSWORD
     gap: 25px;
     margin-top: 100px;
 }
+
 .change-password input#email {
-    height: 50px;
+    height: 40px;
     width: 600px;
-    border-radius: 50px;
+    border-radius: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
     background: linear-gradient(to right, white, var(--light-blue));
@@ -1041,14 +1127,14 @@ CHANGE PASSWORD
 /* --------------------------------------------------------
 FORGOT PASSWORD
 ---------------------------------------------------------- */
-
 .forgot-password main{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--light-blue);
+    font-weight: bold;
     gap: 50px;
 }
 
@@ -1062,11 +1148,12 @@ FORGOT PASSWORD
     gap: 25px;
     margin-top: 100px;
 }
-.forgot-password input#password, 
-.forgot-password input#confirmPassword{
-    height: 50px;
-    width: 600px;
-    border-radius: 50px;
+
+.forgot-password input#password, .forgot-password input#confirmPassword {
+    height: 10px;
+    width: 300px;
+    border-radius: 20px;
+    padding: 20px;
     display: flex;
     align-items: center;
     background: linear-gradient(to right, white, var(--light-blue));

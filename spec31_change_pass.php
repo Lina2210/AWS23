@@ -106,29 +106,31 @@ if (isset($_POST["password"]) && isset($_POST["newPass"]) && isset($_POST["newPa
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./assets/images/dos.png" type="image/png">
-    <link rel="stylesheet" href="./assets/styles/styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="./assets/scripts/notifications.js"></script>
-    <script src="./assets/scripts/spec31_change_pass.js"></script>
-    <title>Cambiar Contraseña</title>
-</head>
-<body>
-    <?php include("./templates/header.php"); ?>
-    <h1>Cambiar contraseña</h1>
-    <form action="spec31_change_pass.php" method="POST">
-        <label for="password">Contraseña actual</label>
-        <input name="password" type="password" required><br>
-        <label for="newPass">Nueva contraseña</label>
-        <input type="password" name="newPass" required><br>
-        <label for="newPass2">Repite la nueva contraseña</label>
-        <input type="password" name="newPass2" required><br>
-        <input type="submit" value="Cambiar Contraseña">
-    </form>
-    <ul id="notification-container"></ul>
-    <?php include("./templates/footer.php"); ?>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="./assets/images/dos.png" type="image/png">
+        <link rel="stylesheet" href="./assets/styles/styles.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="./assets/scripts/notifications.js"></script>
+        <script src="./assets/scripts/spec31_change_pass.js"></script>
+        <title>Cambiar Contraseña</title>
+    </head>
+    <body class="spec31">
+        <?php include("./templates/header.php"); ?>
+        <main>
+            <h2 class="spec31h1">Cambiar contraseña</h2>
+            <form action="spec31_change_pass.php" method="POST">
+                <label for="password">Contraseña actual</label><br>
+                <input name="password" type="password" required><br>
+                <label for="newPass">Nueva contraseña</label><br>
+                <input type="password" name="newPass" required><br>
+                <label for="newPass2">Repite la nueva contraseña</label><br>
+                <input type="password" name="newPass2" required><br>
+                <input type="submit" class="finala" value="Cambiar Contraseña">
+            </form>
+            <ul id="notification-container"></ul>
+            <?php include("./templates/footer.php"); ?>
+        </main>
+    </body>
 </html>

@@ -1,1 +1,1 @@
-localhost:8080/forgot_password.php?token=0ddd753a6aec993f4f95dbeaa559ec44
+https://aws23.ieti.site/forgot_password.php?token=f4c0d4062b17340856b0a4d0aaf68542
