@@ -370,6 +370,7 @@ POPUP LOGIN
     gap: 25px;
     align-items: center;
     margin-top: 50px;
+    z-index: 999999;
 }
 .register-body div.input-container {
     height: 50px;
