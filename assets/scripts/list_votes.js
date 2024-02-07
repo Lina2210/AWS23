@@ -9,7 +9,7 @@ $(function() {
         if (h3Element.attr('hidden')) {
             h3Element.show();
         } else {
-            h3Element.hide();
+            h3Element.attr('hidden');
         }
     });
 });
