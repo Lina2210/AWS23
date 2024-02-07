@@ -26,7 +26,6 @@
                         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
                         exit;
                     }
-                    echo $_GET["token"];
                     $query = $pdo->prepare("SELECT * FROM User WHERE change_pass = ?");
                     $query->bindParam(1, $_GET["token"], PDO::PARAM_STR);
                     $query->execute();
