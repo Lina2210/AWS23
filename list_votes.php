@@ -14,7 +14,7 @@ if (!isset($_SESSION["mail"])) {
     <link rel="stylesheet" href="./assets/styles/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/scripts/notifications.js"></script>
-    <script src="./assets/scripts/list_votes.js"></script>
+    <script src="./assets/scripts/list_votes.js?no-cache=<?php echo time(); ?>"></script>
     <script src="https://kit.fontawesome.com/eaace330d4.js" crossorigin="anonymous"></script>
     <title>Mis Votos</title>
 </head>
