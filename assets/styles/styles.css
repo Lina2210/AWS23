@@ -1273,6 +1273,6 @@ footer .icon-github img {
 
 .login-body footer, .register-body footer, .dashboard-body footer {
     position: absolute;
-    margin: 100px 0 0 0;
     bottom: 0px;
+    height: 100px;
 }
