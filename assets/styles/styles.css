@@ -1271,7 +1271,8 @@ footer .icon-github img {
     width: auto;
 }
 
-.login-body footer, .dashboard-body footer {
+.login-body footer, .register-body footer, .dashboard-body footer {
     position: absolute;
+    margin: 100px 0 0 0;
     bottom: 0px;
 }
