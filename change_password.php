@@ -92,7 +92,7 @@
                                     window.location.href = 'change_password.php';
                                 </script>";
                         }
-                        mail($userEmail, "Has sido invitado a participar en una encuesta de encuesta2", "No respondas a este mensaje. Link de la encuesta: ".$link);
+                        mail($userEmail, "Cambio de contraseña: ENCUESTA2", "No respondas a este mensaje. Enlace para cambiarla: ".$link);
                     }
 
                 }
