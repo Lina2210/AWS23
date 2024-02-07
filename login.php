@@ -90,9 +90,10 @@
                             } elseif (!$row["terms_of_use"]) {
                                 // mostrar bocadillo de aceptacion de terminos de uso
                                 include("./templates/terms_of_use.php");
+                                $user_id = htmlspecialchars($row['user_id']);
                                 $user_name = htmlspecialchars($row['user_name']);
                                 $mail = htmlspecialchars($row['mail']);
-                                echo "  <script> checkTerms('$user_name', '$mail'); </script>";
+                                echo "  <script> checkTerms('$user_name', '$mail', '$user_id'); </script>";
                             } else {
                                 $date = date_create(null, timezone_open("Europe/Paris"));
                                 $tz = date_timezone_get($date);

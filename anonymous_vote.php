@@ -58,7 +58,7 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         echo "    <script src='./assets/scripts/anonymous_vote.js'></script>";
         echo "    <title>Votar como Invitado</title>";
         echo "</head>";
-        echo "<body>";
+        echo "<body class='anonymous-body'><main>";
         include("./templates/header.php");
         // meto los datos necesarios. Piensa en hacer un fetch a solas para el titulo y la primera opcion y luego el while
         $innerRow = $queryInner->fetch();
@@ -81,13 +81,14 @@ if (isset($_GET["token"]) && $_GET["token"] != 'ko') {
         echo "          <input type='submit' value='Guardar Voto'>";
         echo "    </form>";
         include("./templates/footer.php");
-        echo "</body>";
+        echo "</main></body>";
         echo "</html>";
     }
 } 
 elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email"]) && isset($_POST["survey_id"])) {
     // borrar el token de invited user para no poder volver a votar y crear ese usuario en la tabla User para que cuando se registre que coja eso y se lo guarde.
     require_once("./data/dbAccess.php");
+    require_once("./data/conf.php");
     try {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname", "$username", "$pw");
         $queryUpdate = $pdo->prepare("UPDATE InvitedUser SET token = 'ko' WHERE token = ?");
@@ -99,14 +100,64 @@ elseif (isset($_POST["opcion"]) && isset($_POST["token"]) && isset($_POST["email
             echo "\nPDO::errorInfo():\n";
             die("Error accedint a dades: " . $e[2]);
         }
+
+        // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
+        $queryInsert = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) 
+        VALUES ('anonimo', ?, 'password1', 0, 1, 'Ciudad1', 12345, 'ok', 0, 1)");
+        $queryInsert->bindParam(1, $_POST["email"], PDO::PARAM_STR);
+        $queryInsert->execute();
+
+        $user_id = $pdo->lastInsertId();
+
+        $e = $queryInsert->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+
+        // seleccionar el Id de usuario autogenerado y asociarlo con su respuesta
+        /*
+        CREATE TABLE `UserVote` (
+            `user_id` int NOT NULL,
+            `survey_id`int NOT NULL,
+            `answer_id` int NOT NULL
+        );
+        */
+        // AES_ENCRYPT("text","mykey")
+        $stringUserId = strval($user_id);
+
+        $queryInsertAnswer = $pdo->prepare("INSERT INTO UserVote (user_id, survey_id, answer_id) VALUES (AES_ENCRYPT(?, ?), ?, ?)");
+        $queryInsertAnswer->bindParam(1, $stringUserId, PDO::PARAM_STR);
+        $queryInsertAnswer->bindParam(2, $key, PDO::PARAM_STR);
+        $queryInsertAnswer->bindParam(3, $_POST["survey_id"], PDO::PARAM_INT);
+        $queryInsertAnswer->bindParam(4, $_POST["opcion"], PDO::PARAM_INT);
+        $queryInsertAnswer->execute();
+
+        $e = $queryInsertAnswer->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+
+        // darle accesso al usuario para cuando se registre y quiera ver sus votaciones
+        $queryInsertAccess = $pdo->prepare("INSERT INTO UserSurveyAccess (user_id, survey_id) VALUES (?, ?)");
+        $queryInsertAccess->bindParam(1, $user_id, PDO::PARAM_INT);
+        $queryInsertAccess->bindParam(2, $_POST["survey_id"], PDO::PARAM_INT);
+        $queryInsertAccess->execute();
+
+        $e = $queryInsertAccess->errorInfo();
+        if ($e[0] != '00000') {
+            echo "\nPDO::errorInfo():\n";
+            die("Error accedint a dades: " . $e[2]);
+        }
+
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+        file_put_contents("/logs/ANONIMO_VOTO.txt", $e->getMessage() . "\n");
         exit;
     }
-    
-    // seguir aqui lo de crear un usuario anonimo. Ten en cuenta que has cambiado el .sql de User y le has añadido un nuevo campo
 
-
+    // muestro feedback al usuario anonimo
     echo "<!DOCTYPE html>";
     echo "<html lang='es'>";
     echo "<head>";

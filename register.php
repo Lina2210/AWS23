@@ -27,12 +27,10 @@
 
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (
-                isset($_POST['userName']) && isset($_POST['password']) &&
+            if (isset($_POST['userName']) && isset($_POST['password']) &&
                 isset($_POST['confirmPassword']) && isset($_POST['email']) &&
                 isset($_POST['country']) && isset($_POST['city']) &&
-                isset($_POST['postalCode']) && isset($_POST['mobile']) && isset($_POST['mobilePrefix'])
-            ) {
+                isset($_POST['postalCode']) && isset($_POST['mobile']) && isset($_POST['mobilePrefix'])) {
                 try {
                     $userName = trim($_POST['userName']);
                     $password = trim($_POST['password']);
@@ -90,7 +88,7 @@
                         if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
                         $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
                         $informacionError = "Error: Las contraseñas no coinciden. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FIL1E_APPEND);
+                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND); 
                         echo "  <script>
                                     localStorage.setItem('error', 'Las contraseñas no coinciden.');
                                     window.location.href = 'register.php';
@@ -118,27 +116,34 @@
                         exit;
                     }
 
-                    $query = $pdo->prepare("SELECT COUNT(*) FROM User WHERE mail = ?");
+                    $query = $pdo->prepare("SELECT COUNT(*), invited_user FROM User WHERE mail = ? GROUP BY invited_user");
                     $query->execute([$email]);
 
-                    if ($query->fetchColumn() > 0) {
-                        $date = date_create(null, timezone_open("Europe/Paris"));
-                        $tz = date_timezone_get($date);
-                        $dataSinCambiar = date("d-m-Y");
-                        $dataReal = str_replace(" ", "-", $dataSinCambiar);
-                        echo "<h1>".$dataReal."</h1>";
-                        $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
-                        $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
-                        $informacionError = "Error: Ya hay un usuario con este correo electrónico. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
-                        file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
-                        echo "  <script>
-                                    localStorage.setItem('error', 'Ya hay un usuario con este correo electrónico.');
-                                    window.location.href = 'register.php';
-                                </script>";
-                        exit;
-                    }
+                    $row = $query->fetch(PDO::FETCH_ASSOC); // Obtener la fila de resultados
+                    $invited_user;
 
+                    if ($row) {
+                        $count = intval($row['COUNT(*)']); // Convertir a entero
+                        $invited_user = intval($row['invited_user']);
+                    
+                                    
+                        if ($count > 0 && !$invited_user) {
+                            $date = date_create(null, timezone_open("Europe/Paris"));
+                            $tz = date_timezone_get($date);
+                            $dataSinCambiar = date("d-m-Y");
+                            $dataReal = str_replace(" ", "-", $dataSinCambiar);
+                            $carpetaArchivos = "logs/";
+                            if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                            $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
+                            $informacionError = "Error: Ya hay un usuario con este correo electrónico. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
+                            file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
+                            echo "  <script>
+                                        localStorage.setItem('error', 'Ya hay un usuario con este correo electrónico.');
+                                        window.location.href = 'register.php';
+                                    </script>";
+                            exit;
+                        }
+                    }
                     $countryFound = false;
                     $countryPrefix = null;
                     $countryId = null;
@@ -176,7 +181,7 @@
                         $dataReal = str_replace(" ", "-", $dataSinCambiar);
                         echo "<h1>".$dataReal."</h1>";
                         $carpetaArchivos = "logs/";
-                        if (!file_exists($carpetaArchivos)) {  mkdir($carpetaArchivos, 0777, true); }
+                        if (!file_exists($carpetaArchivos)) {mkdir($carpetaArchivos, 0777, true); }
                         $nombreArchivo = $carpetaArchivos . "errorLog-" . $dataReal . ".txt";
                         $informacionError = "Error: El prefijo del móvil no corresponde al país seleccionado. Hora del error: " . $dataSinCambiar . ". Error realizado por: " . $email . ".\n";
                         file_put_contents($nombreArchivo, $informacionError, FILE_APPEND);
@@ -240,14 +245,38 @@
                                 </script>";
                         exit;
                     }
-
                 
-                $postalCode = intval($postalCode);
-                $countryId = intval($countryId);
-                $token = bin2hex(random_bytes(32 / 2));
+                    $postalCode = intval($postalCode);
+                    $countryId = intval($countryId);
+                    $token = bin2hex(random_bytes(32 / 2));
+                    file_put_contents('debug_log.txt', "valores: " . $invited_user, FILE_APPEND);
+                    file_put_contents('debug_log.txt', "valores: " . $userName . "," . $hashedPassword . "," . $mobile . "," . $countryId ."," . $city . "," . $postalCode . "," . $token . "," . '0' . "," . '1' . "," . $email, FILE_APPEND);
+                    if (!$invited_user) {
+                        file_put_contents('debug_log.txt', "valores: " . $userName . $hashedPassword . $mobile . $countryId . $city . $postalCode . $token . '0' . '1' . $email, FILE_APPEND);
+                        $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use, invited_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0]);
+                    } else {
+                        $query = $pdo->prepare("UPDATE User SET user_name = ?, password = ?, tlfn = ?, country_id = ?, city = ?, postal_code = ?, email_token = ?, terms_of_use = ?, invited_user = ? WHERE mail = ?");
+                        $query->execute([$userName, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0, 0, $email]);
 
-                    $query = $pdo->prepare("INSERT INTO User (user_name, mail, password, tlfn, country_id, city, postal_code, email_token, terms_of_use) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $query->execute([$userName, $email, $hashedPassword, $mobile, $countryId, $city, $postalCode, $token, 0]);
+                        // select para obtener el user id
+                        $querySelect = $pdo->prepare("SELECT user_id FROM User WHERE mail = ?");
+                        $querySelect->bindParam(1, $email, PDO::PARAM_STR);
+                        $querySelect->execute();
+
+                        $selectRow = $querySelect->fetch();
+
+                        // hago un update de uservote para poder desencriptar luego con la password del usuario
+                        require_once("./data/conf.php");
+
+                        $queryUpdate = $pdo->prepare("UPDATE UserVote SET user_id = AES_ENCRYPT(?, ?) WHERE user_id = AES_ENCRYPT(?, ?)");
+                        $queryUpdate->bindParam(1, $selectRow["user_id"], PDO::PARAM_INT);
+                        $queryUpdate->bindParam(2, $password, PDO::PARAM_STR);
+                        $queryUpdate->bindParam(3, $selectRow["user_id"], PDO::PARAM_INT);
+                        $queryUpdate->bindParam(4, $key, PDO::PARAM_STR);
+                        $queryUpdate->execute();
+                        
+                    }
 
                     // el usuario se ha creado correctamente
 
@@ -298,6 +327,7 @@
                 exit;
             }
         }
+        
         ?>
 
         <h1>REGISTRARSE</h1>

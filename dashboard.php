@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="./assets/images/dos.png" type="image/png">
         <link rel="stylesheet" href="./assets/styles/styles.css?no-cache=<?php echo time(); ?>">
@@ -25,6 +25,7 @@
         
         <nav class="dashboard-nav">
             <a href="create_poll.php">CREAR ENCUESTA</a>
+            <a href="list_votes.php">VER VOTACIONES</a>
             <a href="list_polls.php">VER ENCUESTAS</a>
         </nav>
         
