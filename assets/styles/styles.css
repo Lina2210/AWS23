@@ -1277,4 +1277,5 @@ footer .icon-github img {
     position: absolute;
     bottom: 0px;
     height: 100px;
+    z-index: -99999;
 }
