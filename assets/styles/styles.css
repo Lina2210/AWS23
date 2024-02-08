@@ -1211,6 +1211,7 @@ footer {
 footer a {
     text-decoration: none;
     color: #C1E8FF;
+    z-index: -999999;
 }
 
 footer ul {
