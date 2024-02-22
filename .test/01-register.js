@@ -1,6 +1,6 @@
 // carreguem les llibreries
 const { BaseTest } = require("./BasePhpTest.js")
-const { By, until } = require("selenium-webdriver");
+const {Builder, By, Key, until, Select} = require('selenium-webdriver');
 const assert = require('assert');
 
 // heredem una classe amb un sol mètode test()
@@ -10,7 +10,7 @@ class MyTest extends BaseTest
 {
 	async test() {
                 // Inicialitzar servidor PHP i anar a la pagina register
-                await this.driver.get("http://localhost:8080");
+                await this.driver.get("http://0.0.0.0:8080");
                 var register_button = await this.driver.findElement(By.css("a[href='register.php']"));
                 await this.driver.actions()
                 .move({ origin: register_button })
@@ -41,7 +41,7 @@ class MyTest extends BaseTest
                 let input_country = new Select(await this.driver.wait(until.elementLocated(By.id("country"))), 20)
                 assert(input_country, "ERROR TEST: select 'country' no trobat")
                 await input_country.selectByVisibleText("Spain")
-                await input_country.sendKeys(Key.ENTER)
+                await input_email.sendKeys(Key.ENTER)
 
                 let input_city = await this.driver.wait(until.elementLocated(By.id("city")), 20)
                 assert(input_city, "ERROR TEST: input 'city' no trobat")
@@ -61,20 +61,25 @@ class MyTest extends BaseTest
                 // Fa el submit i busca el popup de registre completat al recarregar la pagina
                 let submit = await this.driver.wait(until.elementLocated(By.id("submit")), 20)
                 assert(submit, "ERROR TEST: botó submit no trobat")
-                await this.driver.actions()
-                .move({ origin: submit})
-                .click()
-                .perform()
+                await submit.sendKeys(Key.ENTER)
 
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
                 // Obtener la URL actual
                 const currentUrl = await this.driver.getCurrentUrl();
 
                 // URL deseada
-                const desiredUrl = 'http://localhost:8080/validate_email.php';
+                const desiredUrl = 'http://0.0.0.0:8080/validate_email.php';
 
-                assert(currentUrl == desiredUrl, "ERROR TEST: register no completat");
-                console.log("TEST OK");
+                // Normalizar las URLs para una comparación más precisa
+                const normalizeUrl = (url) => url.toLowerCase().trim().replace(/\/$/, '');
+
+                // Comprobar si las URLs son iguales después de la normalización
+                if (normalizeUrl(currentUrl) === normalizeUrl(desiredUrl)) {
+                        console.log("TEST OK");
+                } else {
+                        throw new Error("ERROR TEST: Register no completado. La URL actual no coincide con la URL deseada.");
+                }
         }
 }
 // executem el test
